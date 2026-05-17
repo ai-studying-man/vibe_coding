@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "hwpx": {
+      "source": "canine89/hwpxskill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "a6f8a98eac9254d53cd2c389645ee018dc6354d532ea5871c34a85cf6ce5fa3e"
+    }
+  }
+}

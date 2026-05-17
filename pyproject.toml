@@ -1,0 +1,11 @@
+[project]
+name = "office-bumpis"
+version = "0.1.0"
+description = "Unified Korean government official document automation with HWPX export."
+requires-python = ">=3.10"
+readme = "README.md"
+authors = [{ name = "office_bumpis" }]
+dependencies = []
+
+[project.scripts]
+office-bumpis = "office_bumpis.cli:main"

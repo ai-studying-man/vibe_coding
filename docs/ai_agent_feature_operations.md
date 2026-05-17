@@ -1,0 +1,78 @@
+# AI Agent Feature Operations
+
+## 목적
+
+Ollama 또는 다른 오픈소스 LLM 에이전트가 공문서 내용을 정리한 뒤, HWPX 표준 기능을 코드 수정 없이 조합해서 적용할 수 있도록 공통 JSON 명령 형식을 사용한다.
+
+## 기본 흐름
+
+1. HWPX 양식 1개를 `generate-from-template`에 전달한다.
+2. 텍스트 파일을 함께 전달한다.
+3. 에이전트가 필요한 공통 기능을 JSON 배열로 만든다.
+4. CLI가 양식 학습, 텍스트 초안화, HWPX 채우기, 구조 검증, 기능 적용을 순서대로 실행한다.
+
+```powershell
+python -m office_bumpis generate-from-template `
+  outputs/plan_report.hwpx `
+  outputs/one_step_text.txt `
+  -o outputs/agent_generated.hwpx `
+  --features-json outputs/agent_feature_ops.json
+```
+
+`--features-json`은 JSON 문자열, JSON 파일 경로, `@파일경로`를 모두 받을 수 있다. 여러 번 지정하면 앞에서부터 이어 붙인다.
+
+## JSON 형식
+
+```json
+[
+  {"key": "font_color", "params": {"color": "#005BAC"}},
+  {"key": "paragraph_alignment", "params": {"horizontal": "CENTER"}},
+  {"key": "table_dimensions", "params": {"margin": "0", "cell_spacing": "0"}},
+  {"key": "document_blocks", "params": {"paragraphs": ["추가 검토사항"]}}
+]
+```
+
+각 항목은 `key`와 `params`를 가진다. `key`는 `python -m office_bumpis features`에서 확인할 수 있는 표준 기능명이다.
+
+## 단일 문서에 기능만 적용
+
+생성된 HWPX 또는 기존 HWPX에 기능만 다시 적용할 때는 `apply-feature`를 사용한다.
+
+```powershell
+python -m office_bumpis apply-feature `
+  outputs/agent_generated.hwpx `
+  -o outputs/agent_generated_styled.hwpx `
+  --features-json '[{"key":"transparent_table","params":{}}]'
+```
+
+기존 간편 옵션도 유지된다.
+
+```powershell
+python -m office_bumpis apply-feature `
+  outputs/agent_generated.hwpx `
+  -o outputs/agent_generated_blue.hwpx `
+  --feature font_color `
+  --color "#005BAC"
+```
+
+## 현재 구현된 공통 기능
+
+- `normalize_whitespace`: 공백 정리
+- `remove_empty_lines`: 빈 줄 정리
+- `font_color`: 글자색
+- `font_size`: 글자 크기
+- `text_background`: 글자 배경색
+- `strike_or_underline`: 취소선/밑줄
+- `paragraph_alignment`: 문단 정렬
+- `paragraph_spacing`: 문단 간격
+- `table_background`: 표 배경색
+- `table_border`: 표 테두리
+- `transparent_table`: 투명표
+- `remove_table_background`: 표 배경 제거
+- `table_dimensions`: 표 크기/셀 여백
+- `table_merge_split`: 표 병합/분할
+- `table_sort`: 표 정렬
+- `numeric_calculation`: 숫자 계산
+- `document_blocks`: 문서 블록 추가
+
+구조 검증은 기능 적용 전의 템플릿 채우기 결과에 대해 실행된다. 기능 적용은 `header.xml`과 `section*.xml`을 대상으로 XML-first 방식으로 처리한다.

@@ -1,0 +1,15 @@
+{
+  "template": "outputs\\plan_report.hwpx",
+  "output": "outputs\\test_cli_generate_from_template.hwpx",
+  "passed": true,
+  "issues": [],
+  "section_files": [
+    "Contents/section0.xml"
+  ],
+  "template_block_count": 27,
+  "output_block_count": 27,
+  "template_table_count": 2,
+  "output_table_count": 2,
+  "slot_style_checks": 19,
+  "table_style_checks": 1
+}

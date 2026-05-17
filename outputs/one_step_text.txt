@@ -1,0 +1,7 @@
+﻿Title: One step CLI
+
+Body for one step generation.
+
+| Task | Content | Date |
+| --- | --- | --- |
+| ONE-A | Alpha | 2026 |

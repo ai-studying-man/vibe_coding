@@ -1,0 +1,530 @@
+[
+  {
+    "file": "recovered_source\\excel_library.py",
+    "lines": 520,
+    "incomplete_count": 5,
+    "incomplete": [
+      {
+        "line": 30,
+        "scope": "class 엑셀"
+      },
+      {
+        "line": 213,
+        "scope": "class 엑셀"
+      },
+      {
+        "line": 299,
+        "scope": "class 엑셀"
+      },
+      {
+        "line": 453,
+        "scope": "class 엑셀"
+      },
+      {
+        "line": 518,
+        "scope": "class 엑셀"
+      }
+    ]
+  },
+  {
+    "file": "recovered_source\\hancom_library.py",
+    "lines": 28570,
+    "incomplete_count": 89,
+    "incomplete": [
+      {
+        "line": 51,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 828,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1460,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1530,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1680,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1783,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1852,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1879,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1889,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1895,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1920,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1937,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1945,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1957,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1968,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1977,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1986,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 1995,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2004,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2013,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2027,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2182,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2187,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2192,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2197,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2202,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2207,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2212,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2251,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2256,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 2442,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 3427,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 4156,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 4166,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 4398,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 4588,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 4593,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 4598,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 4603,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 5638,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 6389,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 7554,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 7743,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 10105,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 11392,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 11405,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 11417,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 12887,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 12932,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 14125,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 14381,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 14422,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 14427,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 14432,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 14437,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 14442,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 14447,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 14452,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 17868,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 18020,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 18853,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 18855,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 18860,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 18865,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 18873,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 19089,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 19660,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 20044,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 20213,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 20246,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 20509,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 20514,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 21130,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 21671,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 22860,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 22865,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 24763,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 24785,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 25291,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 25913,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 25918,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 25923,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 26068,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 26137,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 26142,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 26147,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 26152,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 26157,
+        "scope": "class 기본한컴"
+      },
+      {
+        "line": 27570,
+        "scope": "class 기본한컴"
+      }
+    ]
+  },
+  {
+    "file": "recovered_source\\interface.py",
+    "lines": 61,
+    "incomplete_count": 10,
+    "incomplete": [
+      {
+        "line": 15,
+        "scope": "class 버튼"
+      },
+      {
+        "line": 20,
+        "scope": "class 토글버튼"
+      },
+      {
+        "line": 25,
+        "scope": "class 입력창"
+      },
+      {
+        "line": 30,
+        "scope": "class 입력창넓이"
+      },
+      {
+        "line": 35,
+        "scope": "class 입력창넓이높이"
+      },
+      {
+        "line": 40,
+        "scope": "class 입력창넓이크기"
+      },
+      {
+        "line": 45,
+        "scope": "class 프레임"
+      },
+      {
+        "line": 50,
+        "scope": "class 상단바"
+      },
+      {
+        "line": 55,
+        "scope": "class 새탭"
+      },
+      {
+        "line": 60,
+        "scope": "class 우측새탭"
+      }
+    ]
+  },
+  {
+    "file": "recovered_source\\main.py",
+    "lines": 3282,
+    "incomplete_count": 21,
+    "incomplete": [
+      {
+        "line": 32,
+        "scope": "def genpy폴더제거"
+      },
+      {
+        "line": 72,
+        "scope": "def 블록앞뒤붙임창"
+      },
+      {
+        "line": 77,
+        "scope": "def 블록바꾸기창"
+      },
+      {
+        "line": 82,
+        "scope": "def 셀앞뒤붙임창"
+      },
+      {
+        "line": 87,
+        "scope": "def 셀찾아바꾸기창"
+      },
+      {
+        "line": 92,
+        "scope": "def 금액비율창"
+      },
+      {
+        "line": 97,
+        "scope": "def 메일머지창"
+      },
+      {
+        "line": 102,
+        "scope": "def 시험서식창"
+      },
+      {
+        "line": 124,
+        "scope": "def 표대량계산창"
+      },
+      {
+        "line": 129,
+        "scope": "def 회신공문창"
+      },
+      {
+        "line": 134,
+        "scope": "def 공문틀생성기창"
+      },
+      {
+        "line": 139,
+        "scope": "def 공문언어순화창"
+      },
+      {
+        "line": 1180,
+        "scope": "def 남해창"
+      },
+      {
+        "line": 1310,
+        "scope": "def 산인공창"
+      },
+      {
+        "line": 1551,
+        "scope": "def 엑셀창"
+      },
+      {
+        "line": 2608,
+        "scope": "def 각종날짜입력창"
+      },
+      {
+        "line": 2613,
+        "scope": "def 날짜계산기창"
+      },
+      {
+        "line": 2650,
+        "scope": "def 목차만들기창"
+      },
+      {
+        "line": 2811,
+        "scope": "def 기본서식프레임"
+      },
+      {
+        "line": 2907,
+        "scope": "def 표프레임"
+      },
+      {
+        "line": 3141,
+        "scope": "def 이동프레임"
+      }
+    ]
+  }
+]

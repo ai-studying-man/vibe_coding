@@ -1,0 +1,9 @@
+Title: CLI profile generation
+
+First body paragraph.
+
+Second body paragraph.
+
+| Task | Content | Date |
+| --- | --- | --- |
+| CLI-A | Alpha | 2026 |

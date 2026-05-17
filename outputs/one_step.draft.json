@@ -1,0 +1,22 @@
+{
+  "title": "﻿Title: One step CLI",
+  "paragraphs": [
+    "Body for one step generation."
+  ],
+  "attachments": [],
+  "tables": [
+    [
+      [
+        "Task",
+        "Content",
+        "Date"
+      ],
+      [
+        "ONE-A",
+        "Alpha",
+        "2026"
+      ]
+    ]
+  ],
+  "llm_used": false
+}

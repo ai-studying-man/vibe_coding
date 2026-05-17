@@ -1,0 +1,153 @@
+{
+  "title": "공문 자동화 실증 추진계획 보고",
+  "sender": "디지털행정과",
+  "recipients": [
+    "기획조정실장"
+  ],
+  "body": [
+    {
+      "type": "heading",
+      "text": "추진 배경",
+      "level": 2,
+      "items": [],
+      "headers": [],
+      "rows": []
+    },
+    {
+      "type": "paragraph",
+      "text": "반복적인 공문 편집 업무를 줄이고 AI Agent가 작성한 표준 JSON을 HWPX 공문으로 자동 변환하기 위해 실증을 추진합니다.",
+      "level": 1,
+      "items": [],
+      "headers": [],
+      "rows": []
+    },
+    {
+      "type": "heading",
+      "text": "목적 및 추진 방향",
+      "level": 2,
+      "items": [],
+      "headers": [],
+      "rows": []
+    },
+    {
+      "type": "list",
+      "text": "추진 방향",
+      "level": 1,
+      "items": [
+        "범정부오피스의 결재서식, 계획보고서, 업무참고, 간담회, 종합보고서 흐름을 표준 profile로 정리",
+        "로컬 오픈소스 LLM에서 생성한 초안을 검증 가능한 JSON으로 수집",
+        "Markdown과 HWPX를 동시에 생성하여 사람이 검토 가능한 산출물 확보"
+      ],
+      "headers": [],
+      "rows": []
+    },
+    {
+      "type": "heading",
+      "text": "추진 계획",
+      "level": 2,
+      "items": [],
+      "headers": [],
+      "rows": []
+    },
+    {
+      "type": "table",
+      "text": "",
+      "level": 1,
+      "items": [],
+      "headers": [
+        "과제",
+        "주요 내용",
+        "일정"
+      ],
+      "rows": [
+        [
+          "템플릿 인벤토리",
+          "HWPX 템플릿 marker와 placeholder를 추출하여 profile화",
+          "2026. 5."
+        ],
+        [
+          "LLM 연동",
+          "OpenAI-compatible API를 통해 공문 JSON 초안 생성",
+          "2026. 6."
+        ],
+        [
+          "HWPX 생성",
+          "표준 JSON을 HWPX 패키지로 변환하고 구조 검증",
+          "2026. 6."
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "향후 일정",
+      "level": 2,
+      "items": [],
+      "headers": [],
+      "rows": []
+    },
+    {
+      "type": "list",
+      "text": "향후 일정",
+      "level": 1,
+      "items": [
+        "1단계 분석 및 profile 정리",
+        "2단계 생성 파이프라인 검증",
+        "3단계 기관별 서식 확장"
+      ],
+      "headers": [],
+      "rows": []
+    },
+    {
+      "type": "heading",
+      "text": "행정 사항",
+      "level": 2,
+      "items": [],
+      "headers": [],
+      "rows": []
+    },
+    {
+      "type": "list",
+      "text": "행정 사항",
+      "level": 1,
+      "items": [
+        "생성 문서는 담당자 검토 후 결재 상신",
+        "기관별 문구와 결재선은 seed JSON으로 관리"
+      ],
+      "headers": [],
+      "rows": []
+    }
+  ],
+  "date": "2026-05-17",
+  "registration_number": "디지털행정과-2026-0517",
+  "reference": "범정부오피스 분석 결과",
+  "classification": "공개",
+  "via": "",
+  "attachments": [
+    {
+      "title": "템플릿 인벤토리",
+      "count": "1부"
+    },
+    {
+      "title": "샘플 HWPX 출력물",
+      "count": "1부"
+    }
+  ],
+  "approval": [
+    {
+      "role": "담당",
+      "name": "홍길동"
+    },
+    {
+      "role": "팀장",
+      "name": "김민수"
+    },
+    {
+      "role": "과장",
+      "name": "박지현"
+    }
+  ],
+  "contact": "홍길동(044-000-0000)",
+  "metadata": {
+    "profile": "plan_report"
+  }
+}

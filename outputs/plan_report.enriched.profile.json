@@ -1,0 +1,1039 @@
+{
+  "template_id": "plan_report",
+  "filename": "plan_report.hwpx",
+  "section_files": [
+    "Contents/section0.xml"
+  ],
+  "blocks": [
+    {
+      "block_id": "b0000",
+      "section": "Contents/section0.xml",
+      "index": 0,
+      "kind": "paragraph",
+      "role": "body",
+      "text": "디지털행정과",
+      "char_pr_ids": [
+        "5"
+      ],
+      "para_pr_ids": [
+        "1"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0001",
+      "section": "Contents/section0.xml",
+      "index": 1,
+      "kind": "table",
+      "role": "metadata_table",
+      "text": "구분 내용 문서번호 디지털행정과-2026-0517 시행일 2026. 5. 17. 공개구분 공개 관련 범정부오피스 분석 결과 결재 담당 홍길동 → 팀장 김민수 → 과장 박지현",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "0"
+      ],
+      "table_attrs": {},
+      "cell_count": 12
+    },
+    {
+      "block_id": "b0002",
+      "section": "Contents/section0.xml",
+      "index": 2,
+      "kind": "paragraph",
+      "role": "metadata",
+      "text": "수신 기획조정실장",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "0"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0003",
+      "section": "Contents/section0.xml",
+      "index": 3,
+      "kind": "paragraph",
+      "role": "title",
+      "text": "제목 공문 자동화 실증 추진계획 보고",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "0"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0004",
+      "section": "Contents/section0.xml",
+      "index": 4,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "추진 배경",
+      "char_pr_ids": [
+        "6"
+      ],
+      "para_pr_ids": [
+        "2"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0005",
+      "section": "Contents/section0.xml",
+      "index": 5,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "1. 반복적인 공문 편집 업무를 줄이고 AI Agent가 작성한 표준 JSON을 HWPX 공문으로 자동 변환하기 위해 실증을 추진합니다.",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0006",
+      "section": "Contents/section0.xml",
+      "index": 6,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "목적 및 추진 방향",
+      "char_pr_ids": [
+        "6"
+      ],
+      "para_pr_ids": [
+        "2"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0007",
+      "section": "Contents/section0.xml",
+      "index": 7,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "1. 추진 방향",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0008",
+      "section": "Contents/section0.xml",
+      "index": 8,
+      "kind": "paragraph",
+      "role": "title",
+      "text": "· 범정부오피스의 결재서식, 계획보고서, 업무참고, 간담회, 종합보고서 흐름을 표준 profile로 정리",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0009",
+      "section": "Contents/section0.xml",
+      "index": 9,
+      "kind": "paragraph",
+      "role": "body",
+      "text": "· 로컬 오픈소스 LLM에서 생성한 초안을 검증 가능한 JSON으로 수집",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0010",
+      "section": "Contents/section0.xml",
+      "index": 10,
+      "kind": "paragraph",
+      "role": "title",
+      "text": "· Markdown과 HWPX를 동시에 생성하여 사람이 검토 가능한 산출물 확보",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0011",
+      "section": "Contents/section0.xml",
+      "index": 11,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "추진 계획",
+      "char_pr_ids": [
+        "6"
+      ],
+      "para_pr_ids": [
+        "2"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0012",
+      "section": "Contents/section0.xml",
+      "index": 12,
+      "kind": "table",
+      "role": "table",
+      "text": "과제 주요 내용 일정 템플릿 인벤토리 HWPX 템플릿 marker와 placeholder를 추출하여 profile화 2026. 5. LLM 연동 OpenAI-compatible API를 통해 공문 JSON 초안 생성 2026. 6. HWPX 생성 표준 JSON을 HWPX 패키지로 변환하고 구조 검증 2026. 6.",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "0"
+      ],
+      "table_attrs": {},
+      "cell_count": 12
+    },
+    {
+      "block_id": "b0013",
+      "section": "Contents/section0.xml",
+      "index": 13,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "향후 일정",
+      "char_pr_ids": [
+        "6"
+      ],
+      "para_pr_ids": [
+        "2"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0014",
+      "section": "Contents/section0.xml",
+      "index": 14,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "1. 향후 일정",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0015",
+      "section": "Contents/section0.xml",
+      "index": 15,
+      "kind": "paragraph",
+      "role": "body",
+      "text": "· 1단계 분석 및 profile 정리",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0016",
+      "section": "Contents/section0.xml",
+      "index": 16,
+      "kind": "paragraph",
+      "role": "body",
+      "text": "· 2단계 생성 파이프라인 검증",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0017",
+      "section": "Contents/section0.xml",
+      "index": 17,
+      "kind": "paragraph",
+      "role": "body",
+      "text": "· 3단계 기관별 서식 확장",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0018",
+      "section": "Contents/section0.xml",
+      "index": 18,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "행정 사항",
+      "char_pr_ids": [
+        "6"
+      ],
+      "para_pr_ids": [
+        "2"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0019",
+      "section": "Contents/section0.xml",
+      "index": 19,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "1. 행정 사항",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0020",
+      "section": "Contents/section0.xml",
+      "index": 20,
+      "kind": "paragraph",
+      "role": "title",
+      "text": "· 생성 문서는 담당자 검토 후 결재 상신",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0021",
+      "section": "Contents/section0.xml",
+      "index": 21,
+      "kind": "paragraph",
+      "role": "metadata",
+      "text": "· 기관별 문구와 결재선은 seed JSON으로 관리",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0022",
+      "section": "Contents/section0.xml",
+      "index": 22,
+      "kind": "paragraph",
+      "role": "attachment",
+      "text": "붙임",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "0"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0023",
+      "section": "Contents/section0.xml",
+      "index": 23,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "1. 템플릿 인벤토리 1부",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0024",
+      "section": "Contents/section0.xml",
+      "index": 24,
+      "kind": "paragraph",
+      "role": "section_heading",
+      "text": "1. 샘플 HWPX 출력물 1부",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "7"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0025",
+      "section": "Contents/section0.xml",
+      "index": 25,
+      "kind": "paragraph",
+      "role": "metadata",
+      "text": "끝.",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "0"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    },
+    {
+      "block_id": "b0026",
+      "section": "Contents/section0.xml",
+      "index": 26,
+      "kind": "paragraph",
+      "role": "metadata",
+      "text": "담당자 홍길동(044-000-0000)",
+      "char_pr_ids": [
+        "0"
+      ],
+      "para_pr_ids": [
+        "0"
+      ],
+      "table_attrs": {},
+      "cell_count": 0
+    }
+  ],
+  "slots": [
+    {
+      "name": "title",
+      "role": "title",
+      "section": "Contents/section0.xml",
+      "block_id": "b0003",
+      "text": "제목 공문 자동화 실증 추진계획 보고",
+      "char_pr_id": "0",
+      "para_pr_id": "0",
+      "score": 0.95
+    },
+    {
+      "name": "body_1",
+      "role": "body",
+      "section": "Contents/section0.xml",
+      "block_id": "b0000",
+      "text": "디지털행정과",
+      "char_pr_id": "5",
+      "para_pr_id": "1",
+      "score": 0.6
+    },
+    {
+      "name": "section_1",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0004",
+      "text": "추진 배경",
+      "char_pr_id": "6",
+      "para_pr_id": "2",
+      "score": 0.85
+    },
+    {
+      "name": "section_2",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0005",
+      "text": "1. 반복적인 공문 편집 업무를 줄이고 AI Agent가 작성한 표준 JSON을 HWPX 공문으로 자동 변환하기 위해 실증을 추진합니다.",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.85
+    },
+    {
+      "name": "section_3",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0006",
+      "text": "목적 및 추진 방향",
+      "char_pr_id": "6",
+      "para_pr_id": "2",
+      "score": 0.85
+    },
+    {
+      "name": "section_4",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0007",
+      "text": "1. 추진 방향",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.85
+    },
+    {
+      "name": "body_2",
+      "role": "body",
+      "section": "Contents/section0.xml",
+      "block_id": "b0009",
+      "text": "· 로컬 오픈소스 LLM에서 생성한 초안을 검증 가능한 JSON으로 수집",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.6
+    },
+    {
+      "name": "section_5",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0011",
+      "text": "추진 계획",
+      "char_pr_id": "6",
+      "para_pr_id": "2",
+      "score": 0.85
+    },
+    {
+      "name": "table_1",
+      "role": "table",
+      "section": "Contents/section0.xml",
+      "block_id": "b0012",
+      "text": "과제 주요 내용 일정 템플릿 인벤토리 HWPX 템플릿 marker와 placeholder를 추출하여 profile화 2026. 5. LLM 연동 OpenAI-compatible API를 통해 공문 JSON 초안 생성 2026. 6. HWPX 생성 표준 JSON을 HWPX 패키지로 변환하고 구조 검증 2026. 6.",
+      "char_pr_id": "0",
+      "para_pr_id": "0",
+      "score": 0.7
+    },
+    {
+      "name": "section_6",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0013",
+      "text": "향후 일정",
+      "char_pr_id": "6",
+      "para_pr_id": "2",
+      "score": 0.85
+    },
+    {
+      "name": "section_7",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0014",
+      "text": "1. 향후 일정",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.85
+    },
+    {
+      "name": "body_3",
+      "role": "body",
+      "section": "Contents/section0.xml",
+      "block_id": "b0015",
+      "text": "· 1단계 분석 및 profile 정리",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.6
+    },
+    {
+      "name": "body_4",
+      "role": "body",
+      "section": "Contents/section0.xml",
+      "block_id": "b0016",
+      "text": "· 2단계 생성 파이프라인 검증",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.6
+    },
+    {
+      "name": "body_5",
+      "role": "body",
+      "section": "Contents/section0.xml",
+      "block_id": "b0017",
+      "text": "· 3단계 기관별 서식 확장",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.6
+    },
+    {
+      "name": "section_8",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0018",
+      "text": "행정 사항",
+      "char_pr_id": "6",
+      "para_pr_id": "2",
+      "score": 0.85
+    },
+    {
+      "name": "section_9",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0019",
+      "text": "1. 행정 사항",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.85
+    },
+    {
+      "name": "attachment_1",
+      "role": "attachment",
+      "section": "Contents/section0.xml",
+      "block_id": "b0022",
+      "text": "붙임",
+      "char_pr_id": "0",
+      "para_pr_id": "0",
+      "score": 0.75
+    },
+    {
+      "name": "section_10",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0023",
+      "text": "1. 템플릿 인벤토리 1부",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.85
+    },
+    {
+      "name": "section_11",
+      "role": "section_heading",
+      "section": "Contents/section0.xml",
+      "block_id": "b0024",
+      "text": "1. 샘플 HWPX 출력물 1부",
+      "char_pr_id": "0",
+      "para_pr_id": "7",
+      "score": 0.85
+    }
+  ],
+  "tables": [
+    {
+      "block_id": "b0012",
+      "section": "Contents/section0.xml",
+      "row_count": 4,
+      "column_count": 3,
+      "header_rows": 1,
+      "data_row_index": 1,
+      "cell_texts": [
+        [
+          "과제",
+          "주요 내용",
+          "일정"
+        ],
+        [
+          "템플릿 인벤토리",
+          "HWPX 템플릿 marker와 placeholder를 추출하여 profile화",
+          "2026. 5."
+        ],
+        [
+          "LLM 연동",
+          "OpenAI-compatible API를 통해 공문 JSON 초안 생성",
+          "2026. 6."
+        ],
+        [
+          "HWPX 생성",
+          "표준 JSON을 HWPX 패키지로 변환하고 구조 검증",
+          "2026. 6."
+        ]
+      ],
+      "row_attrs": [
+        {},
+        {},
+        {},
+        {}
+      ],
+      "cell_attrs": [
+        [
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          },
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          },
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          }
+        ],
+        [
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          },
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          },
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          }
+        ],
+        [
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          },
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          },
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          }
+        ],
+        [
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          },
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          },
+          {
+            "cellSpan": {
+              "colSpan": "1",
+              "rowSpan": "1"
+            }
+          }
+        ]
+      ]
+    }
+  ],
+  "style_summary": {
+    "char_pr_count": 9,
+    "para_pr_count": 8,
+    "border_fill_count": 1,
+    "table_count": 2,
+    "cell_count": 24,
+    "char_styles": {
+      "0": {
+        "height": "1000",
+        "textColor": "#000000",
+        "shadeColor": "none",
+        "borderFillIDRef": "0",
+        "fontRefHangul": "0",
+        "fontRefLatin": "0",
+        "fontFaceHangul": "함초롬바탕",
+        "fontFaceLatin": "Times New Roman"
+      },
+      "1": {
+        "height": "1000",
+        "textColor": "#000000",
+        "shadeColor": "none",
+        "borderFillIDRef": "0",
+        "fontRefHangul": "0",
+        "fontRefLatin": "0",
+        "fontFaceHangul": "함초롬바탕",
+        "fontFaceLatin": "Times New Roman"
+      },
+      "2": {
+        "height": "1000",
+        "textColor": "#000000",
+        "shadeColor": "none",
+        "borderFillIDRef": "0",
+        "fontRefHangul": "0",
+        "fontRefLatin": "0",
+        "fontFaceHangul": "함초롬바탕",
+        "fontFaceLatin": "Times New Roman"
+      },
+      "3": {
+        "height": "1000",
+        "textColor": "#000000",
+        "shadeColor": "none",
+        "borderFillIDRef": "0",
+        "fontRefHangul": "0",
+        "fontRefLatin": "0",
+        "fontFaceHangul": "함초롬바탕",
+        "fontFaceLatin": "Times New Roman"
+      },
+      "4": {
+        "height": "900",
+        "textColor": "#000000",
+        "shadeColor": "none",
+        "borderFillIDRef": "0",
+        "fontRefHangul": "1",
+        "fontRefLatin": "1",
+        "fontFaceHangul": "함초롬돋움",
+        "fontFaceLatin": "Consolas"
+      },
+      "5": {
+        "height": "1800",
+        "textColor": "#000000",
+        "shadeColor": "none",
+        "borderFillIDRef": "0",
+        "fontRefHangul": "1",
+        "fontRefLatin": "1",
+        "fontFaceHangul": "함초롬돋움",
+        "fontFaceLatin": "Consolas"
+      },
+      "6": {
+        "height": "1400",
+        "textColor": "#000000",
+        "shadeColor": "none",
+        "borderFillIDRef": "0",
+        "fontRefHangul": "1",
+        "fontRefLatin": "1",
+        "fontFaceHangul": "함초롬돋움",
+        "fontFaceLatin": "Consolas"
+      },
+      "7": {
+        "height": "1200",
+        "textColor": "#000000",
+        "shadeColor": "none",
+        "borderFillIDRef": "0",
+        "fontRefHangul": "1",
+        "fontRefLatin": "1",
+        "fontFaceHangul": "함초롬돋움",
+        "fontFaceLatin": "Consolas"
+      },
+      "8": {
+        "height": "1100",
+        "textColor": "#000000",
+        "shadeColor": "none",
+        "borderFillIDRef": "0",
+        "fontRefHangul": "1",
+        "fontRefLatin": "1",
+        "fontFaceHangul": "함초롬돋움",
+        "fontFaceLatin": "Consolas"
+      }
+    },
+    "para_styles": {
+      "0": {
+        "horizontalAlign": "JUSTIFY",
+        "verticalAlign": "BASELINE",
+        "marginLeft": "0",
+        "marginRight": "0",
+        "lineSpacingType": "PERCENT",
+        "lineSpacingValue": "160"
+      },
+      "1": {
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BASELINE",
+        "marginLeft": "0",
+        "marginRight": "0",
+        "lineSpacingType": "PERCENT",
+        "lineSpacingValue": "180"
+      },
+      "2": {
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BASELINE",
+        "marginLeft": "0",
+        "marginRight": "0",
+        "lineSpacingType": "PERCENT",
+        "lineSpacingValue": "170"
+      },
+      "3": {
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BASELINE",
+        "marginLeft": "0",
+        "marginRight": "0",
+        "lineSpacingType": "PERCENT",
+        "lineSpacingValue": "160"
+      },
+      "4": {
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BASELINE",
+        "marginLeft": "0",
+        "marginRight": "0",
+        "lineSpacingType": "PERCENT",
+        "lineSpacingValue": "160"
+      },
+      "5": {
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BASELINE",
+        "marginLeft": "0",
+        "marginRight": "0",
+        "lineSpacingType": "PERCENT",
+        "lineSpacingValue": "130"
+      },
+      "6": {
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BASELINE",
+        "marginLeft": "0",
+        "marginRight": "0",
+        "lineSpacingType": "PERCENT",
+        "lineSpacingValue": "150"
+      },
+      "7": {
+        "horizontalAlign": "LEFT",
+        "verticalAlign": "BASELINE",
+        "marginLeft": "0",
+        "marginRight": "0",
+        "lineSpacingType": "PERCENT",
+        "lineSpacingValue": "160"
+      }
+    },
+    "table_samples": [
+      {},
+      {}
+    ],
+    "font_faces": {
+      "hangul": {
+        "0": {
+          "id": "0",
+          "face": "함초롬바탕",
+          "type": "TTF",
+          "isEmbedded": "0"
+        },
+        "1": {
+          "id": "1",
+          "face": "함초롬돋움",
+          "type": "TTF",
+          "isEmbedded": "0"
+        }
+      },
+      "latin": {
+        "0": {
+          "id": "0",
+          "face": "Times New Roman",
+          "type": "TTF",
+          "isEmbedded": "0"
+        },
+        "1": {
+          "id": "1",
+          "face": "Consolas",
+          "type": "TTF",
+          "isEmbedded": "0"
+        }
+      },
+      "hanja": {
+        "0": {
+          "id": "0",
+          "face": "함초롬바탕",
+          "type": "TTF",
+          "isEmbedded": "0"
+        }
+      },
+      "japanese": {
+        "0": {
+          "id": "0",
+          "face": "굴림",
+          "type": "TTF",
+          "isEmbedded": "0"
+        }
+      },
+      "other": {
+        "0": {
+          "id": "0",
+          "face": "굴림",
+          "type": "TTF",
+          "isEmbedded": "0"
+        }
+      },
+      "symbol": {
+        "0": {
+          "id": "0",
+          "face": "Symbol",
+          "type": "TTF",
+          "isEmbedded": "0"
+        }
+      },
+      "user": {
+        "0": {
+          "id": "0",
+          "face": "굴림",
+          "type": "TTF",
+          "isEmbedded": "0"
+        }
+      }
+    },
+    "border_fills": {
+      "0": {
+        "attrs": {
+          "id": "0",
+          "threeD": "0",
+          "shadow": "0",
+          "centerLine": "0",
+          "breakCellSeparateLine": "0"
+        },
+        "slash": {
+          "type": "NONE",
+          "Crooked": "0",
+          "isCounter": "0"
+        },
+        "backSlash": {
+          "type": "NONE",
+          "Crooked": "0",
+          "isCounter": "0"
+        },
+        "leftBorder": {
+          "type": "NONE",
+          "width": "0.1mm",
+          "color": "#000000"
+        },
+        "rightBorder": {
+          "type": "NONE",
+          "width": "0.1mm",
+          "color": "#000000"
+        },
+        "topBorder": {
+          "type": "NONE",
+          "width": "0.1mm",
+          "color": "#000000"
+        },
+        "bottomBorder": {
+          "type": "NONE",
+          "width": "0.1mm",
+          "color": "#000000"
+        },
+        "diagonal": {
+          "type": "NONE",
+          "width": "0.1mm",
+          "color": "#000000"
+        },
+        "fillInfo": {}
+      }
+    }
+  }
+}
