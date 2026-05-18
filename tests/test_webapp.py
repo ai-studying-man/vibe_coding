@@ -11,6 +11,7 @@ from office_bumpis.template_profile import learn_template_profile, save_profile
 from office_bumpis.webapp import (
     TEMPLATE_DIR,
     WEB_FEATURE_OPTIONS,
+    _extract_attachment_text,
     _guard_generated_output,
     _index_html,
     _template_artifact_path,
@@ -36,9 +37,25 @@ class WebAppFeatureTests(unittest.TestCase):
         self.assertIn("conversationList", html)
         self.assertIn("chatMessages", html)
         self.assertIn("chatInput", html)
+        self.assertIn("chatFile", html)
+        self.assertIn("/api/attachment", html)
         self.assertIn("progressLog", html)
         self.assertIn("HWPX 자동화", html)
         self.assertIn(DEFAULT_LOCAL_MODEL, html)
+
+    def test_extract_text_attachment_decodes_common_files(self):
+        text = _extract_attachment_text("memo.txt", "첨부 내용".encode("utf-8"))
+
+        self.assertEqual(text, "첨부 내용")
+
+    def test_extract_hwpx_attachment_reads_section_text(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        text = _extract_attachment_text("plan_report.hwpx", source.read_bytes())
+
+        self.assertTrue(text.strip())
 
     def test_web_feature_defaults_can_be_applied_to_hwpx(self):
         source = Path("outputs/plan_report.hwpx")

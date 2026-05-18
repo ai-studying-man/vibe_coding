@@ -14,6 +14,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
+from xml.etree import ElementTree as ET
 
 from .hwpx_features import apply_standard_features
 from .llm_adapter import DEFAULT_LOCAL_MODEL, OpenCompatibleLLM
@@ -26,6 +27,27 @@ from .template_profile import learn_template_profile, load_profile, render_profi
 RUNTIME_DIR = Path(".runtime")
 TEMPLATE_DIR = RUNTIME_DIR / "templates"
 OUTPUT_DIR = RUNTIME_DIR / "outputs"
+ATTACHMENT_DIR = RUNTIME_DIR / "attachments"
+
+TEXT_ATTACHMENT_EXTENSIONS = {
+    ".txt",
+    ".md",
+    ".markdown",
+    ".json",
+    ".csv",
+    ".tsv",
+    ".xml",
+    ".html",
+    ".css",
+    ".js",
+    ".py",
+    ".toml",
+    ".yaml",
+    ".yml",
+    ".log",
+}
+MAX_ATTACHMENT_BYTES = 5 * 1024 * 1024
+MAX_ATTACHMENT_TEXT_CHARS = 12000
 
 AGENT_SYSTEM_PROMPT = """You are a local Korean SLM agent running on Qwen3-4B.
 Answer the user's questions directly and practically.
@@ -100,6 +122,9 @@ class BumpisRequestHandler(BaseHTTPRequestHandler):
             return
         if parsed.path == "/api/chat":
             self._handle_chat()
+            return
+        if parsed.path == "/api/attachment":
+            self._handle_attachment()
             return
         self._send_json({"error": "not found"}, HTTPStatus.NOT_FOUND)
 
@@ -223,6 +248,34 @@ class BumpisRequestHandler(BaseHTTPRequestHandler):
         except Exception as exc:
             self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)
 
+    def _handle_attachment(self) -> None:
+        try:
+            fields = self._parse_form()
+            upload = fields.get("file")
+            if upload is None or not getattr(upload, "filename", ""):
+                raise ValueError("첨부할 파일을 선택해야 합니다.")
+            if len(upload.value) > MAX_ATTACHMENT_BYTES:
+                raise ValueError("첨부 파일은 5MB 이하만 지원합니다.")
+
+            ATTACHMENT_DIR.mkdir(parents=True, exist_ok=True)
+            attachment_id = uuid.uuid4().hex
+            safe_name = Path(upload.filename).name
+            stored_path = ATTACHMENT_DIR / f"{attachment_id}_{safe_name}"
+            stored_path.write_bytes(upload.value)
+            extracted_text = _extract_attachment_text(safe_name, upload.value)
+            self._send_json(
+                {
+                    "attachment_id": attachment_id,
+                    "filename": safe_name,
+                    "size": len(upload.value),
+                    "text": extracted_text,
+                    "preview": extracted_text[:1000],
+                    "truncated": len(extracted_text) >= MAX_ATTACHMENT_TEXT_CHARS,
+                }
+            )
+        except Exception as exc:
+            self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)
+
     def _parse_form(self) -> dict:
         length = int(self.headers.get("Content-Length", "0"))
         body = self.rfile.read(length)
@@ -288,6 +341,7 @@ class BumpisRequestHandler(BaseHTTPRequestHandler):
 def run(host: str = "127.0.0.1", port: int = 8765) -> None:
     TEMPLATE_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    ATTACHMENT_DIR.mkdir(parents=True, exist_ok=True)
     server = ThreadingHTTPServer((host, port), BumpisRequestHandler)
     print(f"Office Bumpis web app running at http://{host}:{port}")
     server.serve_forever()
@@ -328,6 +382,36 @@ def _write_template_xml_bundle(template_id: str, template_path: Path) -> Path:
             if artifact.exists():
                 target.write(artifact, arcname=artifact.name)
     return bundle_path
+
+
+def _extract_attachment_text(filename: str, data: bytes) -> str:
+    extension = Path(filename).suffix.lower()
+    if extension == ".hwpx":
+        return _extract_hwpx_attachment_text(data)
+    if extension in TEXT_ATTACHMENT_EXTENSIONS:
+        return _decode_text_attachment(data)[:MAX_ATTACHMENT_TEXT_CHARS]
+    raise ValueError("지원하지 않는 첨부 형식입니다. txt, md, json, csv, xml, py, hwpx 파일을 사용하세요.")
+
+
+def _decode_text_attachment(data: bytes) -> str:
+    for encoding in ("utf-8-sig", "utf-8", "cp949", "euc-kr"):
+        try:
+            return data.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+    return data.decode("utf-8", errors="replace")
+
+
+def _extract_hwpx_attachment_text(data: bytes) -> str:
+    chunks: list[str] = []
+    with zipfile.ZipFile(io.BytesIO(data)) as zf:
+        section_files = sorted(name for name in zf.namelist() if name.startswith("Contents/section") and name.endswith(".xml"))
+        for section in section_files:
+            root = ET.fromstring(zf.read(section))
+            for text in root.iter():
+                if text.tag.endswith("}t") and text.text and text.text.strip():
+                    chunks.append(text.text.strip())
+    return "\n".join(chunks)[:MAX_ATTACHMENT_TEXT_CHARS]
 
 
 def _web_feature_params(key: str) -> dict:
@@ -568,8 +652,37 @@ def _index_html() -> str:
       padding: 12px;
       background: var(--panel);
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: auto 1fr auto;
       gap: 10px;
+      align-items: end;
+    }
+    .attach-button {
+      min-width: 42px;
+      padding: 9px 10px;
+    }
+    .chat-file {
+      display: none;
+    }
+    .attachment-chip {
+      grid-column: 1 / -1;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border: 1px solid #bcd7f5;
+      border-radius: 6px;
+      background: #eef6ff;
+      color: var(--accent);
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+    .attachment-chip.visible {
+      display: flex;
+    }
+    .attachment-chip button {
+      min-height: 28px;
+      padding: 4px 8px;
+      font-size: 12px;
     }
     textarea, input[type="file"], input[type="text"] {
       width: 100%;
@@ -701,8 +814,14 @@ def _index_html() -> str:
       </div>
       <div id="chatMessages" class="chat"></div>
       <form id="chatForm" class="composer">
+        <button id="attachBtn" class="secondary attach-button" type="button" title="파일 첨부">첨부</button>
+        <input id="chatFile" class="chat-file" type="file" accept=".txt,.md,.markdown,.json,.csv,.tsv,.xml,.html,.css,.js,.py,.toml,.yaml,.yml,.log,.hwpx">
         <textarea id="chatInput" placeholder="Qwen 에이전트에게 질문하세요. 예: 이 공문 작성 절차를 정리해줘."></textarea>
         <button id="sendBtn" type="submit">전송</button>
+        <div id="attachmentChip" class="attachment-chip">
+          <span id="attachmentText"></span>
+          <button id="clearAttachmentBtn" class="secondary" type="button">제거</button>
+        </div>
       </form>
     </main>
 
@@ -764,6 +883,12 @@ def _index_html() -> str:
     const generateStatus = document.getElementById("generateStatus");
     const resultPreview = document.getElementById("resultPreview");
     const saveBtn = document.getElementById("saveBtn");
+    const attachBtn = document.getElementById("attachBtn");
+    const chatFile = document.getElementById("chatFile");
+    const attachmentChip = document.getElementById("attachmentChip");
+    const attachmentText = document.getElementById("attachmentText");
+    const clearAttachmentBtn = document.getElementById("clearAttachmentBtn");
+    let pendingAttachment = null;
 
     document.getElementById("newChatBtn").addEventListener("click", () => {
       activeId = createConversation().id;
@@ -772,14 +897,48 @@ def _index_html() -> str:
       setProgress(["새 대화를 시작했습니다."], "ok");
     });
 
+    attachBtn.addEventListener("click", () => chatFile.click());
+    clearAttachmentBtn.addEventListener("click", () => {
+      pendingAttachment = null;
+      chatFile.value = "";
+      renderAttachment();
+      setProgress(["첨부 파일을 제거했습니다."], "ok");
+    });
+    chatFile.addEventListener("change", async () => {
+      const file = chatFile.files && chatFile.files[0];
+      if (!file) return;
+      setProgress(["파일 첨부 중", file.name], "ok");
+      const data = new FormData();
+      data.append("file", file);
+      try {
+        const res = await fetch("/api/attachment", { method: "POST", body: data });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || "첨부 실패");
+        pendingAttachment = json;
+        renderAttachment();
+        setProgress(["파일 첨부 완료", `${json.filename} (${json.size} bytes)`, json.truncated ? "일부 내용만 문맥에 포함됩니다." : "전체 추출 텍스트를 문맥에 포함합니다."], "ok");
+      } catch (error) {
+        pendingAttachment = null;
+        chatFile.value = "";
+        renderAttachment();
+        setProgress(["파일 첨부 실패", error.message], "err");
+      }
+    });
+
     chatForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const content = chatInput.value.trim();
+      let content = chatInput.value.trim();
+      if (pendingAttachment) {
+        content = `${content || "첨부파일을 분석해줘."}\n\n[첨부파일: ${pendingAttachment.filename}]\n${pendingAttachment.text || "(추출 가능한 텍스트가 없습니다.)"}`;
+      }
       if (!content) return;
       const conversation = activeConversation();
       conversation.messages.push({ role: "user", content });
       conversation.title = conversation.title === "새 대화" ? content.slice(0, 32) : conversation.title;
       chatInput.value = "";
+      pendingAttachment = null;
+      chatFile.value = "";
+      renderAttachment();
       renderAll();
       setProgress(["질문 수신", "Qwen3-4B 호출 중"], "ok");
       try {
@@ -890,6 +1049,15 @@ def _index_html() -> str:
       const conversation = activeConversation();
       chatMessages.innerHTML = conversation.messages.map(message => `<div class="message ${message.role}">${escapeHtml(message.content)}</div>`).join("");
       chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function renderAttachment() {
+      if (!pendingAttachment) {
+        attachmentChip.classList.remove("visible");
+        attachmentText.textContent = "";
+        return;
+      }
+      attachmentChip.classList.add("visible");
+      attachmentText.textContent = `${pendingAttachment.filename} 첨부됨`;
     }
     function setProgress(items, tone) {
       progressLog.innerHTML = items.map(item => `<div class="${tone || ""}">${escapeHtml(item)}</div>`).join("");
