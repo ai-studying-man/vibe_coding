@@ -3,6 +3,7 @@ import zipfile
 from pathlib import Path
 
 from office_bumpis.hwpx_features import apply_standard_features
+from office_bumpis.llm_adapter import DEFAULT_LOCAL_MODEL
 from office_bumpis.profile_filler import fill_hwpx_with_profile
 from office_bumpis.standard_features import feature_inventory
 from office_bumpis.template_engine import DraftContent
@@ -27,6 +28,17 @@ class WebAppFeatureTests(unittest.TestCase):
         self.assertEqual(implemented, web_keys)
         for key in implemented:
             self.assertIn(f'value="{key}"', html)
+
+    def test_web_ui_is_agent_layout_with_hwpx_panel(self):
+        html = _index_html()
+
+        self.assertIn("Qwen SLM Agent", html)
+        self.assertIn("conversationList", html)
+        self.assertIn("chatMessages", html)
+        self.assertIn("chatInput", html)
+        self.assertIn("progressLog", html)
+        self.assertIn("HWPX 자동화", html)
+        self.assertIn(DEFAULT_LOCAL_MODEL, html)
 
     def test_web_feature_defaults_can_be_applied_to_hwpx(self):
         source = Path("outputs/plan_report.hwpx")

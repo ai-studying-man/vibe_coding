@@ -73,6 +73,42 @@ class OpenCompatibleLLM:
         content = data["choices"][0]["message"]["content"]
         return parse_json_content(content)
 
+    def chat(self, messages: list[dict[str, str]], *, system_prompt: str | None = None) -> str:
+        normalized = []
+        if system_prompt:
+            normalized.append({"role": "system", "content": system_prompt})
+        for message in messages:
+            role = str(message.get("role", "user"))
+            if role not in {"system", "user", "assistant"}:
+                role = "user"
+            content = str(message.get("content", "")).strip()
+            if content:
+                normalized.append({"role": role, "content": content})
+        if not normalized or normalized[-1]["role"] != "user":
+            raise ValueError("chat requires a final user message")
+
+        payload = {
+            "model": self.model,
+            "messages": normalized,
+            "temperature": 0.3,
+        }
+        request = urllib.request.Request(
+            f"{self.base_url}/chat/completions",
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {self.api_key}",
+            },
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=self.timeout) as response:
+                data = json.loads(response.read().decode("utf-8"))
+        except urllib.error.URLError as exc:
+            raise RuntimeError(f"LLM request failed: {exc}") from exc
+
+        return str(data["choices"][0]["message"]["content"]).strip()
+
 
 def parse_json_content(content: str) -> dict[str, Any]:
     try:

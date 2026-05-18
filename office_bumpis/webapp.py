@@ -16,7 +16,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from .hwpx_features import apply_standard_features
-from .llm_adapter import DEFAULT_LOCAL_MODEL
+from .llm_adapter import DEFAULT_LOCAL_MODEL, OpenCompatibleLLM
 from .profile_filler import fill_hwpx_with_profile
 from .structure_guard import guard_template_output
 from .template_engine import analyze_hwpx_template, draft_from_text, fill_hwpx_template, load_analysis, save_analysis
@@ -26,6 +26,13 @@ from .template_profile import learn_template_profile, load_profile, render_profi
 RUNTIME_DIR = Path(".runtime")
 TEMPLATE_DIR = RUNTIME_DIR / "templates"
 OUTPUT_DIR = RUNTIME_DIR / "outputs"
+
+AGENT_SYSTEM_PROMPT = """You are a local Korean SLM agent running on Qwen3-4B.
+Answer the user's questions directly and practically.
+When the user asks about HWPX or public-office document automation, explain the available local workflow:
+upload one HWPX form, analyze the XML/profile, enter text, generate a new HWPX, then download it.
+Do not claim that you can access external services unless the user provides that context.
+"""
 
 
 WEB_FEATURE_OPTIONS: tuple[tuple[str, str, bool], ...] = (
@@ -90,6 +97,9 @@ class BumpisRequestHandler(BaseHTTPRequestHandler):
             return
         if parsed.path == "/api/generate":
             self._handle_generate()
+            return
+        if parsed.path == "/api/chat":
+            self._handle_chat()
             return
         self._send_json({"error": "not found"}, HTTPStatus.NOT_FOUND)
 
@@ -190,6 +200,29 @@ class BumpisRequestHandler(BaseHTTPRequestHandler):
         except Exception as exc:
             self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)
 
+    def _handle_chat(self) -> None:
+        try:
+            payload = self._parse_json_body()
+            messages = payload.get("messages", [])
+            if not isinstance(messages, list):
+                raise ValueError("messages must be an array")
+            model = str(payload.get("model") or DEFAULT_LOCAL_MODEL)
+            client = OpenCompatibleLLM(base_url="http://localhost:11434/v1", model=model, timeout=180)
+            answer = client.chat(messages, system_prompt=AGENT_SYSTEM_PROMPT)
+            self._send_json(
+                {
+                    "model": model,
+                    "answer": answer,
+                    "progress": [
+                        "사용자 질문 수신",
+                        f"Qwen 모델 호출: {model}",
+                        "응답 생성 완료",
+                    ],
+                }
+            )
+        except Exception as exc:
+            self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)
+
     def _parse_form(self) -> dict:
         length = int(self.headers.get("Content-Length", "0"))
         body = self.rfile.read(length)
@@ -198,6 +231,15 @@ class BumpisRequestHandler(BaseHTTPRequestHandler):
             return _parse_multipart(body, content_type)
         payload = body.decode("utf-8")
         return {key: value[-1] for key, value in parse_qs(payload).items()}
+
+    def _parse_json_body(self) -> dict:
+        length = int(self.headers.get("Content-Length", "0"))
+        if length <= 0:
+            return {}
+        data = json.loads(self.rfile.read(length).decode("utf-8"))
+        if not isinstance(data, dict):
+            raise ValueError("JSON body must be an object")
+        return data
 
     def _send_html(self, value: str, status: HTTPStatus = HTTPStatus.OK) -> None:
         data = value.encode("utf-8")
@@ -373,6 +415,504 @@ def _parse_multipart(body: bytes, content_type: str) -> dict:
 
 
 def _index_html() -> str:
+    return """<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qwen HWPX Agent</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #eef1f5;
+      --panel: #ffffff;
+      --panel-soft: #f7f9fc;
+      --text: #17202c;
+      --muted: #667085;
+      --line: #d8dee8;
+      --accent: #145fbf;
+      --accent-strong: #0f4d9a;
+      --ok: #0f766e;
+      --err: #b42318;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .app {
+      display: grid;
+      grid-template-columns: 260px minmax(420px, 1fr) 360px;
+      height: 100vh;
+      min-height: 640px;
+    }
+    aside, main, .right {
+      min-height: 0;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .right { border-right: 0; border-left: 1px solid var(--line); }
+    .sidebar, .right, main {
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      min-height: 64px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    h1, h2, h3 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 17px; font-weight: 750; }
+    h2 { font-size: 15px; font-weight: 750; }
+    h3 { font-size: 13px; font-weight: 750; }
+    .model {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 10px;
+      font: inherit;
+      font-size: 12px;
+      color: var(--text);
+      background: white;
+    }
+    button, .button {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      border-radius: 6px;
+      padding: 9px 12px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      white-space: nowrap;
+    }
+    button:hover, .button:hover { background: var(--accent-strong); }
+    button.secondary {
+      background: white;
+      color: var(--accent);
+    }
+    button.secondary:hover { color: white; }
+    button:disabled, .button.disabled {
+      opacity: .45;
+      pointer-events: none;
+    }
+    .small { font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .conversation-list {
+      padding: 10px;
+      overflow: auto;
+      display: grid;
+      gap: 8px;
+    }
+    .conversation {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: var(--panel-soft);
+      text-align: left;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .conversation.active {
+      border-color: var(--accent);
+      background: #eef5ff;
+    }
+    .conversation .title {
+      font-size: 13px;
+      font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .conversation .meta { margin-top: 4px; font-size: 11px; color: var(--muted); }
+    .chat {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: linear-gradient(#fbfcfe, #f4f7fb);
+    }
+    .message {
+      width: min(760px, 92%);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      white-space: pre-wrap;
+      line-height: 1.55;
+      font-size: 14px;
+      background: white;
+    }
+    .message.user {
+      align-self: flex-end;
+      background: #eaf3ff;
+      border-color: #c8dcf5;
+    }
+    .message.assistant { align-self: flex-start; }
+    .composer {
+      border-top: 1px solid var(--line);
+      padding: 12px;
+      background: var(--panel);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+    textarea, input[type="file"], input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      background: white;
+      color: var(--text);
+    }
+    textarea {
+      resize: none;
+      min-height: 58px;
+      max-height: 160px;
+      padding: 10px 12px;
+      line-height: 1.5;
+    }
+    input[type="file"], input[type="text"] { padding: 9px 10px; }
+    .panel {
+      border-bottom: 1px solid var(--line);
+      padding: 14px;
+    }
+    .panel.grow {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+    }
+    .progress {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .progress div {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel-soft);
+      padding: 8px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .progress div.ok { color: var(--ok); border-color: #b7e4dc; background: #eefaf7; }
+    .progress div.err { color: var(--err); border-color: #f0b8b2; background: #fff4f2; }
+    .status {
+      min-height: 20px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+    .status.ok { color: var(--ok); }
+    .status.err { color: var(--err); }
+    .preview {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel-soft);
+      padding: 10px;
+      min-height: 90px;
+      max-height: 170px;
+      overflow: auto;
+      white-space: pre-wrap;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 8px;
+      max-height: 160px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: var(--panel-soft);
+    }
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .links a { color: var(--accent); text-decoration: none; margin-right: 8px; }
+    @media (max-width: 980px) {
+      body { overflow: auto; height: auto; }
+      .app { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+      aside, .right { min-height: 260px; }
+      .chat { min-height: 420px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="topbar">
+        <div>
+          <h1>Qwen SLM Agent</h1>
+          <div class="small">로컬 Qwen3-4B 기반</div>
+        </div>
+      </div>
+      <div class="panel">
+        <button id="newChatBtn" type="button">새 대화</button>
+        <label for="model">모델</label>
+        <input id="model" class="model" type="text" value="__DEFAULT_LOCAL_MODEL__" autocomplete="off">
+      </div>
+      <div id="conversationList" class="conversation-list"></div>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <div>
+          <h2>기본 질문 답변 에이전트</h2>
+          <div class="small">일반 질문은 채팅으로 답변하고, 공문서 생성은 우측 HWPX 자동화에서 처리합니다.</div>
+        </div>
+      </div>
+      <div id="chatMessages" class="chat"></div>
+      <form id="chatForm" class="composer">
+        <textarea id="chatInput" placeholder="Qwen 에이전트에게 질문하세요. 예: 이 공문 작성 절차를 정리해줘."></textarea>
+        <button id="sendBtn" type="submit">전송</button>
+      </form>
+    </main>
+
+    <section class="right">
+      <div class="panel">
+        <h2>진행 상황</h2>
+        <div id="progressLog" class="progress"></div>
+      </div>
+
+      <div class="panel grow">
+        <h2>HWPX 자동화</h2>
+        <form id="uploadForm">
+          <label for="templateFile">문서 양식 업로드</label>
+          <input id="templateFile" name="template" type="file" accept=".hwpx" required>
+          <div class="actions">
+            <button type="submit">양식 분석</button>
+          </div>
+        </form>
+        <div id="uploadStatus" class="status"></div>
+        <div id="templateLinks" class="links small"></div>
+        <label>양식 분석 미리보기</label>
+        <div id="templatePreview" class="preview"></div>
+
+        <label class="toggle" style="margin-top:12px;"><input id="useLlm" type="checkbox" checked> Qwen으로 공문체 재가공</label>
+        <label>공통 표준 기능</label>
+        <div class="feature-grid">
+          __FEATURE_CONTROLS__
+        </div>
+        <label for="docText">새 문서에 넣을 텍스트</label>
+        <textarea id="docText" placeholder="팀장 지시사항, 보고 내용, 표 데이터를 입력하세요. Markdown 표도 사용할 수 있습니다."></textarea>
+        <div class="actions">
+          <button id="generateBtn" type="button" disabled>생성하기</button>
+          <a id="saveBtn" class="button disabled" href="#">저장하기</a>
+        </div>
+        <div id="generateStatus" class="status"></div>
+        <label>생성 미리보기</label>
+        <div id="resultPreview" class="preview"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const defaultModel = "__DEFAULT_LOCAL_MODEL__";
+    let templateId = "";
+    let conversations = loadConversations();
+    let activeId = conversations[0]?.id || createConversation().id;
+
+    const conversationList = document.getElementById("conversationList");
+    const chatMessages = document.getElementById("chatMessages");
+    const chatForm = document.getElementById("chatForm");
+    const chatInput = document.getElementById("chatInput");
+    const modelInput = document.getElementById("model");
+    const progressLog = document.getElementById("progressLog");
+    const uploadForm = document.getElementById("uploadForm");
+    const uploadStatus = document.getElementById("uploadStatus");
+    const templateLinks = document.getElementById("templateLinks");
+    const templatePreview = document.getElementById("templatePreview");
+    const generateBtn = document.getElementById("generateBtn");
+    const generateStatus = document.getElementById("generateStatus");
+    const resultPreview = document.getElementById("resultPreview");
+    const saveBtn = document.getElementById("saveBtn");
+
+    document.getElementById("newChatBtn").addEventListener("click", () => {
+      activeId = createConversation().id;
+      saveConversations();
+      renderAll();
+      setProgress(["새 대화를 시작했습니다."], "ok");
+    });
+
+    chatForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const content = chatInput.value.trim();
+      if (!content) return;
+      const conversation = activeConversation();
+      conversation.messages.push({ role: "user", content });
+      conversation.title = conversation.title === "새 대화" ? content.slice(0, 32) : conversation.title;
+      chatInput.value = "";
+      renderAll();
+      setProgress(["질문 수신", "Qwen3-4B 호출 중"], "ok");
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ model: modelInput.value || defaultModel, messages: conversation.messages.slice(-12) })
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || "응답 생성 실패");
+        conversation.messages.push({ role: "assistant", content: json.answer });
+        saveConversations();
+        renderAll();
+        setProgress(json.progress || ["응답 생성 완료"], "ok");
+      } catch (error) {
+        conversation.messages.push({ role: "assistant", content: "오류: " + error.message });
+        saveConversations();
+        renderAll();
+        setProgress(["응답 생성 실패", error.message], "err");
+      }
+    });
+
+    uploadForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      uploadStatus.className = "status";
+      uploadStatus.textContent = "양식을 분석하는 중입니다.";
+      setProgress(["HWPX 양식 업로드", "XML 구조 분석 중"], "ok");
+      const data = new FormData(uploadForm);
+      const res = await fetch("/api/analyze", { method: "POST", body: data });
+      const json = await res.json();
+      if (!res.ok) {
+        uploadStatus.className = "status err";
+        uploadStatus.textContent = json.error || "업로드 실패";
+        setProgress(["양식 분석 실패", uploadStatus.textContent], "err");
+        return;
+      }
+      templateId = json.template_id;
+      uploadStatus.className = "status ok";
+      uploadStatus.textContent = `분석 완료: 텍스트 노드 ${json.text_node_count}개, 블록 ${json.block_count || 0}개`;
+      templatePreview.textContent = json.preview_text || "";
+      templateLinks.innerHTML = [
+        `<a href="${json.profile_json_url}">profile_json_url</a>`,
+        `<a href="${json.profile_markdown_url}">Markdown</a>`,
+        `<a href="${json.analysis_json_url}">분석 JSON</a>`,
+        `<a href="${json.xml_bundle_url}">xml_bundle_url</a>`
+      ].join("");
+      generateBtn.disabled = false;
+      setProgress(["양식 저장 완료", "header.xml/section XML 분석 완료", "슬롯/스타일 프로필 생성 완료"], "ok");
+    });
+
+    generateBtn.addEventListener("click", async () => {
+      generateStatus.className = "status";
+      generateStatus.textContent = "HWPX를 생성하는 중입니다.";
+      saveBtn.classList.add("disabled");
+      setProgress(["텍스트 수신", "Qwen 공문체 재가공", "템플릿 슬롯 채우기"], "ok");
+      const data = new FormData();
+      data.append("template_id", templateId);
+      data.append("text", document.getElementById("docText").value);
+      data.append("model", modelInput.value || defaultModel);
+      data.append("use_llm", document.getElementById("useLlm").checked ? "true" : "false");
+      data.append("features", Array.from(document.querySelectorAll(".feature:checked")).map(el => el.value).join(","));
+      const res = await fetch("/api/generate", { method: "POST", body: data });
+      const json = await res.json();
+      if (!res.ok) {
+        generateStatus.className = "status err";
+        generateStatus.textContent = json.error || "생성 실패";
+        setProgress(["HWPX 생성 실패", generateStatus.textContent], "err");
+        return;
+      }
+      const guard = json.structure_guard || {};
+      generateStatus.className = "status ok";
+      generateStatus.textContent = `생성 완료 / 공통 기능 ${(json.features || []).length}개 / 구조검증 ${guard.passed ? "통과" : "미확인"}`;
+      resultPreview.textContent = json.preview_text || "";
+      saveBtn.href = json.download_url;
+      saveBtn.classList.remove("disabled");
+      setProgress(["HWPX 생성 완료", `구조검증: 슬롯 ${guard.slot_style_checks || 0}개, 표 ${guard.table_style_checks || 0}개`, "저장 준비 완료"], "ok");
+    });
+
+    function createConversation() {
+      const item = { id: crypto.randomUUID(), title: "새 대화", messages: [
+        { role: "assistant", content: "Qwen3-4B 로컬 에이전트입니다. 일반 질문에 답변하고, 우측 HWPX 자동화 패널로 공문서 양식 분석과 새 문서 생성을 도와드립니다." }
+      ] };
+      conversations.unshift(item);
+      return item;
+    }
+    function activeConversation() {
+      return conversations.find(item => item.id === activeId) || conversations[0];
+    }
+    function renderAll() {
+      renderConversationList();
+      renderMessages();
+    }
+    function renderConversationList() {
+      conversationList.innerHTML = conversations.map(item => `
+        <div class="conversation ${item.id === activeId ? "active" : ""}" data-id="${item.id}">
+          <div class="title">${escapeHtml(item.title)}</div>
+          <div class="meta">${item.messages.length}개 메시지</div>
+        </div>
+      `).join("");
+      conversationList.querySelectorAll(".conversation").forEach(el => {
+        el.addEventListener("click", () => {
+          activeId = el.dataset.id;
+          renderAll();
+        });
+      });
+    }
+    function renderMessages() {
+      const conversation = activeConversation();
+      chatMessages.innerHTML = conversation.messages.map(message => `<div class="message ${message.role}">${escapeHtml(message.content)}</div>`).join("");
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function setProgress(items, tone) {
+      progressLog.innerHTML = items.map(item => `<div class="${tone || ""}">${escapeHtml(item)}</div>`).join("");
+    }
+    function loadConversations() {
+      try {
+        const value = JSON.parse(localStorage.getItem("qwen-agent-conversations") || "[]");
+        return Array.isArray(value) ? value : [];
+      } catch {
+        return [];
+      }
+    }
+    function saveConversations() {
+      localStorage.setItem("qwen-agent-conversations", JSON.stringify(conversations.slice(0, 20)));
+    }
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+    renderAll();
+    setProgress(["대기 중", "Qwen3-4B 기본 모델 준비", "HWPX 자동화 준비"], "ok");
+  </script>
+</body>
+</html>""".replace("__FEATURE_CONTROLS__", _feature_controls_html()).replace("__DEFAULT_LOCAL_MODEL__", html.escape(DEFAULT_LOCAL_MODEL))
     return """<!doctype html>
 <html lang="ko">
 <head>
