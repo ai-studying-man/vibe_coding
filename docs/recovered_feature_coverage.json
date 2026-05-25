@@ -2,8 +2,8 @@
   "source_root": "recovered_source",
   "recovered_symbol_count": 2593,
   "haction_count": 5712,
-  "matched_symbol_count": 1044,
-  "unmatched_symbol_count": 1549,
+  "matched_symbol_count": 1070,
+  "unmatched_symbol_count": 1523,
   "feature_hits": {
     "character_emphasis": 181,
     "character_spacing": 9,
@@ -15,6 +15,7 @@
     "font_size": 13,
     "numeric_calculation": 40,
     "page_break": 30,
+    "page_layout": 29,
     "paragraph_alignment": 304,
     "paragraph_spacing": 323,
     "remove_empty_lines": 1,
@@ -36,7 +37,7 @@
     "paragraph_style": 627,
     "table_structure": 275,
     "table_style": 169,
-    "template_block": 867,
+    "template_block": 896,
     "text_cleanup": 20
   },
   "haction_hits": {
@@ -1282,6 +1283,7 @@
         "PageSetup"
       ],
       "matched_features": [
+        "page_layout",
         "paragraph_spacing"
       ]
     },
@@ -1332,7 +1334,9 @@
         "PageSetup",
         "PageSetup"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "문서여백새페이지",
@@ -1343,7 +1347,9 @@
         "PageSetup",
         "PageSetup"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "문서용지복사",
@@ -1353,7 +1359,9 @@
       "actions": [
         "PageSetup"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "문서용지붙임",
@@ -1365,7 +1373,8 @@
         "PageSetup"
       ],
       "matched_features": [
-        "document_blocks"
+        "document_blocks",
+        "page_layout"
       ]
     },
     {
@@ -3191,7 +3200,9 @@
         "PageSetup",
         "PageSetup"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "문서여백A4",
@@ -3202,7 +3213,9 @@
         "PageSetup",
         "PageSetup"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "문서여백A4가로",
@@ -3213,7 +3226,9 @@
         "PageSetup",
         "PageSetup"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "신명중명조",
@@ -17779,7 +17794,9 @@
       "file": "recovered_source\\main.py",
       "line": 249,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "광주북구표준3단계획",
@@ -18141,7 +18158,9 @@
       "file": "recovered_source\\main.py",
       "line": 322,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "경기업무보고",
@@ -18311,7 +18330,9 @@
       "file": "recovered_source\\main.py",
       "line": 373,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "맨위에페이지추가",
@@ -18791,7 +18812,9 @@
       "file": "recovered_source\\main.py",
       "line": 489,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "구례내용만자르기",
@@ -19402,7 +19425,9 @@
       "file": "recovered_source\\main.py",
       "line": 634,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "금천정책보고",
@@ -21498,7 +21523,9 @@
       "file": "recovered_source\\main.py",
       "line": 1156,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "남양주제목",
@@ -22169,7 +22196,8 @@
       "line": 1324,
       "actions": [],
       "matched_features": [
-        "document_blocks"
+        "document_blocks",
+        "page_layout"
       ]
     },
     {
@@ -22651,7 +22679,9 @@
       "file": "recovered_source\\main.py",
       "line": 1425,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "맨위에페이지추가",
@@ -23177,7 +23207,9 @@
       "file": "recovered_source\\main.py",
       "line": 1556,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "영덕워터마크",
@@ -23348,7 +23380,9 @@
       "file": "recovered_source\\main.py",
       "line": 1602,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "용인쪽지1",
@@ -23592,7 +23626,9 @@
       "file": "recovered_source\\main.py",
       "line": 1654,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "맨위에페이지추가",
@@ -23878,7 +23914,9 @@
       "file": "recovered_source\\main.py",
       "line": 1718,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "의정부표준보고",
@@ -24769,7 +24807,9 @@
       "file": "recovered_source\\main.py",
       "line": 1893,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "맨위에페이지추가",
@@ -24999,7 +25039,9 @@
       "file": "recovered_source\\main.py",
       "line": 1950,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "충주네모",
@@ -25055,7 +25097,9 @@
       "file": "recovered_source\\main.py",
       "line": 1967,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "충북교네모",
@@ -25234,7 +25278,9 @@
       "file": "recovered_source\\main.py",
       "line": 2003,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "합천기본서식",
@@ -25594,7 +25640,9 @@
       "file": "recovered_source\\main.py",
       "line": 2059,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "관세표지1",
@@ -25800,7 +25848,9 @@
       "file": "recovered_source\\main.py",
       "line": 2100,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "병무결재서식",
@@ -26010,7 +26060,9 @@
       "file": "recovered_source\\main.py",
       "line": 2151,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "외교표지",
@@ -26424,7 +26476,9 @@
       "file": "recovered_source\\main.py",
       "line": 2236,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "질병참고서식",
@@ -26918,7 +26972,9 @@
       "file": "recovered_source\\main.py",
       "line": 2339,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "page_layout"
+      ]
     },
     {
       "name": "해수메모보고",

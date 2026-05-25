@@ -70,6 +70,7 @@ WEB_FEATURE_OPTIONS: tuple[tuple[str, str, bool], ...] = (
     ("character_spacing", "자간", False),
     ("paragraph_alignment", "문단 정렬", False),
     ("paragraph_spacing", "문단 간격", False),
+    ("page_layout", "문서 여백", False),
     ("table_background", "표 배경색", False),
     ("table_border", "표 테두리", False),
     ("transparent_table", "투명표", False),
@@ -442,6 +443,8 @@ def _web_feature_params(key: str) -> dict:
         return {"horizontal": "JUSTIFY"}
     if key == "paragraph_spacing":
         return {"line_spacing_value": "160", "margin_left": "0", "margin_right": "0"}
+    if key == "page_layout":
+        return {"left": 20, "right": 20, "top": 15, "bottom": 15, "header": 10, "footer": 10}
     if key == "table_dimensions":
         return {"margin": "141", "cell_spacing": "0", "no_adjust": True}
     if key == "table_sort":

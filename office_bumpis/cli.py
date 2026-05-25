@@ -70,6 +70,14 @@ def main(argv: list[str] | None = None) -> None:
     generate_from_template.add_argument("--points", type=float, help="Font size in points for font_size.")
     generate_from_template.add_argument("--font-face", help="Font face for font_family, e.g. 함초롬바탕 or 휴먼명조.")
     generate_from_template.add_argument("--latin-font-face", help="Optional Latin font face for font_family.")
+    generate_from_template.add_argument("--page-margin", type=float, help="Default page margin in millimeters for page_layout.")
+    generate_from_template.add_argument("--page-left", type=float, help="Left page margin in millimeters for page_layout.")
+    generate_from_template.add_argument("--page-right", type=float, help="Right page margin in millimeters for page_layout.")
+    generate_from_template.add_argument("--page-top", type=float, help="Top page margin in millimeters for page_layout.")
+    generate_from_template.add_argument("--page-bottom", type=float, help="Bottom page margin in millimeters for page_layout.")
+    generate_from_template.add_argument("--page-header", type=float, help="Header margin in millimeters for page_layout.")
+    generate_from_template.add_argument("--page-footer", type=float, help="Footer margin in millimeters for page_layout.")
+    generate_from_template.add_argument("--page-orientation", choices=["portrait", "landscape"], help="Page orientation for page_layout.")
     generate_from_template.add_argument("--row-mode", choices=["append", "delete"], default="append", help="Mode for table_rows.")
     generate_from_template.add_argument("--row-count", type=int, default=1, help="Number of rows for table_rows.")
     generate_from_template.add_argument("--row-values", action="append", help="Pipe-delimited row values for table_rows. Repeat for multiple rows.")
@@ -117,6 +125,14 @@ def main(argv: list[str] | None = None) -> None:
     apply_feature.add_argument("--points", type=float, help="Font size in points for font_size.")
     apply_feature.add_argument("--font-face", help="Font face for font_family, e.g. 함초롬바탕 or 휴먼명조.")
     apply_feature.add_argument("--latin-font-face", help="Optional Latin font face for font_family.")
+    apply_feature.add_argument("--page-margin", type=float, help="Default page margin in millimeters for page_layout.")
+    apply_feature.add_argument("--page-left", type=float, help="Left page margin in millimeters for page_layout.")
+    apply_feature.add_argument("--page-right", type=float, help="Right page margin in millimeters for page_layout.")
+    apply_feature.add_argument("--page-top", type=float, help="Top page margin in millimeters for page_layout.")
+    apply_feature.add_argument("--page-bottom", type=float, help="Bottom page margin in millimeters for page_layout.")
+    apply_feature.add_argument("--page-header", type=float, help="Header margin in millimeters for page_layout.")
+    apply_feature.add_argument("--page-footer", type=float, help="Footer margin in millimeters for page_layout.")
+    apply_feature.add_argument("--page-orientation", choices=["portrait", "landscape"], help="Page orientation for page_layout.")
     apply_feature.add_argument("--border-width", default="0.1 mm")
     apply_feature.add_argument("--border-type", default="SOLID")
     apply_feature.add_argument("--strike", action="store_true")
@@ -379,6 +395,22 @@ def _feature_params_from_args(feature: str, args) -> dict:
         params["face"] = getattr(args, "font_face", None) or "함초롬바탕"
         if getattr(args, "latin_font_face", None):
             params["latin_face"] = args.latin_font_face
+    if feature == "page_layout":
+        if getattr(args, "page_margin", None) is not None:
+            params["margin"] = args.page_margin
+        for name, attr in [
+            ("left", "page_left"),
+            ("right", "page_right"),
+            ("top", "page_top"),
+            ("bottom", "page_bottom"),
+            ("header", "page_header"),
+            ("footer", "page_footer"),
+        ]:
+            value = getattr(args, attr, None)
+            if value is not None:
+                params[name] = value
+        if getattr(args, "page_orientation", None):
+            params["orientation"] = args.page_orientation
     if feature == "strike_or_underline":
         params["strike"] = bool(getattr(args, "strike", False))
         params["underline"] = not bool(getattr(args, "no_underline", False))

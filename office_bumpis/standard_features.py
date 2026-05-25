@@ -124,6 +124,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "page_layout",
+        "문서 여백/용지",
+        FeatureCategory.TEMPLATE_BLOCK,
+        ("문서여백", "문서여백새페이지", "문서용지복사", "문서용지붙임", "PageSetup"),
+        "hp:secPr/hp:pagePr의 용지 방향, 크기, left/right/top/bottom/header/footer 여백을 HWP 단위로 적용",
+        True,
+    ),
+    StandardFeature(
         "table_background",
         "표 배경색/배경제거",
         FeatureCategory.TABLE_STYLE,

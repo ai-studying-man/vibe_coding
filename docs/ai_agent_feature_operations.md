@@ -66,6 +66,7 @@ python -m office_bumpis apply-feature `
 - `strike_or_underline`: 취소선/밑줄
 - `paragraph_alignment`: 문단 정렬
 - `paragraph_spacing`: 문단 간격
+- `page_layout`: 문서 여백/용지. `params.left/right/top/bottom/header/footer`는 mm 기준이며 `params.orientation`은 `portrait` 또는 `landscape`를 받는다.
 - `table_background`: 표 배경색
 - `table_border`: 표 테두리
 - `transparent_table`: 투명표

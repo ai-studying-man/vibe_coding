@@ -13,6 +13,7 @@ class StandardFeatureTests(unittest.TestCase):
         self.assertIn("table_background", keys)
         self.assertIn("table_columns", keys)
         self.assertIn("font_family", keys)
+        self.assertIn("page_layout", keys)
         self.assertIn("cleanup_whitespace", keys)
 
 

@@ -160,6 +160,8 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
             margin_right=str(params.get("right", params.get("margin_right", "0"))),
         )
         _apply_para_style(section_roots, para_id)
+    elif key == "page_layout":
+        _apply_page_layout(section_roots, params)
     elif key == "table_dimensions":
         _apply_table_dimensions(section_roots, params)
     elif key == "table_sort":
@@ -326,6 +328,33 @@ def _apply_cell_border_fill(section_roots: dict[str, ET.Element], border_id: str
     for root in section_roots.values():
         for cell in root.iter(f"{{{HP_NS}}}tc"):
             cell.attrib["borderFillIDRef"] = border_id
+
+
+def _apply_page_layout(section_roots: dict[str, ET.Element], params: dict[str, object]) -> None:
+    for root in section_roots.values():
+        for page_pr in root.iter(f"{{{HP_NS}}}pagePr"):
+            orientation = params.get("orientation", params.get("landscape"))
+            if orientation is not None:
+                page_pr.attrib["landscape"] = _normalize_orientation(orientation)
+            if params.get("width") is not None:
+                page_pr.attrib["width"] = _layout_value(params["width"], params)
+            if params.get("height") is not None:
+                page_pr.attrib["height"] = _layout_value(params["height"], params)
+
+            margin = _ensure_child(page_pr, f"{{{HP_NS}}}margin")
+            margin_defaults = params.get("margin")
+            margin_attrs = {
+                "left": params.get("left", params.get("margin_left", margin_defaults)),
+                "right": params.get("right", params.get("margin_right", margin_defaults)),
+                "top": params.get("top", params.get("margin_top", margin_defaults)),
+                "bottom": params.get("bottom", params.get("margin_bottom", margin_defaults)),
+                "header": params.get("header", params.get("header_len")),
+                "footer": params.get("footer", params.get("footer_len")),
+                "gutter": params.get("gutter"),
+            }
+            for key, value in margin_attrs.items():
+                if value is not None:
+                    margin.attrib[key] = _layout_value(value, params)
 
 
 def _apply_table_dimensions(section_roots: dict[str, ET.Element], params: dict[str, object]) -> None:
@@ -956,6 +985,23 @@ def _normalize_color(value: object) -> str:
     if len(text) != 7:
         raise ValueError(f"Color must be #RRGGBB: {value}")
     return text.upper()
+
+
+def _layout_value(value: object, params: dict[str, object]) -> str:
+    if str(params.get("unit", "mm")).lower() in {"hwp", "hwpx", "hwpunit", "raw"}:
+        return str(int(float(value)))
+    return str(int(round(float(value) * 283.465)))
+
+
+def _normalize_orientation(value: object) -> str:
+    if isinstance(value, bool):
+        return "WIDELY" if value else "NARROWLY"
+    text = str(value).strip().lower()
+    if text in {"1", "true", "yes", "landscape", "wide", "widely", "가로"}:
+        return "WIDELY"
+    if text in {"0", "false", "no", "portrait", "narrow", "narrowly", "세로"}:
+        return "NARROWLY"
+    return str(value)
 
 
 def _default_char_pr() -> ET.Element:

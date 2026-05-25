@@ -190,6 +190,7 @@ def _match_features(name: str, actions: list[str]) -> list[str]:
         "strike_or_underline": ["밑줄", "취소선", "underline", "strikeout", "charshapeunderline"],
         "paragraph_alignment": ["정렬", "align", "paragraphshapealign"],
         "paragraph_spacing": ["줄간격", "문단", "linespacing", "paragraphshape"],
+        "page_layout": ["문서여백", "문서용지", "pagesetup", "leftmargin", "rightmargin", "headerlen", "footerlen"],
         "table_background": ["표배경", "셀배경", "cellfill", "tablecell"],
         "table_border": ["테두리", "border", "cellborder"],
         "transparent_table": ["투명", "transparent"],

@@ -4,8 +4,8 @@
 
 - Source root: `recovered_source`
 - Recovered symbols: 2593
-- Matched symbols: 1044
-- Unmatched symbols: 1549
+- Matched symbols: 1070
+- Unmatched symbols: 1523
 - HAction calls: 5712
 
 ## Feature Hits
@@ -22,6 +22,7 @@
 | font_size | 13 |
 | numeric_calculation | 40 |
 | page_break | 30 |
+| page_layout | 29 |
 | paragraph_alignment | 304 |
 | paragraph_spacing | 323 |
 | remove_empty_lines | 1 |
@@ -138,11 +139,14 @@
 | function | 내어쓰기 | paragraph_spacing | hancom_library.py:367 |
 | function | 대각선 | table_border | hancom_library.py:383 |
 | function | 문단여백 | paragraph_spacing | hancom_library.py:544 |
-| function | 문단여백측정 | paragraph_spacing | hancom_library.py:553 |
+| function | 문단여백측정 | page_layout, paragraph_spacing | hancom_library.py:553 |
 | function | 문단위 | paragraph_spacing | hancom_library.py:561 |
 | function | 문단아래 | paragraph_spacing | hancom_library.py:569 |
 | function | 문단음영 | paragraph_spacing, text_background | hancom_library.py:577 |
-| function | 문서용지붙임 | document_blocks | hancom_library.py:621 |
+| function | 문서여백 | page_layout | hancom_library.py:583 |
+| function | 문서여백새페이지 | page_layout | hancom_library.py:595 |
+| function | 문서용지복사 | page_layout | hancom_library.py:607 |
+| function | 문서용지붙임 | document_blocks, page_layout | hancom_library.py:621 |
 | function | 문서테두리 | table_border | hancom_library.py:633 |
 | function | 문장 | document_blocks | hancom_library.py:661 |
 | function | 밑줄얇굵 | font_color, font_family, strike_or_underline | hancom_library.py:669 |
@@ -203,6 +207,3 @@
 | function | 블록여러줄 | document_blocks | hancom_library.py:1960 |
 | function | 블록여백정리 | document_blocks | hancom_library.py:1971 |
 | function | 블록엔터코드 | document_blocks | hancom_library.py:1980 |
-| function | 블록엔터정리 | document_blocks | hancom_library.py:1989 |
-| function | 블록엔터정리공백정리 | cleanup_whitespace, document_blocks | hancom_library.py:1998 |
-| function | 블록엔터제거공백정리 | cleanup_whitespace, document_blocks, remove_empty_lines | hancom_library.py:2007 |

@@ -118,6 +118,26 @@ class HwpxFeatureTests(unittest.TestCase):
         self.assertTrue(margins)
         self.assertTrue(all(margin.attrib.get("left") == "0" for margin in margins))
 
+    def test_apply_page_layout_sets_page_margins(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        output = Path("outputs/test_page_layout.hwpx")
+        apply_standard_features(
+            source,
+            output,
+            [{"key": "page_layout", "params": {"left": 20, "right": 18, "top": 15, "bottom": 12, "header": 10, "footer": 8}}],
+        )
+
+        with zipfile.ZipFile(output) as zf:
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+
+        margin = next(section.iter(f"{{{HP_NS}}}margin"))
+        self.assertEqual(margin.attrib.get("left"), "5669")
+        self.assertEqual(margin.attrib.get("right"), "5102")
+        self.assertEqual(margin.attrib.get("header"), "2835")
+
     def test_numeric_calculation_expands_arrow_change(self):
         source = Path("outputs/plan_report.hwpx")
         if not source.exists():
