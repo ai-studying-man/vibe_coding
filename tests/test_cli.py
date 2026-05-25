@@ -164,6 +164,37 @@ class CliTests(unittest.TestCase):
             section = zf.read("Contents/section0.xml").decode("utf-8", errors="replace")
         self.assertIn("CLI row", section)
 
+    def test_apply_feature_accepts_font_family_cli_options(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        output = Path("outputs/test_cli_apply_font_family.hwpx")
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "office_bumpis",
+                "apply-feature",
+                str(source),
+                "-o",
+                str(output),
+                "--feature",
+                "font_family",
+                "--font-face",
+                "휴먼명조",
+            ],
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        with zipfile.ZipFile(output) as zf:
+            header = zf.read("Contents/header.xml").decode("utf-8", errors="replace")
+        self.assertIn("휴먼명조", header)
+
 
 if __name__ == "__main__":
     unittest.main()

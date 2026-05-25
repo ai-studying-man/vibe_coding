@@ -60,6 +60,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "font_family",
+        "글씨체",
+        FeatureCategory.CHARACTER_STYLE,
+        ("폰트", "휴먼명조", "중고딕", "CharShape"),
+        "hh:fontface에 글꼴을 등록하고 hh:charPr fontRef를 새 글꼴 ID로 갱신",
+        True,
+    ),
+    StandardFeature(
         "text_background",
         "글자음영",
         FeatureCategory.CHARACTER_STYLE,

@@ -61,6 +61,7 @@ python -m office_bumpis apply-feature `
 - `remove_empty_lines`: 빈 줄 정리
 - `font_color`: 글자색
 - `font_size`: 글자 크기
+- `font_family`: 글씨체. `params.face`로 한글/한자/일본어/기타/사용자 글꼴을, `params.latin_face`로 영문 글꼴을 지정한다.
 - `text_background`: 글자 배경색
 - `strike_or_underline`: 취소선/밑줄
 - `paragraph_alignment`: 문단 정렬

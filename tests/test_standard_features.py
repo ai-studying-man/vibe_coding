@@ -11,6 +11,7 @@ class StandardFeatureTests(unittest.TestCase):
         keys = {item["key"] for item in feature_inventory()}
         self.assertIn("transparent_table", keys)
         self.assertIn("table_background", keys)
+        self.assertIn("font_family", keys)
         self.assertIn("cleanup_whitespace", keys)
 
 

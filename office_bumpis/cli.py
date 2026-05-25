@@ -68,6 +68,8 @@ def main(argv: list[str] | None = None) -> None:
     )
     generate_from_template.add_argument("--color", help="Color for font/table features, e.g. #005BAC.")
     generate_from_template.add_argument("--points", type=float, help="Font size in points for font_size.")
+    generate_from_template.add_argument("--font-face", help="Font face for font_family, e.g. 함초롬바탕 or 휴먼명조.")
+    generate_from_template.add_argument("--latin-font-face", help="Optional Latin font face for font_family.")
     generate_from_template.add_argument("--row-mode", choices=["append", "delete"], default="append", help="Mode for table_rows.")
     generate_from_template.add_argument("--row-count", type=int, default=1, help="Number of rows for table_rows.")
     generate_from_template.add_argument("--row-values", action="append", help="Pipe-delimited row values for table_rows. Repeat for multiple rows.")
@@ -109,6 +111,8 @@ def main(argv: list[str] | None = None) -> None:
     )
     apply_feature.add_argument("--color", help="Color for font/table features, e.g. #005BAC.")
     apply_feature.add_argument("--points", type=float, help="Font size in points for font_size.")
+    apply_feature.add_argument("--font-face", help="Font face for font_family, e.g. 함초롬바탕 or 휴먼명조.")
+    apply_feature.add_argument("--latin-font-face", help="Optional Latin font face for font_family.")
     apply_feature.add_argument("--border-width", default="0.1 mm")
     apply_feature.add_argument("--border-type", default="SOLID")
     apply_feature.add_argument("--strike", action="store_true")
@@ -363,6 +367,10 @@ def _feature_params_from_args(feature: str, args) -> dict:
     if feature == "table_border":
         params["width"] = getattr(args, "border_width", None) or "0.1 mm"
         params["type"] = getattr(args, "border_type", None) or "SOLID"
+    if feature == "font_family":
+        params["face"] = getattr(args, "font_face", None) or "함초롬바탕"
+        if getattr(args, "latin_font_face", None):
+            params["latin_face"] = args.latin_font_face
     if feature == "strike_or_underline":
         params["strike"] = bool(getattr(args, "strike", False))
         params["underline"] = not bool(getattr(args, "no_underline", False))

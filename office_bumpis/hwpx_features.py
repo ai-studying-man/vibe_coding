@@ -91,6 +91,11 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
         height = str(int(float(params.get("points", 12)) * 100))
         char_id = _create_char_style(header_root, height=height)
         _apply_char_style(section_roots, char_id)
+    elif key == "font_family":
+        _require_header(header_root)
+        font_refs = _font_refs_for_family(header_root, params)
+        char_id = _create_char_style(header_root, fontRefs=font_refs)
+        _apply_char_style(section_roots, char_id)
     elif key == "strike_or_underline":
         _require_header(header_root)
         char_id = _create_char_style(
@@ -218,6 +223,8 @@ def _create_char_style(header_root: ET.Element, **updates: object) -> str:
             _set_supscript(clone, str(value))
         elif key == "spacing":
             _set_language_attrs(_ensure_child(clone, f"{{{HH_NS}}}spacing"), str(value))
+        elif key == "fontRefs":
+            _set_font_refs(clone, value if isinstance(value, dict) else {})
         elif value is not None:
             clone.attrib[key] = str(value)
     collection.append(clone)
@@ -728,6 +735,62 @@ def _set_supscript(char_pr: ET.Element, script_type: str) -> None:
 def _set_language_attrs(elem: ET.Element, value: str) -> None:
     for attr in LANG_ATTRS:
         elem.attrib[attr] = value
+
+
+def _font_refs_for_family(header_root: ET.Element, params: dict[str, object]) -> dict[str, str]:
+    face = str(params.get("face", params.get("family", params.get("font", "함초롬바탕")))).strip()
+    if not face:
+        raise ValueError("font_family requires a non-empty face/family/font parameter")
+    latin_face = str(params.get("latin_face", params.get("latin", face))).strip() or face
+    languages = params.get("languages", params.get("langs"))
+    if isinstance(languages, str) and languages.strip():
+        targets = [item.strip().lower() for item in re.split(r"[, ]+", languages) if item.strip()]
+    elif isinstance(languages, (list, tuple)):
+        targets = [str(item).strip().lower() for item in languages if str(item).strip()]
+    else:
+        targets = ["hangul", "hanja", "japanese", "other", "user", "latin"]
+    if _truthy(params.get("include_symbol", False)) and "symbol" not in targets:
+        targets.append("symbol")
+
+    refs: dict[str, str] = {}
+    for lang in targets:
+        if lang not in LANG_ATTRS:
+            continue
+        refs[lang] = _font_id_for_face(header_root, lang, latin_face if lang == "latin" else face)
+    return refs
+
+
+def _font_id_for_face(header_root: ET.Element, lang: str, face: str) -> str:
+    fontface = _ensure_fontface(header_root, lang)
+    for font in fontface.findall(f"{{{HH_NS}}}font"):
+        if font.attrib.get("face") == face:
+            return font.attrib.get("id", "0")
+    new_id = str(_next_numeric_id(fontface, f"{{{HH_NS}}}font"))
+    source = fontface.find(f"{{{HH_NS}}}font")
+    attrs = dict(source.attrib) if source is not None else {"type": "TTF", "isEmbedded": "0"}
+    attrs.update({"id": new_id, "face": face})
+    fontface.append(ET.Element(f"{{{HH_NS}}}font", attrs))
+    fontface.attrib["fontCnt"] = str(len(fontface.findall(f"{{{HH_NS}}}font")))
+    return new_id
+
+
+def _ensure_fontface(header_root: ET.Element, lang: str) -> ET.Element:
+    target = lang.upper()
+    for fontface in header_root.iter(f"{{{HH_NS}}}fontface"):
+        if fontface.attrib.get("lang", "").upper() == target:
+            return fontface
+    collection = _find_required(header_root, f"{{{HH_NS}}}fontfaces", "fontfaces")
+    fontface = ET.Element(f"{{{HH_NS}}}fontface", {"lang": target, "fontCnt": "0"})
+    collection.append(fontface)
+    collection.attrib["itemCnt"] = str(len(collection.findall(f"{{{HH_NS}}}fontface")))
+    return fontface
+
+
+def _set_font_refs(char_pr: ET.Element, refs: dict[str, str]) -> None:
+    font_ref = _ensure_child(char_pr, f"{{{HH_NS}}}fontRef")
+    for lang, font_id in refs.items():
+        if lang in LANG_ATTRS:
+            font_ref.attrib[lang] = str(font_id)
 
 
 def _normalize_script_type(value: object) -> str:

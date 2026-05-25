@@ -185,6 +185,7 @@ def _match_features(name: str, actions: list[str]) -> list[str]:
         "remove_empty_lines": ["빈줄", "빈 줄", "emptyline"],
         "font_size": ["글자크기", "fontsize", "charshapeheight", "charshapesize"],
         "font_color": ["글자색", "색", "textcolor", "charshape"],
+        "font_family": ["폰트", "글씨체", "글꼴", "fontface", "facename", "charshape"],
         "text_background": ["음영", "배경", "shade", "fillbrush"],
         "strike_or_underline": ["밑줄", "취소선", "underline", "strikeout", "charshapeunderline"],
         "paragraph_alignment": ["정렬", "align", "paragraphshapealign"],

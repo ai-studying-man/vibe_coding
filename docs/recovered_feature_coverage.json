@@ -2,8 +2,8 @@
   "source_root": "recovered_source",
   "recovered_symbol_count": 2593,
   "haction_count": 5712,
-  "matched_symbol_count": 1032,
-  "unmatched_symbol_count": 1561,
+  "matched_symbol_count": 1035,
+  "unmatched_symbol_count": 1558,
   "feature_hits": {
     "character_emphasis": 181,
     "character_spacing": 9,
@@ -11,6 +11,7 @@
     "control_characters": 369,
     "document_blocks": 468,
     "font_color": 235,
+    "font_family": 223,
     "font_size": 13,
     "numeric_calculation": 40,
     "page_break": 30,
@@ -30,7 +31,7 @@
   },
   "category_hits": {
     "calculation": 40,
-    "character_style": 496,
+    "character_style": 719,
     "paragraph_style": 627,
     "table_structure": 263,
     "table_style": 169,
@@ -608,7 +609,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -621,6 +623,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "font_size",
         "table_dimensions"
       ]
@@ -635,6 +638,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "font_size",
         "table_dimensions"
       ]
@@ -706,6 +710,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "strike_or_underline"
       ]
     },
@@ -806,6 +811,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "superscript_subscript"
       ]
     },
@@ -819,7 +825,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -998,7 +1005,8 @@
       ],
       "matched_features": [
         "character_spacing",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -1010,7 +1018,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -1024,6 +1033,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "font_size",
         "table_dimensions"
       ]
@@ -1049,7 +1059,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -1082,6 +1093,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "text_background"
       ]
     },
@@ -1094,7 +1106,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -1107,6 +1120,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "font_size"
       ]
     },
@@ -1145,6 +1159,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "font_size",
         "table_dimensions"
       ]
@@ -1386,6 +1401,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "strike_or_underline"
       ]
     },
@@ -1760,7 +1776,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -2027,7 +2044,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -2077,7 +2095,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -2124,6 +2143,7 @@
         "character_emphasis",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -2208,6 +2228,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -2440,6 +2461,7 @@
         "character_emphasis",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions",
@@ -2481,6 +2503,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -2581,6 +2604,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -2630,6 +2654,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "superscript_subscript"
       ]
     },
@@ -3039,6 +3064,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -3095,6 +3121,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "page_break",
         "superscript_subscript"
       ]
@@ -3108,7 +3135,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -3195,7 +3223,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -3207,7 +3236,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -3219,7 +3249,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -3231,7 +3262,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -3243,7 +3275,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -3255,7 +3288,8 @@
         "CharShape"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -3302,7 +3336,8 @@
       "matched_features": [
         "character_emphasis",
         "control_characters",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -3325,6 +3360,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "strike_or_underline"
       ]
     },
@@ -3343,6 +3379,7 @@
         "cleanup_whitespace",
         "control_characters",
         "font_color",
+        "font_family",
         "strike_or_underline",
         "table_dimensions"
       ]
@@ -4009,6 +4046,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -4050,6 +4088,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "table_background"
       ]
     },
@@ -4071,6 +4110,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "table_background"
       ]
     },
@@ -4145,6 +4185,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -4449,6 +4490,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -4470,6 +4512,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -4534,6 +4577,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions",
@@ -4810,6 +4854,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -4925,6 +4970,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -4955,6 +5001,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -5237,6 +5284,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_rows"
@@ -5294,6 +5342,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -5314,6 +5363,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -5351,6 +5401,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -5447,7 +5498,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -5554,6 +5606,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_rows"
@@ -5576,6 +5629,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_rows"
@@ -5650,6 +5704,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -5685,6 +5740,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -5716,6 +5772,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -5742,6 +5799,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_rows"
@@ -5761,7 +5819,8 @@
       "matched_features": [
         "character_emphasis",
         "control_characters",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -5781,6 +5840,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -5835,6 +5895,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -5862,6 +5923,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions",
@@ -5888,6 +5950,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_rows"
@@ -5972,6 +6035,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions",
@@ -6084,6 +6148,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -6170,6 +6235,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -6196,6 +6262,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -6394,6 +6461,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "superscript_subscript",
@@ -6427,6 +6495,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -6573,6 +6642,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -6636,6 +6706,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -6717,6 +6788,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -6780,6 +6852,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -6815,6 +6888,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "page_break",
         "paragraph_alignment",
         "paragraph_spacing"
@@ -6978,6 +7052,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -7087,6 +7162,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -7175,6 +7251,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -7197,6 +7274,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -7363,6 +7441,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -7435,6 +7514,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions",
@@ -7537,6 +7617,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -7642,6 +7723,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -7773,6 +7855,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -7814,6 +7897,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -7869,6 +7953,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -7934,7 +8019,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -7970,6 +8056,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -8000,6 +8087,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -8160,6 +8248,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -8291,6 +8380,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "page_break",
         "paragraph_alignment",
         "paragraph_spacing"
@@ -8332,6 +8422,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_rows"
@@ -8369,6 +8460,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -8404,6 +8496,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -8430,6 +8523,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -8531,6 +8625,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -8562,6 +8657,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -8589,6 +8685,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions",
@@ -8612,6 +8709,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -8670,6 +8768,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -8767,6 +8866,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -8797,6 +8897,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -8823,6 +8924,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -8884,6 +8986,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -8910,6 +9013,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -8943,6 +9047,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -8971,6 +9076,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -9013,7 +9119,8 @@
         "character_emphasis",
         "control_characters",
         "document_blocks",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -9117,6 +9224,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "page_break",
         "paragraph_alignment",
         "paragraph_spacing",
@@ -9154,6 +9262,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -9175,6 +9284,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -9196,6 +9306,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -9254,7 +9365,8 @@
         "character_emphasis",
         "control_characters",
         "document_blocks",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -9284,6 +9396,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -9313,6 +9426,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -9347,6 +9461,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -9376,6 +9491,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -9472,6 +9588,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -9647,7 +9764,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -9662,7 +9780,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -9711,6 +9830,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -9785,6 +9905,7 @@
         "cleanup_whitespace",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -9832,6 +9953,7 @@
         "cleanup_whitespace",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions"
@@ -9951,6 +10073,7 @@
         "cleanup_whitespace",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions"
@@ -9970,6 +10093,7 @@
         "character_emphasis",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -10075,6 +10199,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -10118,6 +10243,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -10152,6 +10278,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -10295,6 +10422,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -10424,6 +10552,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "strike_or_underline",
@@ -10453,6 +10582,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions"
@@ -10517,6 +10647,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -10621,6 +10752,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -10680,6 +10812,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -10899,6 +11032,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -11034,6 +11168,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -11058,6 +11193,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -11096,6 +11232,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -11217,6 +11354,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -11440,6 +11578,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -11512,6 +11651,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -11647,6 +11787,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -11694,6 +11835,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -11715,6 +11857,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -11748,6 +11891,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "strike_or_underline",
@@ -11893,7 +12037,8 @@
         "character_emphasis",
         "control_characters",
         "document_blocks",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -12106,6 +12251,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -12125,6 +12271,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -12283,6 +12430,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -12461,6 +12609,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -12565,6 +12714,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -12641,7 +12791,8 @@
       "matched_features": [
         "character_emphasis",
         "control_characters",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -12705,6 +12856,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_dimensions",
@@ -12725,6 +12877,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -12743,6 +12896,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -12761,6 +12915,7 @@
         "character_emphasis",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -12777,6 +12932,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -12811,6 +12967,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -12892,6 +13049,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "superscript_subscript",
@@ -12946,6 +13104,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -12978,6 +13137,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -13027,6 +13187,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -13161,6 +13322,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -13187,6 +13349,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -13435,6 +13598,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "page_break",
         "paragraph_alignment",
         "paragraph_spacing",
@@ -13491,6 +13655,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -13521,6 +13686,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -13600,6 +13766,7 @@
         "control_characters",
         "document_blocks",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -13627,6 +13794,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background"
@@ -13754,6 +13922,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "table_background",
@@ -13807,6 +13976,7 @@
         "character_emphasis",
         "control_characters",
         "font_color",
+        "font_family",
         "page_break",
         "paragraph_alignment",
         "paragraph_spacing",
@@ -14398,7 +14568,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -15847,6 +16018,7 @@
       "matched_features": [
         "document_blocks",
         "font_color",
+        "font_family",
         "page_break",
         "strike_or_underline"
       ]
@@ -15863,6 +16035,7 @@
       "matched_features": [
         "document_blocks",
         "font_color",
+        "font_family",
         "page_break",
         "strike_or_underline"
       ]
@@ -16249,6 +16422,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing"
       ]
@@ -16274,6 +16448,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "paragraph_alignment",
         "paragraph_spacing",
         "superscript_subscript"
@@ -16462,6 +16637,7 @@
       "matched_features": [
         "character_spacing",
         "font_color",
+        "font_family",
         "font_size",
         "paragraph_alignment",
         "paragraph_spacing",
@@ -16518,6 +16694,7 @@
       "matched_features": [
         "character_spacing",
         "font_color",
+        "font_family",
         "font_size",
         "paragraph_spacing",
         "table_dimensions"
@@ -16567,6 +16744,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "page_break",
         "paragraph_alignment",
         "paragraph_spacing"
@@ -16592,7 +16770,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -16634,6 +16813,7 @@
       "matched_features": [
         "character_spacing",
         "font_color",
+        "font_family",
         "numeric_calculation",
         "paragraph_spacing",
         "table_rows"
@@ -16730,7 +16910,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -16979,6 +17160,7 @@
       "matched_features": [
         "character_spacing",
         "font_color",
+        "font_family",
         "paragraph_spacing"
       ]
     },
@@ -17583,7 +17765,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -18106,6 +18289,7 @@
       "matched_features": [
         "character_emphasis",
         "font_color",
+        "font_family",
         "superscript_subscript"
       ]
     },
@@ -21522,7 +21706,9 @@
       "file": "recovered_source\\main.py",
       "line": 1208,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "font_family"
+      ]
     },
     {
       "name": "농어촌맑은고딕",
@@ -21562,6 +21748,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "font_size",
         "table_dimensions"
       ]
@@ -21576,7 +21763,8 @@
       ],
       "matched_features": [
         "character_spacing",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -21589,6 +21777,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "table_dimensions"
       ]
     },
@@ -21622,6 +21811,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "font_size",
         "table_dimensions"
       ]
@@ -21635,7 +21825,8 @@
         "CharShapeSpacingDecrease"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -21648,6 +21839,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "table_dimensions"
       ]
     },
@@ -22092,6 +22284,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "font_size",
         "table_dimensions"
       ]
@@ -22106,6 +22299,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "font_size",
         "table_dimensions"
       ]
@@ -22144,6 +22338,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "table_dimensions"
       ]
     },
@@ -22157,6 +22352,7 @@
       ],
       "matched_features": [
         "font_color",
+        "font_family",
         "table_dimensions"
       ]
     },
@@ -22170,7 +22366,8 @@
       ],
       "matched_features": [
         "character_spacing",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22182,7 +22379,8 @@
         "CharShapeSpacingDecrease"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22485,6 +22683,7 @@
         "character_emphasis",
         "document_blocks",
         "font_color",
+        "font_family",
         "page_break",
         "paragraph_alignment",
         "paragraph_spacing"
@@ -22525,7 +22724,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22539,7 +22739,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22553,7 +22754,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22567,7 +22769,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22612,7 +22815,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22625,7 +22829,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22638,7 +22843,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22651,7 +22857,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22664,7 +22871,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22677,7 +22885,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22691,7 +22900,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22705,7 +22915,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22719,7 +22930,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22733,7 +22945,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22747,7 +22960,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -22761,7 +22975,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -23021,7 +23236,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -23034,7 +23250,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -24083,7 +24300,9 @@
       "file": "recovered_source\\main.py",
       "line": 1790,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "font_family"
+      ]
     },
     {
       "name": "의정부중고딕",
@@ -24091,7 +24310,9 @@
       "file": "recovered_source\\main.py",
       "line": 1791,
       "actions": [],
-      "matched_features": []
+      "matched_features": [
+        "font_family"
+      ]
     },
     {
       "name": "의정부제목M",
@@ -24227,7 +24448,8 @@
       ],
       "matched_features": [
         "character_spacing",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -24239,7 +24461,8 @@
         "CharShapeSpacingDecrease"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -25838,7 +26061,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -25852,7 +26076,8 @@
       ],
       "matched_features": [
         "character_emphasis",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -29018,7 +29243,8 @@
       ],
       "matched_features": [
         "character_spacing",
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {
@@ -29030,7 +29256,8 @@
         "CharShapeSpacingDecrease"
       ],
       "matched_features": [
-        "font_color"
+        "font_color",
+        "font_family"
       ]
     },
     {

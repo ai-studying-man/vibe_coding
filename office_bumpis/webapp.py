@@ -62,6 +62,7 @@ WEB_FEATURE_OPTIONS: tuple[tuple[str, str, bool], ...] = (
     ("remove_empty_lines", "빈 줄 정리", False),
     ("font_size", "글자크기", False),
     ("font_color", "글자색", False),
+    ("font_family", "글씨체", False),
     ("text_background", "글자 배경색", False),
     ("strike_or_underline", "밑줄/취소선", False),
     ("character_emphasis", "볼드/이탤릭", False),
@@ -424,6 +425,8 @@ def _web_feature_params(key: str) -> dict:
         return {"type": "SOLID", "width": "0.12 mm", "color": "#404A5A"}
     if key == "font_color":
         return {"color": "#1F2933"}
+    if key == "font_family":
+        return {"face": "함초롬바탕"}
     if key == "text_background":
         return {"color": "#FFF2CC"}
     if key == "strike_or_underline":

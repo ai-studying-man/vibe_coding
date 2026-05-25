@@ -26,6 +26,37 @@ class HwpxFeatureTests(unittest.TestCase):
         runs = [run for run in section.iter(f"{{{HP_NS}}}run") if run.attrib.get("charPrIDRef") == new_id]
         self.assertTrue(runs)
 
+    def test_apply_font_family_creates_fontface_and_updates_runs(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        output = Path("outputs/test_font_family.hwpx")
+        apply_standard_features(source, output, [{"key": "font_family", "params": {"face": "휴먼명조", "latin_face": "Times New Roman"}}])
+
+        with zipfile.ZipFile(output) as zf:
+            header = ET.fromstring(zf.read("Contents/header.xml"))
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+
+        hangul_font = [
+            font
+            for fontface in header.iter(f"{{{HH_NS}}}fontface")
+            if fontface.attrib.get("lang") == "HANGUL"
+            for font in fontface.findall(f"{{{HH_NS}}}font")
+            if font.attrib.get("face") == "휴먼명조"
+        ]
+        self.assertTrue(hangul_font)
+        new_font_id = hangul_font[-1].attrib["id"]
+        matching_char_styles = []
+        for char_pr in header.iter(f"{{{HH_NS}}}charPr"):
+            font_ref = char_pr.find(f"{{{HH_NS}}}fontRef")
+            if font_ref is not None and font_ref.attrib.get("hangul") == new_font_id:
+                matching_char_styles.append(char_pr)
+        self.assertTrue(matching_char_styles)
+        new_char_id = matching_char_styles[-1].attrib["id"]
+        runs = [run for run in section.iter(f"{{{HP_NS}}}run") if run.attrib.get("charPrIDRef") == new_char_id]
+        self.assertTrue(runs)
+
     def test_apply_transparent_table_sets_cell_border_fill(self):
         source = Path("_analysis/templates_ascii/template_1.hwpx")
         if not source.exists():
