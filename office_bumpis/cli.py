@@ -73,7 +73,11 @@ def main(argv: list[str] | None = None) -> None:
     generate_from_template.add_argument("--row-mode", choices=["append", "delete"], default="append", help="Mode for table_rows.")
     generate_from_template.add_argument("--row-count", type=int, default=1, help="Number of rows for table_rows.")
     generate_from_template.add_argument("--row-values", action="append", help="Pipe-delimited row values for table_rows. Repeat for multiple rows.")
-    generate_from_template.add_argument("--all-tables", action="store_true", help="Apply table_rows to every table instead of the first table.")
+    generate_from_template.add_argument("--column-mode", choices=["append", "delete"], default="append", help="Mode for table_columns.")
+    generate_from_template.add_argument("--column-position", choices=["left", "right"], default="right", help="Side for table_columns.")
+    generate_from_template.add_argument("--column-count", type=int, default=1, help="Number of columns for table_columns.")
+    generate_from_template.add_argument("--column-values", action="append", help="Pipe-delimited column cell values for table_columns. Repeat for multiple columns.")
+    generate_from_template.add_argument("--all-tables", action="store_true", help="Apply table row/column operations to every table instead of the first table.")
     generate_from_template.add_argument("--guard-json", help="Optional structure guard JSON report output path.")
 
     preset = sub.add_parser("preset", help="Create normalized official-document JSON from an extracted workflow profile.")
@@ -132,7 +136,11 @@ def main(argv: list[str] | None = None) -> None:
     apply_feature.add_argument("--row-mode", choices=["append", "delete"], default="append", help="Mode for table_rows.")
     apply_feature.add_argument("--row-count", type=int, default=1, help="Number of rows for table_rows.")
     apply_feature.add_argument("--row-values", action="append", help="Pipe-delimited row values for table_rows. Repeat for multiple rows.")
-    apply_feature.add_argument("--all-tables", action="store_true", help="Apply table_rows to every table instead of the first table.")
+    apply_feature.add_argument("--column-mode", choices=["append", "delete"], default="append", help="Mode for table_columns.")
+    apply_feature.add_argument("--column-position", choices=["left", "right"], default="right", help="Side for table_columns.")
+    apply_feature.add_argument("--column-count", type=int, default=1, help="Number of columns for table_columns.")
+    apply_feature.add_argument("--column-values", action="append", help="Pipe-delimited column cell values for table_columns. Repeat for multiple columns.")
+    apply_feature.add_argument("--all-tables", action="store_true", help="Apply table row/column operations to every table instead of the first table.")
 
     fill_profile = sub.add_parser("fill-profile", help="Fill an HWPX template using a learned slot profile.")
     fill_profile.add_argument("template")
@@ -401,6 +409,14 @@ def _feature_params_from_args(feature: str, args) -> dict:
         params["header_rows"] = getattr(args, "header_rows", 1)
         if getattr(args, "row_values", None):
             params["values"] = [[cell.strip() for cell in row.split("|")] for row in args.row_values]
+        if getattr(args, "all_tables", False):
+            params["all_tables"] = True
+    if feature == "table_columns":
+        params["mode"] = getattr(args, "column_mode", "append")
+        params["position"] = getattr(args, "column_position", "right")
+        params["count"] = getattr(args, "column_count", 1)
+        if getattr(args, "column_values", None):
+            params["values"] = [[cell.strip() for cell in column.split("|")] for column in args.column_values]
         if getattr(args, "all_tables", False):
             params["all_tables"] = True
     return params

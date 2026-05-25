@@ -2,8 +2,8 @@
   "source_root": "recovered_source",
   "recovered_symbol_count": 2593,
   "haction_count": 5712,
-  "matched_symbol_count": 1035,
-  "unmatched_symbol_count": 1558,
+  "matched_symbol_count": 1044,
+  "unmatched_symbol_count": 1549,
   "feature_hits": {
     "character_emphasis": 181,
     "character_spacing": 9,
@@ -22,6 +22,7 @@
     "superscript_subscript": 7,
     "table_background": 144,
     "table_border": 15,
+    "table_columns": 12,
     "table_dimensions": 77,
     "table_merge_split": 104,
     "table_rows": 75,
@@ -33,7 +34,7 @@
     "calculation": 40,
     "character_style": 719,
     "paragraph_style": 627,
-    "table_structure": 263,
+    "table_structure": 275,
     "table_style": 169,
     "template_block": 867,
     "text_cleanup": 20
@@ -16586,6 +16587,7 @@
         "TableDistributeCellWidth"
       ],
       "matched_features": [
+        "table_columns",
         "table_dimensions",
         "table_rows"
       ]
@@ -16927,6 +16929,7 @@
         "TableDeleteColumn"
       ],
       "matched_features": [
+        "table_columns",
         "table_rows"
       ]
     },
@@ -17229,6 +17232,7 @@
       ],
       "matched_features": [
         "table_background",
+        "table_columns",
         "table_merge_split"
       ]
     },
@@ -20777,7 +20781,9 @@
       "actions": [
         "TableInsertLeftColumn"
       ],
-      "matched_features": []
+      "matched_features": [
+        "table_columns"
+      ]
     },
     {
       "name": "조직도우추",
@@ -20787,7 +20793,9 @@
       "actions": [
         "TableInsertRightColumn"
       ],
-      "matched_features": []
+      "matched_features": [
+        "table_columns"
+      ]
     },
     {
       "name": "조직도하추",
@@ -20821,7 +20829,9 @@
       "actions": [
         "TableDeleteColumn"
       ],
-      "matched_features": []
+      "matched_features": [
+        "table_columns"
+      ]
     },
     {
       "name": "조직도행2",
@@ -26774,7 +26784,9 @@
       "actions": [
         "TableInsertLeftColumn"
       ],
-      "matched_features": []
+      "matched_features": [
+        "table_columns"
+      ]
     },
     {
       "name": "우측열추가",
@@ -26784,7 +26796,9 @@
       "actions": [
         "TableInsertRightColumn"
       ],
-      "matched_features": []
+      "matched_features": [
+        "table_columns"
+      ]
     },
     {
       "name": "열제거",
@@ -26794,7 +26808,9 @@
       "actions": [
         "TableDeleteColumn"
       ],
-      "matched_features": []
+      "matched_features": [
+        "table_columns"
+      ]
     },
     {
       "name": "질병회의제목",
@@ -30451,7 +30467,9 @@
       "actions": [
         "TableInsertLeftColumn"
       ],
-      "matched_features": []
+      "matched_features": [
+        "table_columns"
+      ]
     },
     {
       "name": "우측열추가",
@@ -30461,7 +30479,9 @@
       "actions": [
         "TableInsertRightColumn"
       ],
-      "matched_features": []
+      "matched_features": [
+        "table_columns"
+      ]
     },
     {
       "name": "열제거",
@@ -30471,7 +30491,9 @@
       "actions": [
         "TableDeleteColumn"
       ],
-      "matched_features": []
+      "matched_features": [
+        "table_columns"
+      ]
     },
     {
       "name": "금액한글화",

@@ -4,8 +4,8 @@
 
 - Source root: `recovered_source`
 - Recovered symbols: 2593
-- Matched symbols: 1035
-- Unmatched symbols: 1558
+- Matched symbols: 1044
+- Unmatched symbols: 1549
 - HAction calls: 5712
 
 ## Feature Hits
@@ -29,6 +29,7 @@
 | superscript_subscript | 7 |
 | table_background | 144 |
 | table_border | 15 |
+| table_columns | 12 |
 | table_dimensions | 77 |
 | table_merge_split | 104 |
 | table_rows | 75 |

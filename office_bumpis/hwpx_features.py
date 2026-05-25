@@ -178,6 +178,8 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
         )
     elif key == "table_rows":
         _apply_table_rows(section_roots, params)
+    elif key == "table_columns":
+        _apply_table_columns(section_roots, params)
     elif key == "numeric_calculation":
         _apply_numeric_calculation(section_roots)
     elif key == "document_blocks":
@@ -402,6 +404,26 @@ def _apply_table_rows(section_roots: dict[str, ET.Element], params: dict[str, ob
         _renumber_table_rows(table)
 
 
+def _apply_table_columns(section_roots: dict[str, ET.Element], params: dict[str, object]) -> None:
+    tables = [table for root in section_roots.values() for table in root.iter(f"{{{HP_NS}}}tbl")]
+    if not tables:
+        return
+    if not _truthy(params.get("all_tables", False)):
+        tables = tables[:1]
+
+    mode = str(params.get("mode", "append")).strip().lower()
+    position = str(params.get("position", params.get("side", "right"))).strip().lower()
+    count = max(1, int(params.get("count", 1)))
+    values = _normalize_table_column_values(params.get("values", params.get("column_values")))
+
+    for table in tables:
+        if mode in {"delete", "remove", "drop"}:
+            _delete_table_columns(table, count=count, position=position)
+        else:
+            _append_table_columns(table, count=count, values=values, position=position)
+        _renumber_table_rows(table)
+
+
 def _merge_from_top_left(table: ET.Element, rows: int, cols: int) -> None:
     table_rows = table.findall(f"{{{HP_NS}}}tr")
     if not table_rows:
@@ -448,6 +470,41 @@ def _delete_table_rows(table: ET.Element, *, count: int, header_rows: int) -> No
     _replace_rows(table, rows[:keep_count])
 
 
+def _append_table_columns(table: ET.Element, *, count: int, values: list[list[str]], position: str) -> None:
+    rows = table.findall(f"{{{HP_NS}}}tr")
+    if not rows:
+        return
+    total = max(count, len(values)) if values else count
+    for row_index, row in enumerate(rows):
+        cells = row.findall(f"{{{HP_NS}}}tc")
+        if not cells:
+            continue
+        insert_left = position in {"left", "before", "start"}
+        source = cells[0] if insert_left else cells[-1]
+        insert_at = list(row).index(cells[0]) if insert_left else list(row).index(cells[-1]) + 1
+        for column_index in range(total):
+            clone = copy.deepcopy(source)
+            _clear_row_text(clone)
+            if column_index < len(values) and row_index < len(values[column_index]):
+                _fill_cell_value(clone, values[column_index][row_index])
+            row.insert(insert_at + column_index, clone)
+    table.attrib["colCnt"] = str(_table_col_count(table) + total)
+
+
+def _delete_table_columns(table: ET.Element, *, count: int, position: str) -> None:
+    rows = table.findall(f"{{{HP_NS}}}tr")
+    if not rows:
+        return
+    delete_left = position in {"left", "before", "start"}
+    for row in rows:
+        for _ in range(count):
+            cells = row.findall(f"{{{HP_NS}}}tc")
+            if len(cells) <= 1:
+                break
+            row.remove(cells[0] if delete_left else cells[-1])
+    table.attrib["colCnt"] = str(max(1, _table_col_count(table) - count))
+
+
 def _renumber_table_rows(table: ET.Element) -> None:
     rows = table.findall(f"{{{HP_NS}}}tr")
     table.attrib["rowCnt"] = str(len(rows))
@@ -467,12 +524,16 @@ def _clear_row_text(row: ET.Element) -> None:
 
 def _fill_row_values(row: ET.Element, values: list[str]) -> None:
     for cell, value in zip(row.findall(f"{{{HP_NS}}}tc"), values):
-        text_nodes = _ensure_cell_text_nodes(cell)
-        if not text_nodes:
-            continue
-        text_nodes[0].text = str(value)
-        for extra in text_nodes[1:]:
-            extra.text = ""
+        _fill_cell_value(cell, value)
+
+
+def _fill_cell_value(cell: ET.Element, value: object) -> None:
+    text_nodes = _ensure_cell_text_nodes(cell)
+    if not text_nodes:
+        return
+    text_nodes[0].text = str(value)
+    for extra in text_nodes[1:]:
+        extra.text = ""
 
 
 def _ensure_cell_text_nodes(cell: ET.Element) -> list[ET.Element]:
@@ -501,6 +562,35 @@ def _normalize_table_row_values(value: object) -> list[list[str]]:
             return [[str(item) for item in value]]
         return [[str(cell) for cell in row] for row in value if isinstance(row, (tuple, list))]
     return []
+
+
+def _normalize_table_column_values(value: object) -> list[list[str]]:
+    if value is None or value == "":
+        return []
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError:
+            return [[cell.strip() for cell in value.split("|")]]
+    if isinstance(value, (tuple, list)):
+        if all(not isinstance(item, (tuple, list)) for item in value):
+            return [[str(item) for item in value]]
+        return [[str(cell) for cell in column] for column in value if isinstance(column, (tuple, list))]
+    return []
+
+
+def _table_col_count(table: ET.Element) -> int:
+    value = table.attrib.get("colCnt", "")
+    if value.isdigit():
+        return int(value)
+    counts = []
+    for row in table.findall(f"{{{HP_NS}}}tr"):
+        count = 0
+        for cell in row.findall(f"{{{HP_NS}}}tc"):
+            span = cell.find(f"{{{HP_NS}}}cellSpan")
+            count += int(span.attrib.get("colSpan", "1")) if span is not None and span.attrib.get("colSpan", "1").isdigit() else 1
+        counts.append(count)
+    return max(counts) if counts else 0
 
 
 def _truthy(value: object) -> bool:

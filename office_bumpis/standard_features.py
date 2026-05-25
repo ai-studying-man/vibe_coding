@@ -165,10 +165,18 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
     ),
     StandardFeature(
         "table_rows",
-        "Table row add/delete",
+        "표 행 추가/삭제",
         FeatureCategory.TABLE_STRUCTURE,
         ("TableRightCellAppend", "TableInsertLowerRow", "TableDeleteRow", "row append", "row delete"),
-        "Clone or delete hp:tr rows, then refresh rowCnt and cellAddr row indexes.",
+        "hp:tr 행을 복제하거나 삭제하고 rowCnt와 cellAddr 행 인덱스를 갱신",
+        True,
+    ),
+    StandardFeature(
+        "table_columns",
+        "표 열 추가/삭제",
+        FeatureCategory.TABLE_STRUCTURE,
+        ("TableInsertLeftColumn", "TableInsertRightColumn", "TableDeleteColumn", "column append", "column delete"),
+        "hp:tc 열을 행별로 복제하거나 삭제하고 colCnt와 cellAddr 열 인덱스를 갱신",
         True,
     ),
     StandardFeature(

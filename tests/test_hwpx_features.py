@@ -214,6 +214,50 @@ class HwpxFeatureTests(unittest.TestCase):
         self.assertEqual(len(rows), max(1, before_count - 1))
         self.assertEqual(table.attrib.get("rowCnt"), str(len(rows)))
 
+    def test_table_columns_appends_values_and_updates_count(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        with zipfile.ZipFile(source) as zf:
+            before_section = ET.fromstring(zf.read("Contents/section0.xml"))
+        before_table = next(before_section.iter(f"{{{HP_NS}}}tbl"))
+        before_count = int(before_table.attrib.get("colCnt", "0"))
+
+        output = Path("outputs/test_table_columns_append.hwpx")
+        apply_standard_features(
+            source,
+            output,
+            [{"key": "table_columns", "params": {"mode": "append", "position": "right", "count": 1, "values": [["Added column"]]}}],
+        )
+
+        with zipfile.ZipFile(output) as zf:
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+            section_text = zf.read("Contents/section0.xml").decode("utf-8", errors="replace")
+        table = next(section.iter(f"{{{HP_NS}}}tbl"))
+
+        self.assertEqual(table.attrib.get("colCnt"), str(before_count + 1))
+        self.assertIn("Added column", section_text)
+
+    def test_table_columns_deletes_column_and_updates_count(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        with zipfile.ZipFile(source) as zf:
+            before_section = ET.fromstring(zf.read("Contents/section0.xml"))
+        before_table = next(before_section.iter(f"{{{HP_NS}}}tbl"))
+        before_count = int(before_table.attrib.get("colCnt", "0"))
+
+        output = Path("outputs/test_table_columns_delete.hwpx")
+        apply_standard_features(source, output, [{"key": "table_columns", "params": {"mode": "delete", "position": "right", "count": 1}}])
+
+        with zipfile.ZipFile(output) as zf:
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+        table = next(section.iter(f"{{{HP_NS}}}tbl"))
+
+        self.assertEqual(table.attrib.get("colCnt"), str(max(1, before_count - 1)))
+
 
 if __name__ == "__main__":
     unittest.main()

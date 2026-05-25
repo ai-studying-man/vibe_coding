@@ -196,6 +196,7 @@ def _match_features(name: str, actions: list[str]) -> list[str]:
         "table_dimensions": ["표크기", "셀크기", "resize", "width", "height", "tablepropertydialog"],
         "table_merge_split": ["병합", "나누기", "merge", "split", "tablemergecell"],
         "table_rows": ["행추가", "행삭제", "tablerightcellappend", "tableinsertlowerrow", "tabledeleterow", "appendrow", "deleterow"],
+        "table_columns": ["열추가", "열삭제", "tableinsertleftcolumn", "tableinsertrightcolumn", "tabledeletecolumn", "appendcolumn", "deletecolumn"],
         "table_sort": ["오름차순", "내림차순", "sort"],
         "character_emphasis": ["charshapebold", "charshapenormal", "bold", "italic"],
         "superscript_subscript": ["charshapesuperscript", "charshapesubscript", "superscript", "subscript"],
