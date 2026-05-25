@@ -161,6 +161,22 @@ class HwpxFeatureTests(unittest.TestCase):
         offset = page_border.find(f"{{{HP_NS}}}offset")
         self.assertEqual(offset.attrib.get("left"), "1701")
 
+    def test_apply_page_number_sets_start_and_visibility(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        output = Path("outputs/test_page_number.hwpx")
+        apply_standard_features(source, output, [{"key": "page_number", "params": {"mode": "hide", "start": 3}}])
+
+        with zipfile.ZipFile(output) as zf:
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+
+        start_num = next(section.iter(f"{{{HP_NS}}}startNum"))
+        visibility = next(section.iter(f"{{{HP_NS}}}visibility"))
+        self.assertEqual(start_num.attrib.get("page"), "3")
+        self.assertEqual(visibility.attrib.get("hideFirstPageNum"), "1")
+
     def test_numeric_calculation_expands_arrow_change(self):
         source = Path("outputs/plan_report.hwpx")
         if not source.exists():

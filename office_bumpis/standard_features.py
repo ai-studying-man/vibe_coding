@@ -228,6 +228,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "page_number",
+        "쪽번호 표시/숨김/새 번호",
+        FeatureCategory.TEMPLATE_BLOCK,
+        ("쪽번호", "쪽새번호", "쪽번호숨기기", "쪽번호보이기", "쪽번호초기화", "PageNumPos", "NewNumber", "PageHiding"),
+        "hp:startNum page 값과 hp:visibility hideFirstPageNum 속성을 갱신",
+        True,
+    ),
+    StandardFeature(
         "numeric_calculation",
         "금액/증감/비율 계산",
         FeatureCategory.CALCULATION,

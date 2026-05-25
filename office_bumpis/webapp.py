@@ -83,6 +83,7 @@ WEB_FEATURE_OPTIONS: tuple[tuple[str, str, bool], ...] = (
     ("document_blocks", "검토 블록 추가", False),
     ("control_characters", "탭/줄바꿈 토큰", False),
     ("page_break", "쪽 나누기", False),
+    ("page_number", "쪽번호", False),
     ("numeric_calculation", "증감계산", False),
 )
 
@@ -464,6 +465,8 @@ def _web_feature_params(key: str) -> dict:
         return {}
     if key == "page_break":
         return {"insert_blank": True}
+    if key == "page_number":
+        return {"mode": "show", "start": 1}
     return {}
 
 

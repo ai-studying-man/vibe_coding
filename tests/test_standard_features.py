@@ -15,6 +15,7 @@ class StandardFeatureTests(unittest.TestCase):
         self.assertIn("font_family", keys)
         self.assertIn("page_layout", keys)
         self.assertIn("page_border", keys)
+        self.assertIn("page_number", keys)
         self.assertIn("cleanup_whitespace", keys)
 
 

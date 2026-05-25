@@ -193,6 +193,8 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
         _apply_control_characters(section_roots, params)
     elif key == "page_break":
         _apply_page_break(section_roots, params)
+    elif key == "page_number":
+        _apply_page_number(section_roots, params)
     else:
         raise ValueError(f"Unsupported standard feature: {key}")
 
@@ -762,6 +764,30 @@ def _apply_page_break(section_roots: dict[str, ET.Element], params: dict[str, ob
         else:
             target.attrib["pageBreak"] = "1"
         return
+
+
+def _apply_page_number(section_roots: dict[str, ET.Element], params: dict[str, object]) -> None:
+    mode = str(params.get("mode", "show")).strip().lower()
+    for root in section_roots.values():
+        for start_num in root.iter(f"{{{HP_NS}}}startNum"):
+            if params.get("start") is not None:
+                start_num.attrib["page"] = str(int(params["start"]))
+            if params.get("pic") is not None:
+                start_num.attrib["pic"] = str(int(params["pic"]))
+            if params.get("tbl") is not None:
+                start_num.attrib["tbl"] = str(int(params["tbl"]))
+            if params.get("equation") is not None:
+                start_num.attrib["equation"] = str(int(params["equation"]))
+        for visibility in root.iter(f"{{{HP_NS}}}visibility"):
+            if mode in {"hide", "hidden", "off"}:
+                visibility.attrib["hideFirstPageNum"] = "1"
+            elif mode in {"show", "visible", "on"}:
+                visibility.attrib["hideFirstPageNum"] = "0"
+            elif mode in {"reset", "restart"}:
+                visibility.attrib["hideFirstPageNum"] = "0"
+        if mode in {"reset", "restart"}:
+            for start_num in root.iter(f"{{{HP_NS}}}startNum"):
+                start_num.attrib["page"] = str(int(params.get("start", 1)))
 
 
 def _paragraph_text(paragraph: ET.Element) -> str:

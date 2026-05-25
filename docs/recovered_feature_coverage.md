@@ -4,8 +4,8 @@
 
 - Source root: `recovered_source`
 - Recovered symbols: 2593
-- Matched symbols: 1070
-- Unmatched symbols: 1523
+- Matched symbols: 1075
+- Unmatched symbols: 1518
 - HAction calls: 5712
 
 ## Feature Hits
@@ -24,6 +24,7 @@
 | page_border | 3 |
 | page_break | 30 |
 | page_layout | 29 |
+| page_number | 5 |
 | paragraph_alignment | 304 |
 | paragraph_spacing | 323 |
 | remove_empty_lines | 1 |
@@ -170,6 +171,11 @@
 | function | 셀한줄 | table_dimensions | hancom_library.py:831 |
 | function | 자간헌터 | paragraph_spacing | hancom_library.py:854 |
 | function | 제목셀반복 | document_blocks, table_dimensions | hancom_library.py:894 |
+| function | 쪽번호 | page_number | hancom_library.py:912 |
+| function | 쪽새번호 | page_number | hancom_library.py:920 |
+| function | 쪽번호숨기기 | page_number | hancom_library.py:929 |
+| function | 쪽번호보이기 | page_number | hancom_library.py:937 |
+| function | 쪽번호초기화 | page_number | hancom_library.py:945 |
 | function | 줄간격 | paragraph_spacing | hancom_library.py:956 |
 | function | 중고딕 | font_color, font_family | hancom_library.py:973 |
 | function | 탭점선설정 | paragraph_spacing | hancom_library.py:1009 |
@@ -203,8 +209,3 @@
 | function | 문장쌈 | document_blocks | hancom_library.py:1882 |
 | function | 블록계산 | document_blocks, numeric_calculation | hancom_library.py:1898 |
 | function | 블록글머리 | document_blocks | hancom_library.py:1923 |
-| function | 블록금액비율 | document_blocks, numeric_calculation | hancom_library.py:1940 |
-| function | 블록순환 | document_blocks | hancom_library.py:1948 |
-| function | 블록여러줄 | document_blocks | hancom_library.py:1960 |
-| function | 블록여백정리 | document_blocks | hancom_library.py:1971 |
-| function | 블록엔터코드 | document_blocks | hancom_library.py:1980 |

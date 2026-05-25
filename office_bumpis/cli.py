@@ -83,6 +83,8 @@ def main(argv: list[str] | None = None) -> None:
     generate_from_template.add_argument("--page-border-width", default="0.1 mm", help="Page border width for page_border.")
     generate_from_template.add_argument("--page-border-type", default="SOLID", help="Page border type for page_border.")
     generate_from_template.add_argument("--remove-page-border", action="store_true", help="Remove page border lines for page_border.")
+    generate_from_template.add_argument("--page-number-mode", choices=["show", "hide", "reset"], default="show", help="Mode for page_number.")
+    generate_from_template.add_argument("--page-number-start", type=int, help="Start page number for page_number.")
     generate_from_template.add_argument("--row-mode", choices=["append", "delete"], default="append", help="Mode for table_rows.")
     generate_from_template.add_argument("--row-count", type=int, default=1, help="Number of rows for table_rows.")
     generate_from_template.add_argument("--row-values", action="append", help="Pipe-delimited row values for table_rows. Repeat for multiple rows.")
@@ -143,6 +145,8 @@ def main(argv: list[str] | None = None) -> None:
     apply_feature.add_argument("--page-border-width", default="0.1 mm", help="Page border width for page_border.")
     apply_feature.add_argument("--page-border-type", default="SOLID", help="Page border type for page_border.")
     apply_feature.add_argument("--remove-page-border", action="store_true", help="Remove page border lines for page_border.")
+    apply_feature.add_argument("--page-number-mode", choices=["show", "hide", "reset"], default="show", help="Mode for page_number.")
+    apply_feature.add_argument("--page-number-start", type=int, help="Start page number for page_number.")
     apply_feature.add_argument("--border-width", default="0.1 mm")
     apply_feature.add_argument("--border-type", default="SOLID")
     apply_feature.add_argument("--strike", action="store_true")
@@ -430,6 +434,10 @@ def _feature_params_from_args(feature: str, args) -> dict:
             params["offset"] = args.page_border_offset
         if getattr(args, "remove_page_border", False):
             params["remove"] = True
+    if feature == "page_number":
+        params["mode"] = getattr(args, "page_number_mode", "show")
+        if getattr(args, "page_number_start", None) is not None:
+            params["start"] = args.page_number_start
     if feature == "strike_or_underline":
         params["strike"] = bool(getattr(args, "strike", False))
         params["underline"] = not bool(getattr(args, "no_underline", False))

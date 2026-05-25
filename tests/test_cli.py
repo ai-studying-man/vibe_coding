@@ -303,6 +303,40 @@ class CliTests(unittest.TestCase):
         self.assertIn("#005BAC", header)
         self.assertIn('left="1701"', section)
 
+    def test_apply_feature_accepts_page_number_cli_options(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        output = Path("outputs/test_cli_apply_page_number.hwpx")
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "office_bumpis",
+                "apply-feature",
+                str(source),
+                "-o",
+                str(output),
+                "--feature",
+                "page_number",
+                "--page-number-mode",
+                "hide",
+                "--page-number-start",
+                "3",
+            ],
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        with zipfile.ZipFile(output) as zf:
+            section = zf.read("Contents/section0.xml").decode("utf-8", errors="replace")
+        self.assertIn('page="3"', section)
+        self.assertIn('hideFirstPageNum="1"', section)
+
 
 if __name__ == "__main__":
     unittest.main()

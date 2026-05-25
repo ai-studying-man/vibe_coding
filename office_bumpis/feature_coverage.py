@@ -205,6 +205,7 @@ def _match_features(name: str, actions: list[str]) -> list[str]:
         "character_spacing": ["charshapespacingincrease", "spacingincrease", "characterspacing"],
         "control_characters": ["inserttab", "insertfixedwidthspace", "breakpara"],
         "page_break": ["breakpage", "pagebreak"],
+        "page_number": ["쪽번호", "pagenumpos", "newnumber", "pagehiding", "hidefirstpagenum", "deletectrls"],
         "document_blocks": ["제목", "소제목", "붙임", "개요", "보고", "공문", "문장", "블록"],
         "numeric_calculation": ["계산", "금액", "비율", "증감", "sum", "formula"],
     }

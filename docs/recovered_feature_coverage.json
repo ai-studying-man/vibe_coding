@@ -2,8 +2,8 @@
   "source_root": "recovered_source",
   "recovered_symbol_count": 2593,
   "haction_count": 5712,
-  "matched_symbol_count": 1070,
-  "unmatched_symbol_count": 1523,
+  "matched_symbol_count": 1075,
+  "unmatched_symbol_count": 1518,
   "feature_hits": {
     "character_emphasis": 181,
     "character_spacing": 9,
@@ -17,6 +17,7 @@
     "page_border": 3,
     "page_break": 30,
     "page_layout": 29,
+    "page_number": 5,
     "paragraph_alignment": 304,
     "paragraph_spacing": 323,
     "remove_empty_lines": 1,
@@ -38,7 +39,7 @@
     "paragraph_style": 627,
     "table_structure": 275,
     "table_style": 169,
-    "template_block": 899,
+    "template_block": 904,
     "text_cleanup": 20
   },
   "haction_hits": {
@@ -1715,7 +1716,9 @@
       "actions": [
         "PageNumPos"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_number"
+      ]
     },
     {
       "name": "쪽새번호",
@@ -1725,7 +1728,9 @@
       "actions": [
         "NewNumber"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_number"
+      ]
     },
     {
       "name": "쪽번호숨기기",
@@ -1735,7 +1740,9 @@
       "actions": [
         "PageHiding"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_number"
+      ]
     },
     {
       "name": "쪽번호보이기",
@@ -1745,7 +1752,9 @@
       "actions": [
         "PageHiding"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_number"
+      ]
     },
     {
       "name": "쪽번호초기화",
@@ -1755,7 +1764,9 @@
       "actions": [
         "DeleteCtrls"
       ],
-      "matched_features": []
+      "matched_features": [
+        "page_number"
+      ]
     },
     {
       "name": "줄간격",
