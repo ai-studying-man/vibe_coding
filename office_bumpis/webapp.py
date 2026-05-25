@@ -69,6 +69,7 @@ WEB_FEATURE_OPTIONS: tuple[tuple[str, str, bool], ...] = (
     ("superscript_subscript", "위첨자", False),
     ("character_spacing", "자간", False),
     ("character_width", "장평", False),
+    ("character_shadow", "글자그림자", False),
     ("paragraph_alignment", "문단 정렬", False),
     ("paragraph_spacing", "문단 간격", False),
     ("page_layout", "문서 여백", False),
@@ -444,6 +445,8 @@ def _web_feature_params(key: str) -> dict:
         return {"spacing": "5"}
     if key == "character_width":
         return {"ratio": "100"}
+    if key == "character_shadow":
+        return {"type": "DROP", "offset_x": "10", "offset_y": "10", "color": "#C0C0C0"}
     if key == "paragraph_alignment":
         return {"horizontal": "JUSTIFY"}
     if key == "paragraph_spacing":

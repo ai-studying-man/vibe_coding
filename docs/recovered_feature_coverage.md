@@ -13,6 +13,7 @@
 | Feature | Hits |
 | --- | ---: |
 | character_emphasis | 181 |
+| character_shadow | 1 |
 | character_spacing | 9 |
 | character_width | 8 |
 | cleanup_whitespace | 19 |
@@ -129,7 +130,7 @@
 | function | 탭 | control_characters | hancom_library.py:220 |
 | function | 고급붙임 | document_blocks | hancom_library.py:224 |
 | function | 글자간격 | character_spacing, font_color, font_family | hancom_library.py:247 |
-| function | 글자그림자 | font_color, font_family | hancom_library.py:261 |
+| function | 글자그림자 | character_shadow, font_color, font_family | hancom_library.py:261 |
 | function | 글자마이 | font_color, font_family, font_size, table_dimensions | hancom_library.py:271 |
 | function | 글자문단모양복사 | paragraph_spacing | hancom_library.py:276 |
 | function | 글자색 | font_color, font_family | hancom_library.py:284 |

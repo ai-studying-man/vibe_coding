@@ -204,6 +204,7 @@ def _match_features(name: str, actions: list[str]) -> list[str]:
         "superscript_subscript": ["charshapesuperscript", "charshapesubscript", "superscript", "subscript"],
         "character_spacing": ["charshapespacingincrease", "spacingincrease", "characterspacing"],
         "character_width": ["글자장평", "장평", "charshapewidthincrease", "charshapewidthdecrease", "ratiohangul"],
+        "character_shadow": ["글자그림자", "shadowtype", "shadowoffset", "charshadowtype"],
         "control_characters": ["inserttab", "insertfixedwidthspace", "breakpara"],
         "page_break": ["breakpage", "pagebreak"],
         "page_number": ["쪽번호", "pagenumpos", "newnumber", "pagehiding", "hidefirstpagenum", "deletectrls"],

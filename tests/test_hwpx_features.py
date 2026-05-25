@@ -79,6 +79,32 @@ class HwpxFeatureTests(unittest.TestCase):
         runs = [run for run in section.iter(f"{{{HP_NS}}}run") if run.attrib.get("charPrIDRef") == new_id]
         self.assertTrue(runs)
 
+    def test_apply_character_shadow_creates_shadow_style(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        output = Path("outputs/test_character_shadow.hwpx")
+        apply_standard_features(
+            source,
+            output,
+            [{"key": "character_shadow", "params": {"type": "DROP", "offset_x": 7, "offset_y": 9, "color": "#808080"}}],
+        )
+
+        with zipfile.ZipFile(output) as zf:
+            header = ET.fromstring(zf.read("Contents/header.xml"))
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+
+        shadow_styles = []
+        for char_pr in header.iter(f"{{{HH_NS}}}charPr"):
+            shadow = char_pr.find(f"{{{HH_NS}}}shadow")
+            if shadow is not None and shadow.attrib.get("type") == "DROP" and shadow.attrib.get("offsetX") == "7":
+                shadow_styles.append(char_pr)
+        self.assertTrue(shadow_styles)
+        new_id = shadow_styles[-1].attrib["id"]
+        runs = [run for run in section.iter(f"{{{HP_NS}}}run") if run.attrib.get("charPrIDRef") == new_id]
+        self.assertTrue(runs)
+
     def test_apply_transparent_table_sets_cell_border_fill(self):
         source = Path("_analysis/templates_ascii/template_1.hwpx")
         if not source.exists():

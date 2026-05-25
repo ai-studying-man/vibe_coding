@@ -116,6 +116,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "character_shadow",
+        "글자그림자",
+        FeatureCategory.CHARACTER_STYLE,
+        ("글자그림자", "ShadowType", "ShadowOffsetX", "ShadowOffsetY", "CharShadowType"),
+        "hh:charPr shadow type/color/offset 속성을 새 charPr에 적용",
+        True,
+    ),
+    StandardFeature(
         "paragraph_alignment",
         "문단 정렬",
         FeatureCategory.PARAGRAPH_STYLE,

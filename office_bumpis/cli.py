@@ -71,6 +71,12 @@ def main(argv: list[str] | None = None) -> None:
     generate_from_template.add_argument("--font-face", help="Font face for font_family, e.g. 함초롬바탕 or 휴먼명조.")
     generate_from_template.add_argument("--latin-font-face", help="Optional Latin font face for font_family.")
     generate_from_template.add_argument("--character-width", help="Character width ratio for character_width, e.g. 92 or 100.")
+    generate_from_template.add_argument("--shadow-type", default="DROP", help="Shadow type for character_shadow.")
+    generate_from_template.add_argument("--shadow-color", help="Shadow color for character_shadow.")
+    generate_from_template.add_argument("--shadow-offset", help="Default X/Y shadow offset for character_shadow.")
+    generate_from_template.add_argument("--shadow-offset-x", help="X shadow offset for character_shadow.")
+    generate_from_template.add_argument("--shadow-offset-y", help="Y shadow offset for character_shadow.")
+    generate_from_template.add_argument("--remove-shadow", action="store_true", help="Disable shadow for character_shadow.")
     generate_from_template.add_argument("--page-margin", type=float, help="Default page margin in millimeters for page_layout.")
     generate_from_template.add_argument("--page-left", type=float, help="Left page margin in millimeters for page_layout.")
     generate_from_template.add_argument("--page-right", type=float, help="Right page margin in millimeters for page_layout.")
@@ -153,6 +159,12 @@ def main(argv: list[str] | None = None) -> None:
     apply_feature.add_argument("--strike", action="store_true")
     apply_feature.add_argument("--no-underline", action="store_true")
     apply_feature.add_argument("--character-width", help="Character width ratio for character_width, e.g. 92 or 100.")
+    apply_feature.add_argument("--shadow-type", default="DROP", help="Shadow type for character_shadow.")
+    apply_feature.add_argument("--shadow-color", help="Shadow color for character_shadow.")
+    apply_feature.add_argument("--shadow-offset", help="Default X/Y shadow offset for character_shadow.")
+    apply_feature.add_argument("--shadow-offset-x", help="X shadow offset for character_shadow.")
+    apply_feature.add_argument("--shadow-offset-y", help="Y shadow offset for character_shadow.")
+    apply_feature.add_argument("--remove-shadow", action="store_true", help="Disable shadow for character_shadow.")
     apply_feature.add_argument("--horizontal", default="CENTER", help="Paragraph alignment for paragraph_alignment.")
     apply_feature.add_argument("--line-spacing", default="160", help="Line spacing value for paragraph_spacing.")
     apply_feature.add_argument("--margin", help="Cell margin for table_dimensions.")
@@ -445,6 +457,18 @@ def _feature_params_from_args(feature: str, args) -> dict:
         params["underline"] = not bool(getattr(args, "no_underline", False))
     if feature == "character_width":
         params["ratio"] = getattr(args, "character_width", None) or "100"
+    if feature == "character_shadow":
+        params["type"] = getattr(args, "shadow_type", None) or "DROP"
+        if getattr(args, "shadow_color", None):
+            params["color"] = args.shadow_color
+        if getattr(args, "shadow_offset", None):
+            params["offset"] = args.shadow_offset
+        if getattr(args, "shadow_offset_x", None):
+            params["offset_x"] = args.shadow_offset_x
+        if getattr(args, "shadow_offset_y", None):
+            params["offset_y"] = args.shadow_offset_y
+        if getattr(args, "remove_shadow", False):
+            params["remove"] = True
     if feature == "paragraph_alignment":
         params["horizontal"] = getattr(args, "horizontal", None) or "CENTER"
     if feature == "paragraph_spacing":

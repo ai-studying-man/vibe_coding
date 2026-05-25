@@ -6,6 +6,7 @@
   "unmatched_symbol_count": 1518,
   "feature_hits": {
     "character_emphasis": 181,
+    "character_shadow": 1,
     "character_spacing": 9,
     "character_width": 8,
     "cleanup_whitespace": 19,
@@ -36,7 +37,7 @@
   },
   "category_hits": {
     "calculation": 40,
-    "character_style": 727,
+    "character_style": 728,
     "paragraph_style": 627,
     "table_structure": 275,
     "table_style": 169,
@@ -1023,6 +1024,7 @@
         "CharShape"
       ],
       "matched_features": [
+        "character_shadow",
         "font_color",
         "font_family"
       ]

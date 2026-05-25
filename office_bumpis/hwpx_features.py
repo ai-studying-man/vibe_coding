@@ -129,6 +129,10 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
         _require_header(header_root)
         char_id = _create_char_style(header_root, ratio=str(params.get("ratio", params.get("value", "100"))))
         _apply_char_style(section_roots, char_id)
+    elif key == "character_shadow":
+        _require_header(header_root)
+        char_id = _create_char_style(header_root, shadow=params)
+        _apply_char_style(section_roots, char_id)
     elif key == "table_background":
         _require_header(header_root)
         border_id = _create_border_fill(
@@ -238,6 +242,8 @@ def _create_char_style(header_root: ET.Element, **updates: object) -> str:
             _set_language_attrs(_ensure_child(clone, f"{{{HH_NS}}}spacing"), str(value))
         elif key == "ratio":
             _set_language_attrs(_ensure_child(clone, f"{{{HH_NS}}}ratio"), str(value))
+        elif key == "shadow":
+            _set_shadow(clone, value if isinstance(value, dict) else {})
         elif key == "fontRefs":
             _set_font_refs(clone, value if isinstance(value, dict) else {})
         elif value is not None:
@@ -911,6 +917,26 @@ def _set_normal_char_style(char_pr: ET.Element) -> None:
 def _set_supscript(char_pr: ET.Element, script_type: str) -> None:
     supscript = _ensure_child(char_pr, f"{{{HH_NS}}}supscript")
     supscript.attrib["type"] = _normalize_script_type(script_type)
+
+
+def _set_shadow(char_pr: ET.Element, params: dict[str, object]) -> None:
+    shadow = _ensure_child(char_pr, f"{{{HH_NS}}}shadow")
+    if bool(params.get("remove", False)):
+        shadow.attrib.clear()
+        shadow.attrib["type"] = "NONE"
+        return
+
+    shadow_type = str(params.get("type", "DROP")).strip().upper() or "DROP"
+    if shadow_type in {"OFF", "FALSE", "0"}:
+        shadow_type = "NONE"
+    shadow.attrib["type"] = shadow_type
+    if shadow_type == "NONE":
+        return
+
+    offset = params.get("offset", "10")
+    shadow.attrib["color"] = _normalize_color(params.get("color", "#C0C0C0"))
+    shadow.attrib["offsetX"] = str(params.get("offset_x", params.get("x", offset)))
+    shadow.attrib["offsetY"] = str(params.get("offset_y", params.get("y", offset)))
 
 
 def _set_language_attrs(elem: ET.Element, value: str) -> None:
