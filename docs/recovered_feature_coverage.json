@@ -21,6 +21,7 @@
     "page_layout": 29,
     "page_number": 5,
     "paragraph_alignment": 304,
+    "paragraph_background": 1,
     "paragraph_spacing": 323,
     "remove_empty_lines": 1,
     "strike_or_underline": 9,
@@ -39,7 +40,7 @@
   "category_hits": {
     "calculation": 40,
     "character_style": 728,
-    "paragraph_style": 627,
+    "paragraph_style": 628,
     "table_structure": 275,
     "table_style": 179,
     "template_block": 904,
@@ -1329,6 +1330,7 @@
         "ParagraphShape"
       ],
       "matched_features": [
+        "paragraph_background",
         "paragraph_spacing",
         "text_background"
       ]

@@ -68,6 +68,7 @@ python -m office_bumpis apply-feature `
 - `strike_or_underline`: 취소선/밑줄
 - `paragraph_alignment`: 문단 정렬
 - `paragraph_spacing`: 문단 간격
+- `paragraph_background`: 문단 음영. `params.color`로 문단 배경색을 지정하고 `params.offset`으로 문단 테두리 오프셋을 지정한다.
 - `page_layout`: 문서 여백/용지. `params.left/right/top/bottom/header/footer`는 mm 기준이며 `params.orientation`은 `portrait` 또는 `landscape`를 받는다.
 - `page_border`: 문서 테두리. `params.type`, `params.width`, `params.color`, `params.offset`으로 페이지 경계선과 오프셋을 적용하고 `params.remove`로 제거한다.
 - `page_number`: 쪽번호 표시/숨김/새 번호. `params.mode`는 `show`, `hide`, `reset`, `params.start`는 시작 쪽번호다.

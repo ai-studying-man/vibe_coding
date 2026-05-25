@@ -28,6 +28,7 @@
 | page_layout | 29 |
 | page_number | 5 |
 | paragraph_alignment | 304 |
+| paragraph_background | 1 |
 | paragraph_spacing | 323 |
 | remove_empty_lines | 1 |
 | strike_or_underline | 9 |
@@ -147,7 +148,7 @@
 | function | 문단여백측정 | page_layout, paragraph_spacing | hancom_library.py:553 |
 | function | 문단위 | paragraph_spacing | hancom_library.py:561 |
 | function | 문단아래 | paragraph_spacing | hancom_library.py:569 |
-| function | 문단음영 | paragraph_spacing, text_background | hancom_library.py:577 |
+| function | 문단음영 | paragraph_background, paragraph_spacing, text_background | hancom_library.py:577 |
 | function | 문서여백 | page_layout | hancom_library.py:583 |
 | function | 문서여백새페이지 | page_layout | hancom_library.py:595 |
 | function | 문서용지복사 | page_layout | hancom_library.py:607 |

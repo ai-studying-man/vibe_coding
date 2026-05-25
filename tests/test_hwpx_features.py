@@ -175,6 +175,31 @@ class HwpxFeatureTests(unittest.TestCase):
         paragraphs = [paragraph for paragraph in section.iter(f"{{{HP_NS}}}p") if paragraph.attrib.get("paraPrIDRef") == new_id]
         self.assertTrue(paragraphs)
 
+    def test_apply_paragraph_background_creates_border_fill_para_style(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        output = Path("outputs/test_paragraph_background.hwpx")
+        apply_standard_features(source, output, [{"key": "paragraph_background", "params": {"color": "#DDEEFF", "offset": "10"}}])
+
+        with zipfile.ZipFile(output) as zf:
+            header = ET.fromstring(zf.read("Contents/header.xml"))
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+
+        new_border = list(header.iter(f"{{{HH_NS}}}borderFill"))[-1]
+        self.assertIn("#DDEEFF", ET.tostring(new_border, encoding="unicode"))
+        para_styles = []
+        for para_pr in header.iter(f"{{{HH_NS}}}paraPr"):
+            border = para_pr.find(f"{{{HH_NS}}}border")
+            if border is not None and border.attrib.get("borderFillIDRef") == new_border.attrib["id"]:
+                para_styles.append(para_pr)
+                self.assertEqual(border.attrib.get("offsetLeft"), "10")
+        self.assertTrue(para_styles)
+        new_id = para_styles[-1].attrib["id"]
+        paragraphs = [paragraph for paragraph in section.iter(f"{{{HP_NS}}}p") if paragraph.attrib.get("paraPrIDRef") == new_id]
+        self.assertTrue(paragraphs)
+
     def test_apply_table_dimensions_sets_cell_margin(self):
         source = Path("_analysis/templates_ascii/template_1.hwpx")
         if not source.exists():

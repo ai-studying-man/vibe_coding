@@ -178,6 +178,25 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
             margin_right=str(params.get("right", params.get("margin_right", "0"))),
         )
         _apply_para_style(section_roots, para_id)
+    elif key == "paragraph_background":
+        _require_header(header_root)
+        border_id = _create_border_fill(
+            header_root,
+            border_type=str(params.get("border_type", "NONE")),
+            border_width=str(params.get("border_width", "0.1 mm")),
+            border_color=_normalize_color(params.get("border_color", "#000000")),
+            fill_color=_normalize_color(params.get("color", "#FFF2CC")),
+            remove_fill=bool(params.get("remove", False)),
+        )
+        para_id = _create_para_style(
+            header_root,
+            border_fill_id=border_id,
+            border_offset_left=str(params.get("offset_left", params.get("offset", "0"))),
+            border_offset_right=str(params.get("offset_right", params.get("offset", "0"))),
+            border_offset_top=str(params.get("offset_top", params.get("offset", "0"))),
+            border_offset_bottom=str(params.get("offset_bottom", params.get("offset", "0"))),
+        )
+        _apply_para_style(section_roots, para_id)
     elif key == "page_layout":
         _apply_page_layout(section_roots, params)
     elif key == "page_border":
@@ -329,6 +348,16 @@ def _create_para_style(header_root: ET.Element, **updates: object) -> str:
         margin.attrib.setdefault("indent", "0")
         margin.attrib.setdefault("prev", "0")
         margin.attrib.setdefault("next", "0")
+
+    if updates.get("border_fill_id") is not None:
+        border = _ensure_child(clone, f"{{{HH_NS}}}border")
+        border.attrib["borderFillIDRef"] = str(updates["border_fill_id"])
+        border.attrib["offsetLeft"] = str(updates.get("border_offset_left", "0"))
+        border.attrib["offsetRight"] = str(updates.get("border_offset_right", "0"))
+        border.attrib["offsetTop"] = str(updates.get("border_offset_top", "0"))
+        border.attrib["offsetBottom"] = str(updates.get("border_offset_bottom", "0"))
+        border.attrib.setdefault("connect", "0")
+        border.attrib.setdefault("ignoreMargin", "0")
 
     collection.append(clone)
     collection.attrib["itemCnt"] = str(len(list(collection.iter(f"{{{HH_NS}}}paraPr"))))
@@ -1202,6 +1231,11 @@ def _default_para_pr() -> ET.Element:
     )
     ET.SubElement(elem, f"{{{HH_NS}}}lineSpacing", {"type": "PERCENT", "value": "160"})
     ET.SubElement(elem, f"{{{HH_NS}}}margin", {"left": "0", "right": "0", "indent": "0", "prev": "0", "next": "0"})
+    ET.SubElement(
+        elem,
+        f"{{{HH_NS}}}border",
+        {"borderFillIDRef": "0", "offsetLeft": "0", "offsetRight": "0", "offsetTop": "0", "offsetBottom": "0", "connect": "0", "ignoreMargin": "0"},
+    )
     return elem
 
 

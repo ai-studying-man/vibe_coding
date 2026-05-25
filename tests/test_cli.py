@@ -197,6 +197,40 @@ class CliTests(unittest.TestCase):
         self.assertIn("<hh:backSlash", header)
         self.assertIn('type="CENTER"', header)
 
+    def test_apply_feature_accepts_paragraph_background_cli_options(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        output = Path("outputs/test_cli_apply_paragraph_background.hwpx")
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "office_bumpis",
+                "apply-feature",
+                str(source),
+                "-o",
+                str(output),
+                "--feature",
+                "paragraph_background",
+                "--color",
+                "#DDEEFF",
+                "--paragraph-bg-offset",
+                "10",
+            ],
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        with zipfile.ZipFile(output) as zf:
+            header = zf.read("Contents/header.xml").decode("utf-8", errors="replace")
+        self.assertIn("#DDEEFF", header)
+        self.assertIn('offsetLeft="10"', header)
+
     def test_apply_feature_accepts_table_columns_cli_options(self):
         source = Path("_analysis/templates_ascii/template_1.hwpx")
         if not source.exists():

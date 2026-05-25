@@ -140,6 +140,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "paragraph_background",
+        "문단 음영",
+        FeatureCategory.PARAGRAPH_STYLE,
+        ("문단음영", "WinBrushFaceColor"),
+        "hh:borderFill 배경을 생성하고 hh:paraPr borderFillIDRef로 연결",
+        True,
+    ),
+    StandardFeature(
         "page_layout",
         "문서 여백/용지",
         FeatureCategory.TEMPLATE_BLOCK,
