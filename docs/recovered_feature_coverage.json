@@ -22,6 +22,7 @@
     "page_number": 5,
     "paragraph_alignment": 304,
     "paragraph_background": 1,
+    "paragraph_indent": 5,
     "paragraph_spacing": 323,
     "remove_empty_lines": 1,
     "strike_or_underline": 9,
@@ -40,7 +41,7 @@
   "category_hits": {
     "calculation": 40,
     "character_style": 728,
-    "paragraph_style": 628,
+    "paragraph_style": 633,
     "table_structure": 275,
     "table_style": 179,
     "template_block": 904,
@@ -1183,6 +1184,7 @@
         "ParagraphShape"
       ],
       "matched_features": [
+        "paragraph_indent",
         "paragraph_spacing"
       ]
     },
@@ -16864,6 +16866,7 @@
         "font_color",
         "font_family",
         "numeric_calculation",
+        "paragraph_indent",
         "paragraph_spacing",
         "table_rows"
       ]
@@ -17211,6 +17214,7 @@
         "character_spacing",
         "font_color",
         "font_family",
+        "paragraph_indent",
         "paragraph_spacing"
       ]
     },
@@ -24630,6 +24634,7 @@
         "ParagraphShapeIndentAtCaret"
       ],
       "matched_features": [
+        "paragraph_indent",
         "paragraph_spacing"
       ]
     },
@@ -29324,6 +29329,7 @@
         "ParagraphShapeIndentAtCaret"
       ],
       "matched_features": [
+        "paragraph_indent",
         "paragraph_spacing"
       ]
     },

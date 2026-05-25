@@ -94,6 +94,9 @@ def main(argv: list[str] | None = None) -> None:
     generate_from_template.add_argument("--page-number-start", type=int, help="Start page number for page_number.")
     generate_from_template.add_argument("--paragraph-bg-offset", help="Paragraph border offset for paragraph_background.")
     generate_from_template.add_argument("--remove-paragraph-background", action="store_true", help="Remove fill for paragraph_background.")
+    generate_from_template.add_argument("--indent", help="Paragraph indentation/hanging indent value in points for paragraph_indent.")
+    generate_from_template.add_argument("--indent-left", help="Optional left paragraph margin in points for paragraph_indent.")
+    generate_from_template.add_argument("--indent-right", help="Optional right paragraph margin in points for paragraph_indent.")
     generate_from_template.add_argument("--diagonal-direction", choices=["slash", "backslash", "both"], default="slash", help="Direction for table_diagonal.")
     generate_from_template.add_argument("--diagonal-type", default="CENTER", help="Slash/backSlash type for table_diagonal.")
     generate_from_template.add_argument("--remove-diagonal", action="store_true", help="Remove slash/backSlash lines for table_diagonal.")
@@ -161,6 +164,9 @@ def main(argv: list[str] | None = None) -> None:
     apply_feature.add_argument("--page-number-start", type=int, help="Start page number for page_number.")
     apply_feature.add_argument("--paragraph-bg-offset", help="Paragraph border offset for paragraph_background.")
     apply_feature.add_argument("--remove-paragraph-background", action="store_true", help="Remove fill for paragraph_background.")
+    apply_feature.add_argument("--indent", help="Paragraph indentation/hanging indent value in points for paragraph_indent.")
+    apply_feature.add_argument("--indent-left", help="Optional left paragraph margin in points for paragraph_indent.")
+    apply_feature.add_argument("--indent-right", help="Optional right paragraph margin in points for paragraph_indent.")
     apply_feature.add_argument("--diagonal-direction", choices=["slash", "backslash", "both"], default="slash", help="Direction for table_diagonal.")
     apply_feature.add_argument("--diagonal-type", default="CENTER", help="Slash/backSlash type for table_diagonal.")
     apply_feature.add_argument("--remove-diagonal", action="store_true", help="Remove slash/backSlash lines for table_diagonal.")
@@ -498,6 +504,12 @@ def _feature_params_from_args(feature: str, args) -> dict:
             params["offset"] = args.paragraph_bg_offset
         if getattr(args, "remove_paragraph_background", False):
             params["remove"] = True
+    if feature == "paragraph_indent":
+        params["indent"] = getattr(args, "indent", None) or "0"
+        if getattr(args, "indent_left", None):
+            params["left"] = args.indent_left
+        if getattr(args, "indent_right", None):
+            params["right"] = args.indent_right
     if feature == "table_dimensions":
         if getattr(args, "cell_width", None):
             params["cell_width"] = args.cell_width

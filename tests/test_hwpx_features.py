@@ -200,6 +200,29 @@ class HwpxFeatureTests(unittest.TestCase):
         paragraphs = [paragraph for paragraph in section.iter(f"{{{HP_NS}}}p") if paragraph.attrib.get("paraPrIDRef") == new_id]
         self.assertTrue(paragraphs)
 
+    def test_apply_paragraph_indent_sets_margin_indent(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        output = Path("outputs/test_paragraph_indent.hwpx")
+        apply_standard_features(source, output, [{"key": "paragraph_indent", "params": {"indent": -19.8, "left": 5}}])
+
+        with zipfile.ZipFile(output) as zf:
+            header = ET.fromstring(zf.read("Contents/header.xml"))
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+
+        para_styles = []
+        for para_pr in header.iter(f"{{{HH_NS}}}paraPr"):
+            margin = para_pr.find(f"{{{HH_NS}}}margin")
+            if margin is not None and margin.attrib.get("indent") == "-3960":
+                para_styles.append(para_pr)
+                self.assertEqual(margin.attrib.get("left"), "1000")
+        self.assertTrue(para_styles)
+        new_id = para_styles[-1].attrib["id"]
+        paragraphs = [paragraph for paragraph in section.iter(f"{{{HP_NS}}}p") if paragraph.attrib.get("paraPrIDRef") == new_id]
+        self.assertTrue(paragraphs)
+
     def test_apply_table_dimensions_sets_cell_margin(self):
         source = Path("_analysis/templates_ascii/template_1.hwpx")
         if not source.exists():

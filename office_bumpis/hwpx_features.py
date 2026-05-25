@@ -178,6 +178,15 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
             margin_right=str(params.get("right", params.get("margin_right", "0"))),
         )
         _apply_para_style(section_roots, para_id)
+    elif key == "paragraph_indent":
+        _require_header(header_root)
+        para_id = _create_para_style(
+            header_root,
+            margin_indent=_paragraph_point_value(params.get("indent", params.get("value", "0")), params),
+            margin_left=_optional_paragraph_point_value(params.get("left", params.get("margin_left")), params),
+            margin_right=_optional_paragraph_point_value(params.get("right", params.get("margin_right")), params),
+        )
+        _apply_para_style(section_roots, para_id)
     elif key == "paragraph_background":
         _require_header(header_root)
         border_id = _create_border_fill(
@@ -341,10 +350,20 @@ def _create_para_style(header_root: ET.Element, **updates: object) -> str:
         line_spacing.attrib["type"] = str(updates.get("line_spacing_type") or "PERCENT")
         line_spacing.attrib["value"] = str(line_spacing_value)
 
-    if updates.get("margin_left") is not None or updates.get("margin_right") is not None:
+    margin_updates = {
+        "left": updates.get("margin_left"),
+        "right": updates.get("margin_right"),
+        "indent": updates.get("margin_indent"),
+        "prev": updates.get("margin_prev"),
+        "next": updates.get("margin_next"),
+    }
+    if any(value is not None for value in margin_updates.values()):
         margin = _ensure_child(clone, f"{{{HH_NS}}}margin")
-        margin.attrib["left"] = str(updates.get("margin_left") or "0")
-        margin.attrib["right"] = str(updates.get("margin_right") or "0")
+        for name, value in margin_updates.items():
+            if value is not None:
+                margin.attrib[name] = str(value)
+        margin.attrib.setdefault("left", "0")
+        margin.attrib.setdefault("right", "0")
         margin.attrib.setdefault("indent", "0")
         margin.attrib.setdefault("prev", "0")
         margin.attrib.setdefault("next", "0")
@@ -1158,6 +1177,18 @@ def _layout_value(value: object, params: dict[str, object]) -> str:
     if str(params.get("unit", "mm")).lower() in {"hwp", "hwpx", "hwpunit", "raw"}:
         return str(int(float(value)))
     return str(int(round(float(value) * 283.465)))
+
+
+def _optional_paragraph_point_value(value: object, params: dict[str, object]) -> str | None:
+    if value is None:
+        return None
+    return _paragraph_point_value(value, params)
+
+
+def _paragraph_point_value(value: object, params: dict[str, object]) -> str:
+    if str(params.get("unit", "point")).lower() in {"hwp", "hwpx", "hwpunit", "raw"}:
+        return str(int(float(value)))
+    return str(int(round(float(value) * 200)))
 
 
 def _normalize_orientation(value: object) -> str:

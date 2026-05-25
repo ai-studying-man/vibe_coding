@@ -140,6 +140,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "paragraph_indent",
+        "문단 들여쓰기/내어쓰기",
+        FeatureCategory.PARAGRAPH_STYLE,
+        ("내어쓰기", "ParagraphShapeIndentAtCaret", "Indentation"),
+        "hh:paraPr margin indent 속성을 포인트 기준 값에서 HWPUNIT으로 변환해 적용",
+        True,
+    ),
+    StandardFeature(
         "paragraph_background",
         "문단 음영",
         FeatureCategory.PARAGRAPH_STYLE,

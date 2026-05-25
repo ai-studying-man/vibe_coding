@@ -29,6 +29,7 @@
 | page_number | 5 |
 | paragraph_alignment | 304 |
 | paragraph_background | 1 |
+| paragraph_indent | 5 |
 | paragraph_spacing | 323 |
 | remove_empty_lines | 1 |
 | strike_or_underline | 9 |
@@ -142,7 +143,7 @@
 | function | 글자크기찾기 | font_size | hancom_library.py:337 |
 | function | 글자색찾기 | font_color | hancom_library.py:349 |
 | function | 글자플이 | font_color, font_family, font_size, table_dimensions | hancom_library.py:362 |
-| function | 내어쓰기 | paragraph_spacing | hancom_library.py:367 |
+| function | 내어쓰기 | paragraph_indent, paragraph_spacing | hancom_library.py:367 |
 | function | 대각선 | table_border, table_diagonal | hancom_library.py:383 |
 | function | 문단여백 | paragraph_spacing | hancom_library.py:544 |
 | function | 문단여백측정 | page_layout, paragraph_spacing | hancom_library.py:553 |
