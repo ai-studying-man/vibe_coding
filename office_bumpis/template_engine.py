@@ -564,9 +564,17 @@ def _profile_prompt_clues(profile: object | None) -> str:
         cell_texts = getattr(table, "cell_texts", []) or []
         headers = cell_texts[:header_rows] if header_rows else cell_texts[:1]
         header_text = " / ".join(" | ".join(str(cell) for cell in row) for row in headers)
+        style_summary = getattr(table, "style_summary", {}) or {}
+        cell_sizes = ", ".join(str(item) for item in style_summary.get("cellSizes", [])[:4]) if isinstance(style_summary, dict) else ""
+        cell_margins = ", ".join(str(item) for item in style_summary.get("cellMargins", [])[:4]) if isinstance(style_summary, dict) else ""
+        border_refs = ", ".join(str(item) for item in style_summary.get("borderFillRefs", [])[:6]) if isinstance(style_summary, dict) else ""
         lines.append(
             f"- table {index}: columns={getattr(table, 'column_count', 0)}, "
-            f"header_rows={header_rows}, headers={header_text[:120]}"
+            f"header_rows={header_rows}, "
+            f"span={style_summary.get('maxColSpan', 1) if isinstance(style_summary, dict) else 1}x"
+            f"{style_summary.get('maxRowSpan', 1) if isinstance(style_summary, dict) else 1}, "
+            f"cell_sizes={cell_sizes}, cell_margins={cell_margins}, border_fills={border_refs}, "
+            f"headers={header_text[:120]}"
         )
     return "\n".join(lines) if lines else "-"
 

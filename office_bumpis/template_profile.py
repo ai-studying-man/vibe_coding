@@ -49,6 +49,7 @@ class TablePrototype:
     cell_texts: list[list[str]]
     row_attrs: list[dict[str, str]] = field(default_factory=list)
     cell_attrs: list[list[dict]] = field(default_factory=list)
+    style_summary: dict[str, object] = field(default_factory=dict)
 
 
 @dataclass
@@ -194,10 +195,16 @@ def render_profile_markdown(profile: LearnedTemplateProfile) -> str:
             f"{char_style.get('fontFaceHangul', '')} | {char_style.get('height', '')} | "
             f"{para_style.get('horizontalAlign', '')} | {slot.text[:80]} |"
         )
-    lines.extend(["", "## Tables", "", "| Block | Rows | Cols | Header Rows | Data Row | Sample |", "| --- | ---: | ---: | ---: | ---: | --- |"])
+    lines.extend(["", "## Tables", "", "| Block | Rows | Cols | Header Rows | Data Row | Span | Cell Size | Margin | BorderFill | Sample |", "| --- | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- |"])
     for table in profile.tables:
         sample = " / ".join(" | ".join(row[:6]) for row in table.cell_texts[:3])
-        lines.append(f"| {table.block_id} | {table.row_count} | {table.column_count} | {table.header_rows} | {table.data_row_index} | {sample[:120]} |")
+        summary = table.style_summary or {}
+        span = f"{summary.get('maxColSpan', 1)}x{summary.get('maxRowSpan', 1)}"
+        lines.append(
+            f"| {table.block_id} | {table.row_count} | {table.column_count} | {table.header_rows} | "
+            f"{table.data_row_index} | {span} | {_join_summary(summary.get('cellSizes'))} | "
+            f"{_join_summary(summary.get('cellMargins'))} | {_join_summary(summary.get('borderFillRefs'))} | {sample[:120]} |"
+        )
     lines.extend(["", "## Blocks", "", "| Block | Kind | Role | paraPr | charPr | Text |", "| --- | --- | --- | --- | --- | --- |"])
     for block in profile.blocks[:80]:
         lines.append(
@@ -375,9 +382,34 @@ def _extract_table_prototypes(root: ET.Element, section: str, blocks: list[Block
                 cell_texts=cell_texts,
                 row_attrs=row_attrs,
                 cell_attrs=cell_attrs,
+                style_summary=_table_style_summary(row_attrs, cell_attrs),
             )
         )
     return prototypes
+
+
+def _table_style_summary(row_attrs: list[dict[str, str]], cell_attrs: list[list[dict]]) -> dict[str, object]:
+    flat_cells = [cell for row in cell_attrs for cell in row]
+    spans = [cell.get("cellSpan", {}) for cell in flat_cells]
+    sizes = [_attrs_signature(cell.get("cellSz", {}), ("width", "height")) for cell in flat_cells if cell.get("cellSz")]
+    margins = [_attrs_signature(cell.get("cellMargin", {}), ("left", "right", "top", "bottom")) for cell in flat_cells if cell.get("cellMargin")]
+    border_refs = sorted(
+        {
+            str(ref)
+            for cell in flat_cells
+            for ref in (cell.get("borderFillIDRef"), cell.get("cellBorderFill", {}).get("borderFillIDRef"))
+            if ref not in (None, "")
+        }
+    )
+    return {
+        "rowAttrKeys": sorted({key for attrs in row_attrs for key in attrs}),
+        "cellAttrKeys": sorted({key for cell in flat_cells for key in cell}),
+        "maxColSpan": max((_int_attr(span, "colSpan", 1) for span in spans), default=1),
+        "maxRowSpan": max((_int_attr(span, "rowSpan", 1) for span in spans), default=1),
+        "cellSizes": sorted(set(sizes))[:12],
+        "cellMargins": sorted(set(margins))[:12],
+        "borderFillRefs": border_refs[:20],
+    }
 
 
 def _guess_header_rows(rows: list[list[str]]) -> int:
@@ -428,11 +460,28 @@ def _node_text(elem: ET.Element) -> str:
 
 def _cell_style_attrs(cell: ET.Element) -> dict:
     attrs: dict = dict(cell.attrib)
-    for child_name in ("cellAddr", "cellSpan", "cellSz", "cellMargin"):
+    for child_name in ("cellAddr", "cellSpan", "cellSz", "cellMargin", "cellBorderFill"):
         child = cell.find(f"{{{HP_NS}}}{child_name}")
         if child is not None:
             attrs[child_name] = dict(child.attrib)
     return attrs
+
+
+def _attrs_signature(attrs: dict, keys: tuple[str, ...]) -> str:
+    return "/".join(str(attrs.get(key, "")) for key in keys)
+
+
+def _int_attr(attrs: dict, key: str, default: int) -> int:
+    try:
+        return int(attrs.get(key, default))
+    except (TypeError, ValueError):
+        return default
+
+
+def _join_summary(value: object) -> str:
+    if isinstance(value, list):
+        return ", ".join(str(item) for item in value[:6])
+    return str(value or "")
 
 
 def _numeric_sort_key(value: str) -> tuple[int, str]:

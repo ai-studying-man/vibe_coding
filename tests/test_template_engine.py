@@ -63,6 +63,8 @@ class TemplateEngineTests(unittest.TestCase):
         self.assertIn("section Contents/section0.xml", prompt)
         self.assertIn("font=", prompt)
         self.assertIn("table 1", prompt)
+        self.assertIn("span=", prompt)
+        self.assertIn("cell_margins=", prompt)
         self.assertIn("tables", prompt)
 
     def test_draft_from_text_can_fit_body_slot_count(self):
