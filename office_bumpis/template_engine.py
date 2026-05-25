@@ -48,6 +48,7 @@ class StyleSummary:
     table_samples: list[dict[str, str]]
     font_faces: dict[str, dict[str, dict[str, str]]] = field(default_factory=dict)
     border_fills: dict[str, dict] = field(default_factory=dict)
+    section_styles: dict[str, dict[str, dict[str, str]]] = field(default_factory=dict)
 
 
 @dataclass
@@ -254,8 +255,10 @@ def _extract_style_summary(zf: zipfile.ZipFile, section_files: list[str]) -> Sty
     table_count = 0
     cell_count = 0
     table_samples: list[dict[str, str]] = []
+    section_styles: dict[str, dict[str, dict[str, str]]] = {}
     for section in section_files:
         root = ET.fromstring(zf.read(section))
+        section_styles[section] = _extract_section_style(root)
         for table in root.iter(f"{{{HP_NS}}}tbl"):
             table_count += 1
             if len(table_samples) < 10:
@@ -273,7 +276,31 @@ def _extract_style_summary(zf: zipfile.ZipFile, section_files: list[str]) -> Sty
         table_samples=table_samples,
         font_faces=font_faces,
         border_fills=border_fills,
+        section_styles=section_styles,
     )
+
+
+def _extract_section_style(root: ET.Element) -> dict[str, dict[str, str]]:
+    sec_pr = next(root.iter(f"{{{HP_NS}}}secPr"), None)
+    if sec_pr is None:
+        return {}
+    page_pr = sec_pr.find(f"{{{HP_NS}}}pagePr")
+    margin = page_pr.find(f"{{{HP_NS}}}margin") if page_pr is not None else None
+    page_border = sec_pr.find(f"{{{HP_NS}}}pageBorderFill")
+    page_border_offset = page_border.find(f"{{{HP_NS}}}offset") if page_border is not None else None
+    grid = sec_pr.find(f"{{{HP_NS}}}grid")
+    start_num = sec_pr.find(f"{{{HP_NS}}}startNum")
+    visibility = sec_pr.find(f"{{{HP_NS}}}visibility")
+    return {
+        "secPr": dict(sec_pr.attrib),
+        "grid": dict(grid.attrib) if grid is not None else {},
+        "startNum": dict(start_num.attrib) if start_num is not None else {},
+        "visibility": dict(visibility.attrib) if visibility is not None else {},
+        "pagePr": dict(page_pr.attrib) if page_pr is not None else {},
+        "pageMargin": dict(margin.attrib) if margin is not None else {},
+        "pageBorderFill": dict(page_border.attrib) if page_border is not None else {},
+        "pageBorderOffset": dict(page_border_offset.attrib) if page_border_offset is not None else {},
+    }
 
 
 def _extract_font_faces(header: ET.Element) -> dict[str, dict[str, dict[str, str]]]:
@@ -505,6 +532,19 @@ def _profile_prompt_clues(profile: object | None) -> str:
     if profile is None:
         return "-"
     lines: list[str] = []
+    style_summary = getattr(profile, "style_summary", None)
+    section_styles = getattr(style_summary, "section_styles", {}) if style_summary is not None else {}
+    if isinstance(section_styles, dict):
+        for section, style in list(section_styles.items())[:4]:
+            page_pr = style.get("pagePr", {}) if isinstance(style, dict) else {}
+            margin = style.get("pageMargin", {}) if isinstance(style, dict) else {}
+            lines.append(
+                "- section "
+                f"{section}: landscape={page_pr.get('landscape', '')}, "
+                f"size={page_pr.get('width', '')}x{page_pr.get('height', '')}, "
+                f"margin={margin.get('left', '')}/{margin.get('right', '')}/"
+                f"{margin.get('top', '')}/{margin.get('bottom', '')}"
+            )
     slots = list(getattr(profile, "slots", []) or [])
     for slot in slots[:20]:
         style = getattr(slot, "style", {}) or {}

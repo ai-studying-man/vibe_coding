@@ -22,6 +22,11 @@ class TemplateEngineTests(unittest.TestCase):
         self.assertTrue(any("marginIndent" in style for style in analysis.style_summary.para_styles.values()))
         self.assertTrue(any("marginPrev" in style for style in analysis.style_summary.para_styles.values()))
         self.assertTrue(any("borderFillIDRef" in style for style in analysis.style_summary.para_styles.values()))
+        self.assertIn("Contents/section0.xml", analysis.style_summary.section_styles)
+        section_style = analysis.style_summary.section_styles["Contents/section0.xml"]
+        self.assertIn("pagePr", section_style)
+        self.assertIn("pageMargin", section_style)
+        self.assertEqual(section_style["pagePr"].get("width"), "59528")
 
         draft = draft_from_text(
             "Title: Civil petition handling improvement plan\n"
@@ -55,6 +60,7 @@ class TemplateEngineTests(unittest.TestCase):
         prompt = _ollama_prompt("raw instruction", analysis, profile=profile)
 
         self.assertIn("slot title", prompt)
+        self.assertIn("section Contents/section0.xml", prompt)
         self.assertIn("font=", prompt)
         self.assertIn("table 1", prompt)
         self.assertIn("tables", prompt)

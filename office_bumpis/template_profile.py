@@ -127,6 +127,7 @@ def render_profile_markdown(profile: LearnedTemplateProfile) -> str:
         f"- Font face groups: {len(profile.style_summary.font_faces)}",
         f"- Border fills: {profile.style_summary.border_fill_count}",
         f"- Tables: {profile.style_summary.table_count}",
+        f"- Section styles: {len(profile.style_summary.section_styles)}",
         "",
         "## Style Profile",
         "",
@@ -155,6 +156,26 @@ def render_profile_markdown(profile: LearnedTemplateProfile) -> str:
             f"{style.get('marginRight', '')} | {style.get('marginIndent', '')} | "
             f"{style.get('marginPrev', '')} | {style.get('marginNext', '')} | "
             f"{line_spacing} | {style.get('borderFillIDRef', '')} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Section Styles",
+            "",
+            "| Section | Landscape | Width | Height | Left | Right | Top | Bottom | Header | Footer | Page Start | Visibility |",
+            "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for section, style in sorted(profile.style_summary.section_styles.items()):
+        page_pr = style.get("pagePr", {})
+        margin = style.get("pageMargin", {})
+        start_num = style.get("startNum", {})
+        visibility = style.get("visibility", {})
+        lines.append(
+            f"| {section} | {page_pr.get('landscape', '')} | {page_pr.get('width', '')} | "
+            f"{page_pr.get('height', '')} | {margin.get('left', '')} | {margin.get('right', '')} | "
+            f"{margin.get('top', '')} | {margin.get('bottom', '')} | {margin.get('header', '')} | "
+            f"{margin.get('footer', '')} | {start_num.get('page', '')} | {visibility.get('border', '')}/{visibility.get('fill', '')} |"
         )
     lines.extend(
         [
