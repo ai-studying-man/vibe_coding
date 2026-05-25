@@ -35,6 +35,7 @@
 | table_background | 144 |
 | table_border | 15 |
 | table_columns | 12 |
+| table_diagonal | 10 |
 | table_dimensions | 77 |
 | table_merge_split | 104 |
 | table_rows | 75 |
@@ -141,7 +142,7 @@
 | function | 글자색찾기 | font_color | hancom_library.py:349 |
 | function | 글자플이 | font_color, font_family, font_size, table_dimensions | hancom_library.py:362 |
 | function | 내어쓰기 | paragraph_spacing | hancom_library.py:367 |
-| function | 대각선 | table_border | hancom_library.py:383 |
+| function | 대각선 | table_border, table_diagonal | hancom_library.py:383 |
 | function | 문단여백 | paragraph_spacing | hancom_library.py:544 |
 | function | 문단여백측정 | page_layout, paragraph_spacing | hancom_library.py:553 |
 | function | 문단위 | paragraph_spacing | hancom_library.py:561 |
@@ -182,20 +183,20 @@
 | function | 중고딕 | font_color, font_family | hancom_library.py:973 |
 | function | 탭점선설정 | paragraph_spacing | hancom_library.py:1009 |
 | function | 탭점선제거 | paragraph_spacing | hancom_library.py:1021 |
-| function | 표내부선색 | font_color, table_border | hancom_library.py:1039 |
-| function | 표내부선굵기 | table_border | hancom_library.py:1048 |
-| function | 표내부선타입 | table_border | hancom_library.py:1057 |
-| function | 표단일선 | table_border | hancom_library.py:1066 |
+| function | 표내부선색 | font_color, table_border, table_diagonal | hancom_library.py:1039 |
+| function | 표내부선굵기 | table_border, table_diagonal | hancom_library.py:1048 |
+| function | 표내부선타입 | table_border, table_diagonal | hancom_library.py:1057 |
+| function | 표단일선 | table_border, table_diagonal | hancom_library.py:1066 |
 | function | 표배경그라데이션 | table_background, text_background | hancom_library.py:1102 |
 | function | 표배경색 | font_color, table_background, text_background | hancom_library.py:1176 |
 | function | 표배경제거 | table_background, text_background, transparent_table | hancom_library.py:1186 |
 | function | 표밖여백제로 | table_dimensions | hancom_library.py:1195 |
 | function | 표문장변환 | document_blocks | hancom_library.py:1206 |
-| function | 표테두리굵기 | table_border | hancom_library.py:1215 |
-| function | 표테두리단일선 | table_border | hancom_library.py:1226 |
-| function | 표테두리단일선색 | font_color, table_border | hancom_library.py:1245 |
-| function | 표테두리색 | font_color, table_border | hancom_library.py:1260 |
-| function | 표테두리타입 | table_border, transparent_table | hancom_library.py:1271 |
+| function | 표테두리굵기 | table_border, table_diagonal | hancom_library.py:1215 |
+| function | 표테두리단일선 | table_border, table_diagonal | hancom_library.py:1226 |
+| function | 표테두리단일선색 | font_color, table_border, table_diagonal | hancom_library.py:1245 |
+| function | 표테두리색 | font_color, table_border, table_diagonal | hancom_library.py:1260 |
+| function | 표테두리타입 | table_border, table_diagonal, transparent_table | hancom_library.py:1271 |
 | function | 폰트 | font_color, font_family | hancom_library.py:1288 |
 | function | 화면비율 | numeric_calculation | hancom_library.py:1369 |
 | function | 휴먼명조 | font_color, font_family | hancom_library.py:1383 |

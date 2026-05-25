@@ -164,6 +164,39 @@ class CliTests(unittest.TestCase):
             section = zf.read("Contents/section0.xml").decode("utf-8", errors="replace")
         self.assertIn("CLI row", section)
 
+    def test_apply_feature_accepts_table_diagonal_cli_options(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        output = Path("outputs/test_cli_apply_table_diagonal.hwpx")
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "office_bumpis",
+                "apply-feature",
+                str(source),
+                "-o",
+                str(output),
+                "--feature",
+                "table_diagonal",
+                "--diagonal-direction",
+                "both",
+            ],
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        with zipfile.ZipFile(output) as zf:
+            header = zf.read("Contents/header.xml").decode("utf-8", errors="replace")
+        self.assertIn("<hh:slash", header)
+        self.assertIn("<hh:backSlash", header)
+        self.assertIn('type="CENTER"', header)
+
     def test_apply_feature_accepts_table_columns_cli_options(self):
         source = Path("_analysis/templates_ascii/template_1.hwpx")
         if not source.exists():

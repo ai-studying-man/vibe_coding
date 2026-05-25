@@ -172,6 +172,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "table_diagonal",
+        "표 대각선",
+        FeatureCategory.TABLE_STYLE,
+        ("대각선", "SlashFlag", "CellBorder"),
+        "hh:borderFill slash/backSlash 속성을 설정하고 셀 borderFillIDRef에 적용",
+        True,
+    ),
+    StandardFeature(
         "transparent_table",
         "투명표",
         FeatureCategory.TABLE_STYLE,

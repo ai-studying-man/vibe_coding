@@ -194,6 +194,7 @@ def _match_features(name: str, actions: list[str]) -> list[str]:
         "page_border": ["문서테두리", "pageborder", "pageborderfill", "applytopageborderfill"],
         "table_background": ["표배경", "셀배경", "cellfill", "tablecell"],
         "table_border": ["테두리", "border", "cellborder"],
+        "table_diagonal": ["대각선", "slashflag"],
         "transparent_table": ["투명", "transparent"],
         "table_dimensions": ["표크기", "셀크기", "resize", "width", "height", "tablepropertydialog"],
         "table_merge_split": ["병합", "나누기", "merge", "split", "tablemergecell"],

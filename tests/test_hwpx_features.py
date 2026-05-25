@@ -129,6 +129,30 @@ class HwpxFeatureTests(unittest.TestCase):
         self.assertTrue(cells)
         self.assertTrue(all(cell.attrib.get("borderFillIDRef") == new_id for cell in cells))
 
+    def test_apply_table_diagonal_sets_slash_border_fill(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        output = Path("outputs/test_table_diagonal.hwpx")
+        apply_standard_features(source, output, [{"key": "table_diagonal", "params": {"direction": "both", "color": "#404040"}}])
+
+        with zipfile.ZipFile(output) as zf:
+            header = ET.fromstring(zf.read("Contents/header.xml"))
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+
+        new_border = list(header.iter(f"{{{HH_NS}}}borderFill"))[-1]
+        new_id = new_border.attrib["id"]
+        slash = new_border.find(f"{{{HH_NS}}}slash")
+        back_slash = new_border.find(f"{{{HH_NS}}}backSlash")
+        self.assertIsNotNone(slash)
+        self.assertIsNotNone(back_slash)
+        self.assertEqual(slash.attrib.get("type"), "CENTER")
+        self.assertEqual(back_slash.attrib.get("type"), "CENTER")
+        cells = list(section.iter(f"{{{HP_NS}}}tc"))
+        self.assertTrue(cells)
+        self.assertTrue(all(cell.attrib.get("borderFillIDRef") == new_id for cell in cells))
+
     def test_apply_paragraph_alignment_creates_para_style(self):
         source = Path("outputs/plan_report.hwpx")
         if not source.exists():

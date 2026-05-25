@@ -73,6 +73,7 @@ python -m office_bumpis apply-feature `
 - `page_number`: 쪽번호 표시/숨김/새 번호. `params.mode`는 `show`, `hide`, `reset`, `params.start`는 시작 쪽번호다.
 - `table_background`: 표 배경색
 - `table_border`: 표 테두리
+- `table_diagonal`: 표 대각선. `params.direction`은 `slash`, `backslash`, `both`를 지원하고 `params.diagonal_type`으로 선 종류를 지정한다.
 - `transparent_table`: 투명표
 - `remove_table_background`: 표 배경 제거
 - `table_dimensions`: 표 크기/셀 여백

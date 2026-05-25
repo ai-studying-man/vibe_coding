@@ -154,6 +154,16 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
             border_color=_normalize_color(params.get("color", "#000000")),
         )
         _apply_cell_border_fill(section_roots, border_id)
+    elif key == "table_diagonal":
+        _require_header(header_root)
+        border_id = _create_border_fill(
+            header_root,
+            border_type=str(params.get("border_type", params.get("type", "SOLID"))),
+            border_width=str(params.get("width", "0.1 mm")),
+            border_color=_normalize_color(params.get("color", "#000000")),
+            diagonal=params,
+        )
+        _apply_cell_border_fill(section_roots, border_id)
     elif key == "paragraph_alignment":
         _require_header(header_root)
         para_id = _create_para_style(header_root, horizontal=str(params.get("horizontal", "CENTER")))
@@ -261,6 +271,7 @@ def _create_border_fill(
     border_color: str | None = None,
     fill_color: str | None = None,
     remove_fill: bool = False,
+    diagonal: dict[str, object] | None = None,
 ) -> str:
     collection = _find_required(header_root, f"{{{HH_NS}}}borderFills", "borderFills")
     source = next(header_root.iter(f"{{{HH_NS}}}borderFill"), None)
@@ -281,6 +292,9 @@ def _create_border_fill(
         _remove_fill(clone)
     elif fill_color:
         _set_fill(clone, fill_color)
+
+    if diagonal is not None:
+        _set_diagonal_lines(clone, diagonal)
 
     collection.append(clone)
     collection.attrib["itemCnt"] = str(len(list(collection.iter(f"{{{HH_NS}}}borderFill"))))
@@ -1019,6 +1033,42 @@ def _set_fill(border_fill: ET.Element, color: str) -> None:
     _remove_fill(border_fill)
     fill_brush = ET.SubElement(border_fill, f"{{{HC_NS}}}fillBrush")
     ET.SubElement(fill_brush, f"{{{HC_NS}}}winBrush", {"faceColor": color, "hatchColor": "#000000", "alpha": "0"})
+
+
+def _set_diagonal_lines(border_fill: ET.Element, params: dict[str, object]) -> None:
+    direction = str(params.get("direction", "slash")).strip().lower()
+    enabled_type = "NONE" if bool(params.get("remove", False)) else _normalize_diagonal_type(params.get("diagonal_type", params.get("slash_type", "CENTER")))
+    targets = []
+    if direction in {"slash", "forward", "down", "/", "both"}:
+        targets.append("slash")
+    if direction in {"backslash", "back", "reverse", "up", "\\", "both"}:
+        targets.append("backSlash")
+    if not targets:
+        targets.append("slash")
+
+    if bool(params.get("remove", False)):
+        targets = ["slash", "backSlash"]
+
+    for name in targets:
+        elem = _ensure_child(border_fill, f"{{{HH_NS}}}{name}")
+        elem.attrib["type"] = enabled_type
+        elem.attrib["Crooked"] = str(params.get("crooked", params.get("Crooked", "0")))
+        elem.attrib["isCounter"] = str(params.get("is_counter", params.get("isCounter", "0")))
+
+
+def _normalize_diagonal_type(value: object) -> str:
+    text = str(value or "CENTER").strip().upper()
+    aliases = {
+        "1": "CENTER",
+        "2": "CENTER",
+        "TRUE": "CENTER",
+        "ON": "CENTER",
+        "SOLID": "CENTER",
+        "OFF": "NONE",
+        "FALSE": "NONE",
+        "0": "NONE",
+    }
+    return aliases.get(text, text)
 
 
 def _remove_fill(border_fill: ET.Element) -> None:

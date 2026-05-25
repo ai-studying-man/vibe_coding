@@ -76,6 +76,7 @@ WEB_FEATURE_OPTIONS: tuple[tuple[str, str, bool], ...] = (
     ("page_border", "문서 테두리", False),
     ("table_background", "표 배경색", False),
     ("table_border", "표 테두리", False),
+    ("table_diagonal", "표 대각선", False),
     ("transparent_table", "투명표", False),
     ("table_dimensions", "표 여백", False),
     ("table_merge_split", "셀 병합", False),
@@ -429,6 +430,8 @@ def _web_feature_params(key: str) -> dict:
         return {"color": "#F2F5FA"}
     if key == "table_border":
         return {"type": "SOLID", "width": "0.12 mm", "color": "#404A5A"}
+    if key == "table_diagonal":
+        return {"direction": "slash", "diagonal_type": "CENTER", "width": "0.1 mm", "color": "#000000"}
     if key == "font_color":
         return {"color": "#1F2933"}
     if key == "font_family":
