@@ -191,6 +191,7 @@ def _match_features(name: str, actions: list[str]) -> list[str]:
         "paragraph_alignment": ["정렬", "align", "paragraphshapealign"],
         "paragraph_spacing": ["줄간격", "문단", "linespacing", "paragraphshape"],
         "page_layout": ["문서여백", "문서용지", "pagesetup", "leftmargin", "rightmargin", "headerlen", "footerlen"],
+        "page_border": ["문서테두리", "pageborder", "pageborderfill", "applytopageborderfill"],
         "table_background": ["표배경", "셀배경", "cellfill", "tablecell"],
         "table_border": ["테두리", "border", "cellborder"],
         "transparent_table": ["투명", "transparent"],

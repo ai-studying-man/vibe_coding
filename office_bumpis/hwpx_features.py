@@ -162,6 +162,9 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
         _apply_para_style(section_roots, para_id)
     elif key == "page_layout":
         _apply_page_layout(section_roots, params)
+    elif key == "page_border":
+        _require_header(header_root)
+        _apply_page_border(header_root, section_roots, params)
     elif key == "table_dimensions":
         _apply_table_dimensions(section_roots, params)
     elif key == "table_sort":
@@ -355,6 +358,33 @@ def _apply_page_layout(section_roots: dict[str, ET.Element], params: dict[str, o
             for key, value in margin_attrs.items():
                 if value is not None:
                     margin.attrib[key] = _layout_value(value, params)
+
+
+def _apply_page_border(header_root: ET.Element, section_roots: dict[str, ET.Element], params: dict[str, object]) -> None:
+    remove = bool(params.get("remove", False))
+    border_id = _create_border_fill(
+        header_root,
+        border_type="NONE" if remove else str(params.get("type", params.get("border_type", "SOLID"))),
+        border_width=str(params.get("width", params.get("border_width", "0.1 mm"))),
+        border_color=_normalize_color(params.get("color", params.get("border_color", "#000000"))),
+        remove_fill=True,
+    )
+    for root in section_roots.values():
+        for page_border in root.iter(f"{{{HP_NS}}}pageBorderFill"):
+            page_border.attrib["borderFillIDRef"] = border_id
+            if params.get("text_border") is not None:
+                page_border.attrib["textBorder"] = str(params["text_border"])
+            if params.get("fill_area") is not None:
+                page_border.attrib["fillArea"] = str(params["fill_area"])
+            for key, param_key in [("headerInside", "header_inside"), ("footerInside", "footer_inside")]:
+                if params.get(param_key) is not None:
+                    page_border.attrib[key] = "1" if _truthy(params[param_key]) else "0"
+            offset = _ensure_child(page_border, f"{{{HP_NS}}}offset")
+            default_offset = params.get("offset")
+            for key in ["left", "right", "top", "bottom"]:
+                value = params.get(key, params.get(f"offset_{key}", default_offset))
+                if value is not None:
+                    offset.attrib[key] = _layout_value(value, params)
 
 
 def _apply_table_dimensions(section_roots: dict[str, ET.Element], params: dict[str, object]) -> None:

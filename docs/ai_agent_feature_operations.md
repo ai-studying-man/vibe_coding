@@ -67,6 +67,7 @@ python -m office_bumpis apply-feature `
 - `paragraph_alignment`: 문단 정렬
 - `paragraph_spacing`: 문단 간격
 - `page_layout`: 문서 여백/용지. `params.left/right/top/bottom/header/footer`는 mm 기준이며 `params.orientation`은 `portrait` 또는 `landscape`를 받는다.
+- `page_border`: 문서 테두리. `params.type`, `params.width`, `params.color`, `params.offset`으로 페이지 경계선과 오프셋을 적용하고 `params.remove`로 제거한다.
 - `table_background`: 표 배경색
 - `table_border`: 표 테두리
 - `transparent_table`: 투명표

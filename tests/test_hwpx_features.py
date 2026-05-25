@@ -138,6 +138,29 @@ class HwpxFeatureTests(unittest.TestCase):
         self.assertEqual(margin.attrib.get("right"), "5102")
         self.assertEqual(margin.attrib.get("header"), "2835")
 
+    def test_apply_page_border_sets_border_fill_and_offsets(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        output = Path("outputs/test_page_border.hwpx")
+        apply_standard_features(
+            source,
+            output,
+            [{"key": "page_border", "params": {"type": "SOLID", "width": "0.12 mm", "color": "#005BAC", "offset": 6}}],
+        )
+
+        with zipfile.ZipFile(output) as zf:
+            header = ET.fromstring(zf.read("Contents/header.xml"))
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+
+        new_border = list(header.iter(f"{{{HH_NS}}}borderFill"))[-1]
+        self.assertEqual(new_border.find(f"{{{HH_NS}}}leftBorder").attrib.get("color"), "#005BAC")
+        page_border = next(section.iter(f"{{{HP_NS}}}pageBorderFill"))
+        self.assertEqual(page_border.attrib.get("borderFillIDRef"), new_border.attrib["id"])
+        offset = page_border.find(f"{{{HP_NS}}}offset")
+        self.assertEqual(offset.attrib.get("left"), "1701")
+
     def test_numeric_calculation_expands_arrow_change(self):
         source = Path("outputs/plan_report.hwpx")
         if not source.exists():

@@ -132,6 +132,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "page_border",
+        "문서 테두리",
+        FeatureCategory.TEMPLATE_BLOCK,
+        ("문서테두리", "PageBorder", "PageBorderFillBoth"),
+        "hh:borderFill을 생성하고 hp:pageBorderFill의 borderFillIDRef와 offset을 갱신",
+        True,
+    ),
+    StandardFeature(
         "table_background",
         "표 배경색/배경제거",
         FeatureCategory.TABLE_STYLE,

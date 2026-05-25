@@ -21,6 +21,7 @@
 | font_family | 223 |
 | font_size | 13 |
 | numeric_calculation | 40 |
+| page_border | 3 |
 | page_break | 30 |
 | page_layout | 29 |
 | paragraph_alignment | 304 |
@@ -147,7 +148,7 @@
 | function | 문서여백새페이지 | page_layout | hancom_library.py:595 |
 | function | 문서용지복사 | page_layout | hancom_library.py:607 |
 | function | 문서용지붙임 | document_blocks, page_layout | hancom_library.py:621 |
-| function | 문서테두리 | table_border | hancom_library.py:633 |
+| function | 문서테두리 | page_border, table_border | hancom_library.py:633 |
 | function | 문장 | document_blocks | hancom_library.py:661 |
 | function | 밑줄얇굵 | font_color, font_family, strike_or_underline | hancom_library.py:669 |
 | function | 블록첫위치 | document_blocks | hancom_library.py:678 |

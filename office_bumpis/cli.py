@@ -78,6 +78,11 @@ def main(argv: list[str] | None = None) -> None:
     generate_from_template.add_argument("--page-header", type=float, help="Header margin in millimeters for page_layout.")
     generate_from_template.add_argument("--page-footer", type=float, help="Footer margin in millimeters for page_layout.")
     generate_from_template.add_argument("--page-orientation", choices=["portrait", "landscape"], help="Page orientation for page_layout.")
+    generate_from_template.add_argument("--page-border-offset", type=float, help="Page border offset in millimeters for page_border.")
+    generate_from_template.add_argument("--page-border-color", help="Page border color for page_border.")
+    generate_from_template.add_argument("--page-border-width", default="0.1 mm", help="Page border width for page_border.")
+    generate_from_template.add_argument("--page-border-type", default="SOLID", help="Page border type for page_border.")
+    generate_from_template.add_argument("--remove-page-border", action="store_true", help="Remove page border lines for page_border.")
     generate_from_template.add_argument("--row-mode", choices=["append", "delete"], default="append", help="Mode for table_rows.")
     generate_from_template.add_argument("--row-count", type=int, default=1, help="Number of rows for table_rows.")
     generate_from_template.add_argument("--row-values", action="append", help="Pipe-delimited row values for table_rows. Repeat for multiple rows.")
@@ -133,6 +138,11 @@ def main(argv: list[str] | None = None) -> None:
     apply_feature.add_argument("--page-header", type=float, help="Header margin in millimeters for page_layout.")
     apply_feature.add_argument("--page-footer", type=float, help="Footer margin in millimeters for page_layout.")
     apply_feature.add_argument("--page-orientation", choices=["portrait", "landscape"], help="Page orientation for page_layout.")
+    apply_feature.add_argument("--page-border-offset", type=float, help="Page border offset in millimeters for page_border.")
+    apply_feature.add_argument("--page-border-color", help="Page border color for page_border.")
+    apply_feature.add_argument("--page-border-width", default="0.1 mm", help="Page border width for page_border.")
+    apply_feature.add_argument("--page-border-type", default="SOLID", help="Page border type for page_border.")
+    apply_feature.add_argument("--remove-page-border", action="store_true", help="Remove page border lines for page_border.")
     apply_feature.add_argument("--border-width", default="0.1 mm")
     apply_feature.add_argument("--border-type", default="SOLID")
     apply_feature.add_argument("--strike", action="store_true")
@@ -411,6 +421,15 @@ def _feature_params_from_args(feature: str, args) -> dict:
                 params[name] = value
         if getattr(args, "page_orientation", None):
             params["orientation"] = args.page_orientation
+    if feature == "page_border":
+        params["type"] = getattr(args, "page_border_type", "SOLID")
+        params["width"] = getattr(args, "page_border_width", "0.1 mm")
+        if getattr(args, "page_border_color", None):
+            params["color"] = args.page_border_color
+        if getattr(args, "page_border_offset", None) is not None:
+            params["offset"] = args.page_border_offset
+        if getattr(args, "remove_page_border", False):
+            params["remove"] = True
     if feature == "strike_or_underline":
         params["strike"] = bool(getattr(args, "strike", False))
         params["underline"] = not bool(getattr(args, "no_underline", False))
