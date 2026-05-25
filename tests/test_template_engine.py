@@ -19,6 +19,9 @@ class TemplateEngineTests(unittest.TestCase):
         self.assertIn("hangul", analysis.style_summary.font_faces)
         self.assertTrue(any(style.get("fontFaceHangul") for style in analysis.style_summary.char_styles.values()))
         self.assertGreaterEqual(len(analysis.style_summary.border_fills), 1)
+        self.assertTrue(any("marginIndent" in style for style in analysis.style_summary.para_styles.values()))
+        self.assertTrue(any("marginPrev" in style for style in analysis.style_summary.para_styles.values()))
+        self.assertTrue(any("borderFillIDRef" in style for style in analysis.style_summary.para_styles.values()))
 
         draft = draft_from_text(
             "Title: Civil petition handling improvement plan\n"

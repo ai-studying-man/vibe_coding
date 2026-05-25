@@ -142,6 +142,23 @@ def render_profile_markdown(profile: LearnedTemplateProfile) -> str:
     lines.extend(
         [
             "",
+            "## Paragraph Styles",
+            "",
+            "| paraPr | Align | Left | Right | Indent | Prev | Next | Line | BorderFill |",
+            "| --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |",
+        ]
+    )
+    for para_id, style in sorted(profile.style_summary.para_styles.items(), key=lambda item: _numeric_sort_key(item[0]))[:40]:
+        line_spacing = f"{style.get('lineSpacingType', '')} {style.get('lineSpacingValue', '')}".strip()
+        lines.append(
+            f"| {para_id} | {style.get('horizontalAlign', '')} | {style.get('marginLeft', '')} | "
+            f"{style.get('marginRight', '')} | {style.get('marginIndent', '')} | "
+            f"{style.get('marginPrev', '')} | {style.get('marginNext', '')} | "
+            f"{line_spacing} | {style.get('borderFillIDRef', '')} |"
+        )
+    lines.extend(
+        [
+            "",
             "## Slots",
             "",
         "| Name | Role | Block | Score | Font | Size | Align | Text |",

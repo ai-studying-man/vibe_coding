@@ -229,13 +229,24 @@ def _extract_style_summary(zf: zipfile.ZipFile, section_files: list[str]) -> Sty
             align = para_pr.find(f"{{{HH_NS}}}align")
             margin = para_pr.find(f"{{{HH_NS}}}margin")
             line_spacing = para_pr.find(f"{{{HH_NS}}}lineSpacing")
+            border = para_pr.find(f"{{{HH_NS}}}border")
             para_styles[style_id] = {
                 "horizontalAlign": align.attrib.get("horizontal", "") if align is not None else "",
                 "verticalAlign": align.attrib.get("vertical", "") if align is not None else "",
                 "marginLeft": margin.attrib.get("left", "") if margin is not None else "",
                 "marginRight": margin.attrib.get("right", "") if margin is not None else "",
+                "marginIndent": margin.attrib.get("indent", "") if margin is not None else "",
+                "marginPrev": margin.attrib.get("prev", "") if margin is not None else "",
+                "marginNext": margin.attrib.get("next", "") if margin is not None else "",
                 "lineSpacingType": line_spacing.attrib.get("type", "") if line_spacing is not None else "",
                 "lineSpacingValue": line_spacing.attrib.get("value", "") if line_spacing is not None else "",
+                "borderFillIDRef": border.attrib.get("borderFillIDRef", "") if border is not None else "",
+                "borderOffsetLeft": border.attrib.get("offsetLeft", "") if border is not None else "",
+                "borderOffsetRight": border.attrib.get("offsetRight", "") if border is not None else "",
+                "borderOffsetTop": border.attrib.get("offsetTop", "") if border is not None else "",
+                "borderOffsetBottom": border.attrib.get("offsetBottom", "") if border is not None else "",
+                "borderConnect": border.attrib.get("connect", "") if border is not None else "",
+                "borderIgnoreMargin": border.attrib.get("ignoreMargin", "") if border is not None else "",
             }
         border_fills = _extract_border_fills(header)
         border_fill_count = len(border_fills)

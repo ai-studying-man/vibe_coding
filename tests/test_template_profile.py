@@ -24,7 +24,10 @@ class TemplateProfileTests(unittest.TestCase):
         self.assertIn("char", title_slot.style)
         self.assertIn("paragraph", title_slot.style)
         self.assertEqual(title_slot.style["charPrIDRef"], title_slot.char_pr_id)
+        self.assertEqual(title_slot.style["paraPrIDRef"], title_slot.para_pr_id)
         self.assertTrue(title_slot.style["char"].get("fontFaceHangul"))
+        self.assertIn("marginIndent", title_slot.style["paragraph"])
+        self.assertIn("borderFillIDRef", title_slot.style["paragraph"])
 
     def test_render_profile_markdown_mentions_slots(self):
         source = Path("outputs/plan_report.hwpx")
@@ -36,6 +39,8 @@ class TemplateProfileTests(unittest.TestCase):
         self.assertIn("## Slots", markdown)
         self.assertIn("## Style Profile", markdown)
         self.assertIn("Hangul Font", markdown)
+        self.assertIn("## Paragraph Styles", markdown)
+        self.assertIn("BorderFill", markdown)
         self.assertIn("Align", markdown)
         self.assertIn("## Blocks", markdown)
 
