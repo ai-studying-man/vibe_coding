@@ -108,6 +108,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "character_width",
+        "장평",
+        FeatureCategory.CHARACTER_STYLE,
+        ("글자장평", "CharShapeWidthIncrease", "CharShapeWidthDecrease", "장평"),
+        "hh:charPr ratio 속성을 언어별로 동일 적용",
+        True,
+    ),
+    StandardFeature(
         "paragraph_alignment",
         "문단 정렬",
         FeatureCategory.PARAGRAPH_STYLE,

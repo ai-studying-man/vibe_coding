@@ -70,6 +70,7 @@ def main(argv: list[str] | None = None) -> None:
     generate_from_template.add_argument("--points", type=float, help="Font size in points for font_size.")
     generate_from_template.add_argument("--font-face", help="Font face for font_family, e.g. 함초롬바탕 or 휴먼명조.")
     generate_from_template.add_argument("--latin-font-face", help="Optional Latin font face for font_family.")
+    generate_from_template.add_argument("--character-width", help="Character width ratio for character_width, e.g. 92 or 100.")
     generate_from_template.add_argument("--page-margin", type=float, help="Default page margin in millimeters for page_layout.")
     generate_from_template.add_argument("--page-left", type=float, help="Left page margin in millimeters for page_layout.")
     generate_from_template.add_argument("--page-right", type=float, help="Right page margin in millimeters for page_layout.")
@@ -151,6 +152,7 @@ def main(argv: list[str] | None = None) -> None:
     apply_feature.add_argument("--border-type", default="SOLID")
     apply_feature.add_argument("--strike", action="store_true")
     apply_feature.add_argument("--no-underline", action="store_true")
+    apply_feature.add_argument("--character-width", help="Character width ratio for character_width, e.g. 92 or 100.")
     apply_feature.add_argument("--horizontal", default="CENTER", help="Paragraph alignment for paragraph_alignment.")
     apply_feature.add_argument("--line-spacing", default="160", help="Line spacing value for paragraph_spacing.")
     apply_feature.add_argument("--margin", help="Cell margin for table_dimensions.")
@@ -441,6 +443,8 @@ def _feature_params_from_args(feature: str, args) -> dict:
     if feature == "strike_or_underline":
         params["strike"] = bool(getattr(args, "strike", False))
         params["underline"] = not bool(getattr(args, "no_underline", False))
+    if feature == "character_width":
+        params["ratio"] = getattr(args, "character_width", None) or "100"
     if feature == "paragraph_alignment":
         params["horizontal"] = getattr(args, "horizontal", None) or "CENTER"
     if feature == "paragraph_spacing":

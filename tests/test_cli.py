@@ -232,6 +232,37 @@ class CliTests(unittest.TestCase):
             header = zf.read("Contents/header.xml").decode("utf-8", errors="replace")
         self.assertIn("휴먼명조", header)
 
+    def test_apply_feature_accepts_character_width_cli_options(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        output = Path("outputs/test_cli_apply_character_width.hwpx")
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "office_bumpis",
+                "apply-feature",
+                str(source),
+                "-o",
+                str(output),
+                "--feature",
+                "character_width",
+                "--character-width",
+                "92",
+            ],
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        with zipfile.ZipFile(output) as zf:
+            header = zf.read("Contents/header.xml").decode("utf-8", errors="replace")
+        self.assertIn('hangul="92"', header)
+
     def test_apply_feature_accepts_page_layout_cli_options(self):
         source = Path("_analysis/templates_ascii/template_1.hwpx")
         if not source.exists():

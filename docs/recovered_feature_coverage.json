@@ -7,6 +7,7 @@
   "feature_hits": {
     "character_emphasis": 181,
     "character_spacing": 9,
+    "character_width": 8,
     "cleanup_whitespace": 19,
     "control_characters": 369,
     "document_blocks": 468,
@@ -35,7 +36,7 @@
   },
   "category_hits": {
     "calculation": 40,
-    "character_style": 719,
+    "character_style": 727,
     "paragraph_style": 627,
     "table_structure": 275,
     "table_style": 169,
@@ -1110,6 +1111,7 @@
         "CharShape"
       ],
       "matched_features": [
+        "character_width",
         "font_color",
         "font_family"
       ]
@@ -16666,6 +16668,7 @@
       ],
       "matched_features": [
         "character_spacing",
+        "character_width",
         "font_color",
         "font_family",
         "font_size",
@@ -16723,6 +16726,7 @@
       ],
       "matched_features": [
         "character_spacing",
+        "character_width",
         "font_color",
         "font_family",
         "font_size",
@@ -21826,6 +21830,7 @@
         "CharShapeWidthIncrease"
       ],
       "matched_features": [
+        "character_width",
         "font_color",
         "font_family",
         "table_dimensions"
@@ -21888,6 +21893,7 @@
         "CharShapeWidthDecrease"
       ],
       "matched_features": [
+        "character_width",
         "font_color",
         "font_family",
         "table_dimensions"
@@ -22388,6 +22394,7 @@
         "CharShapeWidthIncrease"
       ],
       "matched_features": [
+        "character_width",
         "font_color",
         "font_family",
         "table_dimensions"
@@ -22402,6 +22409,7 @@
         "CharShapeWidthDecrease"
       ],
       "matched_features": [
+        "character_width",
         "font_color",
         "font_family",
         "table_dimensions"
@@ -30954,7 +30962,8 @@
       "line": 3158,
       "actions": [],
       "matched_features": [
-        "character_emphasis"
+        "character_emphasis",
+        "character_width"
       ]
     },
     {

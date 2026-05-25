@@ -125,6 +125,10 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
         _require_header(header_root)
         char_id = _create_char_style(header_root, spacing=str(params.get("spacing", params.get("value", "5"))))
         _apply_char_style(section_roots, char_id)
+    elif key == "character_width":
+        _require_header(header_root)
+        char_id = _create_char_style(header_root, ratio=str(params.get("ratio", params.get("value", "100"))))
+        _apply_char_style(section_roots, char_id)
     elif key == "table_background":
         _require_header(header_root)
         border_id = _create_border_fill(
@@ -232,6 +236,8 @@ def _create_char_style(header_root: ET.Element, **updates: object) -> str:
             _set_supscript(clone, str(value))
         elif key == "spacing":
             _set_language_attrs(_ensure_child(clone, f"{{{HH_NS}}}spacing"), str(value))
+        elif key == "ratio":
+            _set_language_attrs(_ensure_child(clone, f"{{{HH_NS}}}ratio"), str(value))
         elif key == "fontRefs":
             _set_font_refs(clone, value if isinstance(value, dict) else {})
         elif value is not None:

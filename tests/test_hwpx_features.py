@@ -57,6 +57,28 @@ class HwpxFeatureTests(unittest.TestCase):
         runs = [run for run in section.iter(f"{{{HP_NS}}}run") if run.attrib.get("charPrIDRef") == new_char_id]
         self.assertTrue(runs)
 
+    def test_apply_character_width_creates_ratio_style(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        output = Path("outputs/test_character_width.hwpx")
+        apply_standard_features(source, output, [{"key": "character_width", "params": {"ratio": 92}}])
+
+        with zipfile.ZipFile(output) as zf:
+            header = ET.fromstring(zf.read("Contents/header.xml"))
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+
+        ratio_styles = []
+        for char_pr in header.iter(f"{{{HH_NS}}}charPr"):
+            ratio = char_pr.find(f"{{{HH_NS}}}ratio")
+            if ratio is not None and ratio.attrib.get("hangul") == "92":
+                ratio_styles.append(char_pr)
+        self.assertTrue(ratio_styles)
+        new_id = ratio_styles[-1].attrib["id"]
+        runs = [run for run in section.iter(f"{{{HP_NS}}}run") if run.attrib.get("charPrIDRef") == new_id]
+        self.assertTrue(runs)
+
     def test_apply_transparent_table_sets_cell_border_fill(self):
         source = Path("_analysis/templates_ascii/template_1.hwpx")
         if not source.exists():

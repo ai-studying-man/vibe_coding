@@ -14,6 +14,7 @@
 | --- | ---: |
 | character_emphasis | 181 |
 | character_spacing | 9 |
+| character_width | 8 |
 | cleanup_whitespace | 19 |
 | control_characters | 369 |
 | document_blocks | 468 |
@@ -133,7 +134,7 @@
 | function | 글자문단모양복사 | paragraph_spacing | hancom_library.py:276 |
 | function | 글자색 | font_color, font_family | hancom_library.py:284 |
 | function | 글자음영 | font_color, font_family, text_background | hancom_library.py:307 |
-| function | 글자장평 | font_color, font_family | hancom_library.py:315 |
+| function | 글자장평 | character_width, font_color, font_family | hancom_library.py:315 |
 | function | 글자크기 | font_color, font_family, font_size | hancom_library.py:329 |
 | function | 글자크기찾기 | font_size | hancom_library.py:337 |
 | function | 글자색찾기 | font_color | hancom_library.py:349 |
