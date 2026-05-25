@@ -171,6 +171,8 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
             rows=int(params.get("rows", 1)),
             cols=int(params.get("cols", 2)),
         )
+    elif key == "table_rows":
+        _apply_table_rows(section_roots, params)
     elif key == "numeric_calculation":
         _apply_numeric_calculation(section_roots)
     elif key == "document_blocks":
@@ -373,6 +375,26 @@ def _apply_table_merge_split(section_roots: dict[str, ET.Element], *, mode: str,
         return
 
 
+def _apply_table_rows(section_roots: dict[str, ET.Element], params: dict[str, object]) -> None:
+    tables = [table for root in section_roots.values() for table in root.iter(f"{{{HP_NS}}}tbl")]
+    if not tables:
+        return
+    if not _truthy(params.get("all_tables", False)):
+        tables = tables[:1]
+
+    mode = str(params.get("mode", "append")).strip().lower()
+    count = max(1, int(params.get("count", 1)))
+    header_rows = max(0, int(params.get("header_rows", 1)))
+    values = _normalize_table_row_values(params.get("values", params.get("row_values")))
+
+    for table in tables:
+        if mode in {"delete", "remove", "drop"}:
+            _delete_table_rows(table, count=count, header_rows=header_rows)
+        else:
+            _append_table_rows(table, count=count, values=values)
+        _renumber_table_rows(table)
+
+
 def _merge_from_top_left(table: ET.Element, rows: int, cols: int) -> None:
     table_rows = table.findall(f"{{{HP_NS}}}tr")
     if not table_rows:
@@ -390,6 +412,94 @@ def _merge_from_top_left(table: ET.Element, rows: int, cols: int) -> None:
         start = 1 if row_index == 0 else 0
         for cell in cells[start:cols]:
             row.remove(cell)
+
+
+def _append_table_rows(table: ET.Element, *, count: int, values: list[list[str]]) -> None:
+    rows = table.findall(f"{{{HP_NS}}}tr")
+    if not rows:
+        return
+    template_row = rows[-1]
+    total = max(count, len(values)) if values else count
+    new_rows = list(rows)
+    for index in range(total):
+        clone = copy.deepcopy(template_row)
+        _clear_row_text(clone)
+        if index < len(values):
+            _fill_row_values(clone, values[index])
+        new_rows.append(clone)
+    _replace_rows(table, new_rows)
+
+
+def _delete_table_rows(table: ET.Element, *, count: int, header_rows: int) -> None:
+    rows = table.findall(f"{{{HP_NS}}}tr")
+    if not rows:
+        return
+    minimum_rows = min(header_rows, len(rows))
+    keep_count = max(minimum_rows, len(rows) - count)
+    if keep_count == len(rows):
+        return
+    _replace_rows(table, rows[:keep_count])
+
+
+def _renumber_table_rows(table: ET.Element) -> None:
+    rows = table.findall(f"{{{HP_NS}}}tr")
+    table.attrib["rowCnt"] = str(len(rows))
+    for row_index, row in enumerate(rows):
+        for cell_index, cell in enumerate(row.findall(f"{{{HP_NS}}}tc")):
+            addr = cell.find(f"{{{HP_NS}}}cellAddr")
+            if addr is not None:
+                addr.attrib["rowAddr"] = str(row_index)
+                if "colAddr" in addr.attrib:
+                    addr.attrib["colAddr"] = str(cell_index)
+
+
+def _clear_row_text(row: ET.Element) -> None:
+    for text in row.iter(f"{{{HP_NS}}}t"):
+        text.text = ""
+
+
+def _fill_row_values(row: ET.Element, values: list[str]) -> None:
+    for cell, value in zip(row.findall(f"{{{HP_NS}}}tc"), values):
+        text_nodes = _ensure_cell_text_nodes(cell)
+        if not text_nodes:
+            continue
+        text_nodes[0].text = str(value)
+        for extra in text_nodes[1:]:
+            extra.text = ""
+
+
+def _ensure_cell_text_nodes(cell: ET.Element) -> list[ET.Element]:
+    text_nodes = list(cell.iter(f"{{{HP_NS}}}t"))
+    if text_nodes:
+        return text_nodes
+    run = next(cell.iter(f"{{{HP_NS}}}run"), None)
+    if run is None:
+        paragraph = next(cell.iter(f"{{{HP_NS}}}p"), None)
+        if paragraph is None:
+            return []
+        run = ET.SubElement(paragraph, f"{{{HP_NS}}}run")
+    return [ET.SubElement(run, f"{{{HP_NS}}}t")]
+
+
+def _normalize_table_row_values(value: object) -> list[list[str]]:
+    if value is None or value == "":
+        return []
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError:
+            return [[cell.strip() for cell in value.split("|")]]
+    if isinstance(value, (tuple, list)):
+        if all(not isinstance(item, (tuple, list)) for item in value):
+            return [[str(item) for item in value]]
+        return [[str(cell) for cell in row] for row in value if isinstance(row, (tuple, list))]
+    return []
+
+
+def _truthy(value: object) -> bool:
+    if isinstance(value, bool):
+        return value
+    return str(value).strip().lower() in {"1", "true", "yes", "y", "on"}
 
 
 def _apply_numeric_calculation(section_roots: dict[str, ET.Element]) -> None:

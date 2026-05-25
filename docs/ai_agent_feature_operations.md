@@ -71,6 +71,7 @@ python -m office_bumpis apply-feature `
 - `remove_table_background`: 표 배경 제거
 - `table_dimensions`: 표 크기/셀 여백
 - `table_merge_split`: 표 병합/분할
+- `table_rows`: 표 행 추가/삭제. `params.mode`는 `append` 또는 `delete`, `params.count`는 행 수, `params.values`는 추가 행 셀 값 배열이다.
 - `table_sort`: 표 정렬
 - `numeric_calculation`: 숫자 계산
 - `document_blocks`: 문서 블록 추가

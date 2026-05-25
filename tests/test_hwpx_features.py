@@ -135,6 +135,54 @@ class HwpxFeatureTests(unittest.TestCase):
         first_span = next(section.iter(f"{{{HP_NS}}}cellSpan"))
         self.assertEqual(first_span.attrib.get("colSpan"), "2")
 
+    def test_table_rows_appends_values_and_updates_count(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        with zipfile.ZipFile(source) as zf:
+            before_section = ET.fromstring(zf.read("Contents/section0.xml"))
+        before_table = next(before_section.iter(f"{{{HP_NS}}}tbl"))
+        before_count = len(before_table.findall(f"{{{HP_NS}}}tr"))
+
+        output = Path("outputs/test_table_rows_append.hwpx")
+        apply_standard_features(
+            source,
+            output,
+            [{"key": "table_rows", "params": {"mode": "append", "count": 1, "values": [["Added item", "Added value"]]}}],
+        )
+
+        with zipfile.ZipFile(output) as zf:
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+            section_text = zf.read("Contents/section0.xml").decode("utf-8", errors="replace")
+        table = next(section.iter(f"{{{HP_NS}}}tbl"))
+        rows = table.findall(f"{{{HP_NS}}}tr")
+
+        self.assertEqual(len(rows), before_count + 1)
+        self.assertEqual(table.attrib.get("rowCnt"), str(len(rows)))
+        self.assertIn("Added item", section_text)
+
+    def test_table_rows_deletes_data_row_preserving_header(self):
+        source = Path("_analysis/templates_ascii/template_1.hwpx")
+        if not source.exists():
+            self.skipTest("sample template is not available")
+
+        with zipfile.ZipFile(source) as zf:
+            before_section = ET.fromstring(zf.read("Contents/section0.xml"))
+        before_table = next(before_section.iter(f"{{{HP_NS}}}tbl"))
+        before_count = len(before_table.findall(f"{{{HP_NS}}}tr"))
+
+        output = Path("outputs/test_table_rows_delete.hwpx")
+        apply_standard_features(source, output, [{"key": "table_rows", "params": {"mode": "delete", "count": 1, "header_rows": 1}}])
+
+        with zipfile.ZipFile(output) as zf:
+            section = ET.fromstring(zf.read("Contents/section0.xml"))
+        table = next(section.iter(f"{{{HP_NS}}}tbl"))
+        rows = table.findall(f"{{{HP_NS}}}tr")
+
+        self.assertEqual(len(rows), max(1, before_count - 1))
+        self.assertEqual(table.attrib.get("rowCnt"), str(len(rows)))
+
 
 if __name__ == "__main__":
     unittest.main()

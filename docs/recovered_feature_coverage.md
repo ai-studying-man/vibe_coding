@@ -4,27 +4,33 @@
 
 - Source root: `recovered_source`
 - Recovered symbols: 2593
-- Matched symbols: 919
-- Unmatched symbols: 1674
+- Matched symbols: 1032
+- Unmatched symbols: 1561
 - HAction calls: 5712
 
 ## Feature Hits
 
 | Feature | Hits |
 | --- | ---: |
+| character_emphasis | 181 |
+| character_spacing | 9 |
 | cleanup_whitespace | 19 |
+| control_characters | 369 |
 | document_blocks | 468 |
 | font_color | 235 |
 | font_size | 13 |
 | numeric_calculation | 40 |
+| page_break | 30 |
 | paragraph_alignment | 304 |
 | paragraph_spacing | 323 |
 | remove_empty_lines | 1 |
 | strike_or_underline | 9 |
+| superscript_subscript | 7 |
 | table_background | 144 |
 | table_border | 15 |
 | table_dimensions | 77 |
 | table_merge_split | 104 |
+| table_rows | 75 |
 | table_sort | 7 |
 | text_background | 42 |
 | transparent_table | 10 |
@@ -86,6 +92,7 @@
 | function | 투명표 | transparent_table | excel_library.py:126 |
 | function | 기본테두리 | table_border | excel_library.py:171 |
 | function | 진한테두리 | table_border | excel_library.py:182 |
+| function | 기본글자 | character_emphasis | excel_library.py:197 |
 | function | 랜덤정렬 | paragraph_alignment | excel_library.py:216 |
 | function | 병합해제 | table_merge_split | excel_library.py:288 |
 | function | 산출근거계산 | numeric_calculation | excel_library.py:296 |
@@ -93,24 +100,29 @@
 | function | 제목 | document_blocks | excel_library.py:456 |
 | function | 직제순정렬 | paragraph_alignment | excel_library.py:467 |
 | function | 가운데정렬 | paragraph_alignment, paragraph_spacing | hancom_library.py:54 |
-| function | 고정여백 | cleanup_whitespace, table_dimensions | hancom_library.py:58 |
+| function | 고정여백 | cleanup_whitespace, control_characters, table_dimensions | hancom_library.py:58 |
 | function | 기본정렬 | paragraph_alignment, paragraph_spacing | hancom_library.py:68 |
-| function | 기본글자 | font_color | hancom_library.py:72 |
+| function | 기본글자 | character_emphasis, font_color | hancom_library.py:72 |
 | function | 글자작게 | font_color, font_size, table_dimensions | hancom_library.py:76 |
 | function | 글자크게 | font_color, font_size, table_dimensions | hancom_library.py:82 |
+| function | 다음페이지 | page_break | hancom_library.py:88 |
+| function | 도형나가기 | control_characters | hancom_library.py:92 |
 | function | 밑줄 | font_color, strike_or_underline | hancom_library.py:111 |
 | function | 배분정렬 | paragraph_alignment, paragraph_spacing | hancom_library.py:115 |
 | function | 셀병합 | table_merge_split | hancom_library.py:123 |
 | function | 셀선택 | table_background | hancom_library.py:127 |
 | function | 셀전체 | table_background | hancom_library.py:132 |
+| function | 엔터 | control_characters | hancom_library.py:138 |
 | function | 오른쪽정렬 | paragraph_alignment, paragraph_spacing | hancom_library.py:144 |
-| function | 윗첨자 | font_color | hancom_library.py:148 |
-| function | 진하게 | font_color | hancom_library.py:152 |
-| function | 표나가기 | paragraph_alignment, paragraph_spacing | hancom_library.py:156 |
+| function | 윗첨자 | font_color, superscript_subscript | hancom_library.py:148 |
+| function | 진하게 | character_emphasis, font_color | hancom_library.py:152 |
+| function | 표나가기 | control_characters, paragraph_alignment, paragraph_spacing | hancom_library.py:156 |
 | function | 표너비줄이기 | table_dimensions | hancom_library.py:162 |
+| function | 표오른쪽 | table_rows | hancom_library.py:168 |
 | function | 표전체 | table_background | hancom_library.py:200 |
+| function | 탭 | control_characters | hancom_library.py:220 |
 | function | 고급붙임 | document_blocks | hancom_library.py:224 |
-| function | 글자간격 | font_color | hancom_library.py:247 |
+| function | 글자간격 | character_spacing, font_color | hancom_library.py:247 |
 | function | 글자그림자 | font_color | hancom_library.py:261 |
 | function | 글자마이 | font_color, font_size, table_dimensions | hancom_library.py:271 |
 | function | 글자문단모양복사 | paragraph_spacing | hancom_library.py:276 |
@@ -135,6 +147,7 @@
 | function | 블록첫위치 | document_blocks | hancom_library.py:678 |
 | function | 블록끝위치 | document_blocks | hancom_library.py:685 |
 | function | 블록스캔 | document_blocks | hancom_library.py:692 |
+| function | 사진 | table_rows | hancom_library.py:699 |
 | function | 사진넣기 | paragraph_alignment, paragraph_spacing | hancom_library.py:715 |
 | function | 사진넣기배경 | text_background | hancom_library.py:722 |
 | function | 사진넣기절대값 | paragraph_alignment, paragraph_spacing | hancom_library.py:728 |
@@ -173,12 +186,12 @@
 | function | 휴먼명조 | font_color | hancom_library.py:1383 |
 | function | 증감계산 | numeric_calculation | hancom_library.py:1463 |
 | function | 블록한줄개선 | document_blocks | hancom_library.py:1533 |
-| function | 문장풀 | document_blocks, font_color, paragraph_alignment, paragraph_spacing | hancom_library.py:1546 |
+| function | 문장풀 | character_emphasis, document_blocks, font_color, paragraph_alignment, paragraph_spacing | hancom_library.py:1546 |
 | function | 블록리스트생성 | document_blocks | hancom_library.py:1649 |
 | function | 합계수식 | numeric_calculation | hancom_library.py:1658 |
 | function | 빼기수식 | numeric_calculation | hancom_library.py:1666 |
 | function | 블록텍스트 | document_blocks | hancom_library.py:1674 |
-| function | 글자문단모양기본 | font_color, paragraph_alignment, paragraph_spacing | hancom_library.py:1683 |
+| function | 글자문단모양기본 | character_emphasis, font_color, paragraph_alignment, paragraph_spacing | hancom_library.py:1683 |
 | function | 글자크기좌표리스트 | font_size | hancom_library.py:1730 |
 | function | 문장쌈 | document_blocks | hancom_library.py:1882 |
 | function | 블록계산 | document_blocks, numeric_calculation | hancom_library.py:1898 |
@@ -191,10 +204,3 @@
 | function | 블록엔터정리 | document_blocks | hancom_library.py:1989 |
 | function | 블록엔터정리공백정리 | cleanup_whitespace, document_blocks | hancom_library.py:1998 |
 | function | 블록엔터제거공백정리 | cleanup_whitespace, document_blocks, remove_empty_lines | hancom_library.py:2007 |
-| function | 블록한줄 | document_blocks | hancom_library.py:2016 |
-| function | 소제목 | document_blocks, font_color, paragraph_alignment, paragraph_spacing, table_dimensions | hancom_library.py:2065 |
-| function | 사례 | font_color, paragraph_alignment, paragraph_spacing, table_background, table_merge_split | hancom_library.py:2095 |
-| function | 상단박스 | paragraph_alignment, paragraph_spacing | hancom_library.py:2161 |
-| function | 셀공백제거 | cleanup_whitespace | hancom_library.py:2185 |
-| function | 셀앞뒤붙임 | document_blocks | hancom_library.py:2200 |
-| function | 심플표 | font_color, paragraph_alignment, paragraph_spacing, table_background | hancom_library.py:2215 |

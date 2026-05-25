@@ -74,6 +74,7 @@ WEB_FEATURE_OPTIONS: tuple[tuple[str, str, bool], ...] = (
     ("transparent_table", "투명표", False),
     ("table_dimensions", "표 여백", False),
     ("table_merge_split", "셀 병합", False),
+    ("table_rows", "표 행 추가/삭제", False),
     ("table_sort", "표 정렬", False),
     ("document_blocks", "검토 블록 추가", False),
     ("control_characters", "탭/줄바꿈 토큰", False),
@@ -443,6 +444,8 @@ def _web_feature_params(key: str) -> dict:
         return {"header_rows": 1}
     if key == "table_merge_split":
         return {"mode": "merge", "rows": 1, "cols": 2}
+    if key == "table_rows":
+        return {"mode": "append", "count": 1}
     if key == "document_blocks":
         return {"paragraphs": ["추가 검토사항"]}
     if key == "control_characters":

@@ -156,6 +156,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "table_rows",
+        "Table row add/delete",
+        FeatureCategory.TABLE_STRUCTURE,
+        ("TableRightCellAppend", "TableInsertLowerRow", "TableDeleteRow", "row append", "row delete"),
+        "Clone or delete hp:tr rows, then refresh rowCnt and cellAddr row indexes.",
+        True,
+    ),
+    StandardFeature(
         "table_sort",
         "표 정렬",
         FeatureCategory.TABLE_STRUCTURE,

@@ -68,6 +68,10 @@ def main(argv: list[str] | None = None) -> None:
     )
     generate_from_template.add_argument("--color", help="Color for font/table features, e.g. #005BAC.")
     generate_from_template.add_argument("--points", type=float, help="Font size in points for font_size.")
+    generate_from_template.add_argument("--row-mode", choices=["append", "delete"], default="append", help="Mode for table_rows.")
+    generate_from_template.add_argument("--row-count", type=int, default=1, help="Number of rows for table_rows.")
+    generate_from_template.add_argument("--row-values", action="append", help="Pipe-delimited row values for table_rows. Repeat for multiple rows.")
+    generate_from_template.add_argument("--all-tables", action="store_true", help="Apply table_rows to every table instead of the first table.")
     generate_from_template.add_argument("--guard-json", help="Optional structure guard JSON report output path.")
 
     preset = sub.add_parser("preset", help="Create normalized official-document JSON from an extracted workflow profile.")
@@ -121,6 +125,10 @@ def main(argv: list[str] | None = None) -> None:
     apply_feature.add_argument("--merge-cols", type=int, default=2)
     apply_feature.add_argument("--merge-rows", type=int, default=1)
     apply_feature.add_argument("--split", action="store_true", help="Split merged cells for table_merge_split.")
+    apply_feature.add_argument("--row-mode", choices=["append", "delete"], default="append", help="Mode for table_rows.")
+    apply_feature.add_argument("--row-count", type=int, default=1, help="Number of rows for table_rows.")
+    apply_feature.add_argument("--row-values", action="append", help="Pipe-delimited row values for table_rows. Repeat for multiple rows.")
+    apply_feature.add_argument("--all-tables", action="store_true", help="Apply table_rows to every table instead of the first table.")
 
     fill_profile = sub.add_parser("fill-profile", help="Fill an HWPX template using a learned slot profile.")
     fill_profile.add_argument("template")
@@ -379,6 +387,14 @@ def _feature_params_from_args(feature: str, args) -> dict:
         params["mode"] = "split" if getattr(args, "split", False) else "merge"
         params["cols"] = getattr(args, "merge_cols", 2)
         params["rows"] = getattr(args, "merge_rows", 1)
+    if feature == "table_rows":
+        params["mode"] = getattr(args, "row_mode", "append")
+        params["count"] = getattr(args, "row_count", 1)
+        params["header_rows"] = getattr(args, "header_rows", 1)
+        if getattr(args, "row_values", None):
+            params["values"] = [[cell.strip() for cell in row.split("|")] for row in args.row_values]
+        if getattr(args, "all_tables", False):
+            params["all_tables"] = True
     return params
 
 

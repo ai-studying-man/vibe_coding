@@ -194,7 +194,13 @@ def _match_features(name: str, actions: list[str]) -> list[str]:
         "transparent_table": ["투명", "transparent"],
         "table_dimensions": ["표크기", "셀크기", "resize", "width", "height", "tablepropertydialog"],
         "table_merge_split": ["병합", "나누기", "merge", "split", "tablemergecell"],
+        "table_rows": ["행추가", "행삭제", "tablerightcellappend", "tableinsertlowerrow", "tabledeleterow", "appendrow", "deleterow"],
         "table_sort": ["오름차순", "내림차순", "sort"],
+        "character_emphasis": ["charshapebold", "charshapenormal", "bold", "italic"],
+        "superscript_subscript": ["charshapesuperscript", "charshapesubscript", "superscript", "subscript"],
+        "character_spacing": ["charshapespacingincrease", "spacingincrease", "characterspacing"],
+        "control_characters": ["inserttab", "insertfixedwidthspace", "breakpara"],
+        "page_break": ["breakpage", "pagebreak"],
         "document_blocks": ["제목", "소제목", "붙임", "개요", "보고", "공문", "문장", "블록"],
         "numeric_calculation": ["계산", "금액", "비율", "증감", "sum", "formula"],
     }
