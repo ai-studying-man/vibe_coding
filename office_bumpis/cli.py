@@ -97,6 +97,8 @@ def main(argv: list[str] | None = None) -> None:
     generate_from_template.add_argument("--indent", help="Paragraph indentation/hanging indent value in points for paragraph_indent.")
     generate_from_template.add_argument("--indent-left", help="Optional left paragraph margin in points for paragraph_indent.")
     generate_from_template.add_argument("--indent-right", help="Optional right paragraph margin in points for paragraph_indent.")
+    generate_from_template.add_argument("--paragraph-prev", help="Paragraph spacing before in points for paragraph_block_spacing.")
+    generate_from_template.add_argument("--paragraph-next", help="Paragraph spacing after in points for paragraph_block_spacing.")
     generate_from_template.add_argument("--diagonal-direction", choices=["slash", "backslash", "both"], default="slash", help="Direction for table_diagonal.")
     generate_from_template.add_argument("--diagonal-type", default="CENTER", help="Slash/backSlash type for table_diagonal.")
     generate_from_template.add_argument("--remove-diagonal", action="store_true", help="Remove slash/backSlash lines for table_diagonal.")
@@ -167,6 +169,8 @@ def main(argv: list[str] | None = None) -> None:
     apply_feature.add_argument("--indent", help="Paragraph indentation/hanging indent value in points for paragraph_indent.")
     apply_feature.add_argument("--indent-left", help="Optional left paragraph margin in points for paragraph_indent.")
     apply_feature.add_argument("--indent-right", help="Optional right paragraph margin in points for paragraph_indent.")
+    apply_feature.add_argument("--paragraph-prev", help="Paragraph spacing before in points for paragraph_block_spacing.")
+    apply_feature.add_argument("--paragraph-next", help="Paragraph spacing after in points for paragraph_block_spacing.")
     apply_feature.add_argument("--diagonal-direction", choices=["slash", "backslash", "both"], default="slash", help="Direction for table_diagonal.")
     apply_feature.add_argument("--diagonal-type", default="CENTER", help="Slash/backSlash type for table_diagonal.")
     apply_feature.add_argument("--remove-diagonal", action="store_true", help="Remove slash/backSlash lines for table_diagonal.")
@@ -510,6 +514,13 @@ def _feature_params_from_args(feature: str, args) -> dict:
             params["left"] = args.indent_left
         if getattr(args, "indent_right", None):
             params["right"] = args.indent_right
+    if feature == "paragraph_block_spacing":
+        if getattr(args, "paragraph_prev", None):
+            params["prev"] = args.paragraph_prev
+        if getattr(args, "paragraph_next", None):
+            params["next"] = args.paragraph_next
+        if not params:
+            params["prev"] = "0"
     if feature == "table_dimensions":
         if getattr(args, "cell_width", None):
             params["cell_width"] = args.cell_width

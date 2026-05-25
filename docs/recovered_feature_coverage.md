@@ -29,6 +29,7 @@
 | page_number | 5 |
 | paragraph_alignment | 304 |
 | paragraph_background | 1 |
+| paragraph_block_spacing | 3 |
 | paragraph_indent | 5 |
 | paragraph_spacing | 323 |
 | remove_empty_lines | 1 |
@@ -147,8 +148,8 @@
 | function | 대각선 | table_border, table_diagonal | hancom_library.py:383 |
 | function | 문단여백 | paragraph_spacing | hancom_library.py:544 |
 | function | 문단여백측정 | page_layout, paragraph_spacing | hancom_library.py:553 |
-| function | 문단위 | paragraph_spacing | hancom_library.py:561 |
-| function | 문단아래 | paragraph_spacing | hancom_library.py:569 |
+| function | 문단위 | paragraph_block_spacing, paragraph_spacing | hancom_library.py:561 |
+| function | 문단아래 | paragraph_block_spacing, paragraph_spacing | hancom_library.py:569 |
 | function | 문단음영 | paragraph_background, paragraph_spacing, text_background | hancom_library.py:577 |
 | function | 문서여백 | page_layout | hancom_library.py:583 |
 | function | 문서여백새페이지 | page_layout | hancom_library.py:595 |

@@ -21,6 +21,7 @@ class StandardFeatureTests(unittest.TestCase):
         self.assertIn("page_number", keys)
         self.assertIn("paragraph_background", keys)
         self.assertIn("paragraph_indent", keys)
+        self.assertIn("paragraph_block_spacing", keys)
         self.assertIn("cleanup_whitespace", keys)
 
 

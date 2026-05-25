@@ -265,6 +265,40 @@ class CliTests(unittest.TestCase):
         self.assertIn('indent="-3960"', header)
         self.assertIn('left="1000"', header)
 
+    def test_apply_feature_accepts_paragraph_block_spacing_cli_options(self):
+        source = Path("outputs/plan_report.hwpx")
+        if not source.exists():
+            self.skipTest("sample HWPX output is not available")
+
+        output = Path("outputs/test_cli_apply_paragraph_block_spacing.hwpx")
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "office_bumpis",
+                "apply-feature",
+                str(source),
+                "-o",
+                str(output),
+                "--feature",
+                "paragraph_block_spacing",
+                "--paragraph-prev",
+                "10",
+                "--paragraph-next",
+                "5",
+            ],
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        with zipfile.ZipFile(output) as zf:
+            header = zf.read("Contents/header.xml").decode("utf-8", errors="replace")
+        self.assertIn('prev="2000"', header)
+        self.assertIn('next="1000"', header)
+
     def test_apply_feature_accepts_table_columns_cli_options(self):
         source = Path("_analysis/templates_ascii/template_1.hwpx")
         if not source.exists():

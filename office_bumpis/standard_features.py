@@ -148,6 +148,14 @@ STANDARD_FEATURES: tuple[StandardFeature, ...] = (
         True,
     ),
     StandardFeature(
+        "paragraph_block_spacing",
+        "문단 위/아래 간격",
+        FeatureCategory.PARAGRAPH_STYLE,
+        ("문단위", "문단아래", "PrevSpacing", "NextSpacing"),
+        "hh:paraPr margin prev/next 속성을 포인트 기준 값에서 HWPUNIT으로 변환해 적용",
+        True,
+    ),
+    StandardFeature(
         "paragraph_background",
         "문단 음영",
         FeatureCategory.PARAGRAPH_STYLE,

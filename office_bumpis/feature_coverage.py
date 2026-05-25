@@ -191,6 +191,7 @@ def _match_features(name: str, actions: list[str]) -> list[str]:
         "paragraph_alignment": ["정렬", "align", "paragraphshapealign"],
         "paragraph_spacing": ["줄간격", "문단", "linespacing", "paragraphshape"],
         "paragraph_indent": ["내어쓰기", "paragraphshapeindentatcaret", "indentation"],
+        "paragraph_block_spacing": ["문단위", "문단아래", "prevspacing", "nextspacing"],
         "paragraph_background": ["문단음영", "winbrushfacecolor"],
         "page_layout": ["문서여백", "문서용지", "pagesetup", "leftmargin", "rightmargin", "headerlen", "footerlen"],
         "page_border": ["문서테두리", "pageborder", "pageborderfill", "applytopageborderfill"],

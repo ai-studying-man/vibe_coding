@@ -187,6 +187,14 @@ def _apply_operation(operation: FeatureOperation, header_root: ET.Element | None
             margin_right=_optional_paragraph_point_value(params.get("right", params.get("margin_right")), params),
         )
         _apply_para_style(section_roots, para_id)
+    elif key == "paragraph_block_spacing":
+        _require_header(header_root)
+        para_id = _create_para_style(
+            header_root,
+            margin_prev=_optional_paragraph_point_value(params.get("prev", params.get("before")), params),
+            margin_next=_optional_paragraph_point_value(params.get("next", params.get("after")), params),
+        )
+        _apply_para_style(section_roots, para_id)
     elif key == "paragraph_background":
         _require_header(header_root)
         border_id = _create_border_fill(
